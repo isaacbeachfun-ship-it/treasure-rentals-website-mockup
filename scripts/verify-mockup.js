@@ -41,7 +41,11 @@ assert(styles.includes("min-height: clamp(420px, 50vh, 520px);"), "Video homepag
 assert(styles.includes("grid-template-rows: minmax(0, 1fr) auto;"), "Video homepage content should reserve the lower video area for search.");
 assert(styles.includes(".video-hero-message {\n  align-self: center;"), "Video homepage message should be centered inside the video.");
 assert(styles.includes(".video-search-dock"), "Video homepage search needs dedicated in-video dock styling.");
-assert(styles.includes("margin: 0 auto;"), "Video homepage search should sit inside the video rather than below it.");
+assert(styles.includes("margin: 0 auto;"), "Desktop video homepage search should stay docked in the video hero.");
+assert(styleBlock(".video-home-hero .video-hero-media").includes("position: relative;"), "Mobile video homepage should put the video in normal flow above the search form.");
+assert(styleBlock(".video-home-hero .video-hero-media").includes("height: var(--mobile-video-height);"), "Mobile video homepage should reserve visible height for the video before the search form.");
+assert(styleBlock(".video-home-hero .video-hero-message").includes("position: absolute;"), "Mobile video homepage message should overlay the visible video panel.");
+assert(styleBlock(".video-home-hero .video-search-dock").includes("margin: 14px auto 18px;"), "Mobile video homepage search should sit below the video panel.");
 assert(styles.includes(".demo-home-toggle"), "Demo home switcher needs top-of-page styling.");
 assert(styles.includes("@media (max-width: 620px) {\n  .demo-home-toggle {"), "Mobile demo switcher needs its own responsive top row.");
 assert(styleBlock("@media (max-width: 620px) {\n  .demo-home-toggle").includes("position: static;"), "Mobile demo switcher should not overlay the account links.");
