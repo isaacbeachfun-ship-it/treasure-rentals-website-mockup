@@ -51,6 +51,11 @@ assert(styles.includes(".hero-slides.no-transition"), "Image homepage hero needs
 assert(script.includes("initViewFromQuery"), "Mockup should initialize the copied video homepage from the URL.");
 assert(script.includes("window.location.hash"), "Mockup should initialize direct hash routes such as #nightlife.");
 assert(script.includes("window.setTimeout(() => window.scrollTo({ top: 0"), "Direct hash routes should reset scroll after browser anchor positioning.");
+assert(script.includes("function routeFromUrl()"), "Mockup should parse browser URLs into internal routes.");
+assert(script.includes("function navigateToRoute(route, options = {})"), "Internal navigation should use a route helper instead of changing views silently.");
+assert(script.includes("window.history.pushState({ route: nextRoute }, \"\", url);"), "Internal navigation should push browser history entries for back/forward buttons.");
+assert(script.includes('window.addEventListener("popstate"'), "Browser back/forward buttons should restore the previous mockup route.");
+assert(!script.includes('setView(viewLink.dataset.viewLink);\n        if (viewLink.dataset.pill)'), "View-link clicks should not bypass browser history.");
 assert(script.includes('params.get("v") === "video-home"'), "Video homepage should be available at ?v=video-home.");
 assert(script.includes('view: "home-video"'), "Video homepage should be the default landing-page version.");
 assert(script.includes('params.get("v") === "home"'), "Image homepage should remain directly available at ?v=home.");

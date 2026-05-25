@@ -422,9 +422,8 @@
   }
 
   function openPropertyDetail(property) {
-    state.selectedProperty = property || data.properties[0];
-    renderPropertyDetail();
-    setView("property");
+    const selectedProperty = property || data.properties[0];
+    navigateToRoute({ view: "property", property: selectedProperty.id });
   }
 
   function renderIslandMap(properties) {
@@ -1320,27 +1319,115 @@
     });
   }
 
-  function updateHomeVersionQuery(view) {
+  function routeFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const hashView = window.location.hash.replace("#", "");
+    let view = document.querySelector(`[data-view="${hashView}"]`) ? hashView : "home-video";
+
+    if (params.get("v") === "home") {
+      view = "home";
+    }
+    if (params.get("v") === "video-home") {
+      view = "home-video";
+    }
+
+    return {
+      view,
+      page: params.get("page") || "",
+      town: params.get("town") || "",
+      pill: params.get("pill") || "",
+      property: params.get("property") || ""
+    };
+  }
+
+  function routeUrl(route) {
     const url = new URL(window.location.href);
-    if (view === "home") {
+    ["page", "town", "pill", "property"].forEach((param) => url.searchParams.delete(param));
+
+    if (route.view === "home") {
       url.searchParams.set("v", "home");
     } else {
       url.searchParams.delete("v");
     }
-    window.history.replaceState({}, "", url);
+
+    if (route.page) url.searchParams.set("page", route.page);
+    if (route.town) url.searchParams.set("town", route.town);
+    if (route.pill) url.searchParams.set("pill", route.pill);
+    if (route.property) url.searchParams.set("property", route.property);
+    url.hash = route.view || "home-video";
+    return url;
+  }
+
+  function applyRoute(route) {
+    const nextRoute = { view: route.view || "home-video" };
+    if (route.page) nextRoute.page = route.page;
+    if (route.town) nextRoute.town = route.town;
+    if (route.pill) nextRoute.pill = route.pill;
+    if (route.property) nextRoute.property = route.property;
+
+    if (nextRoute.view === "content" && nextRoute.page) {
+      state.selectedPage = nextRoute.page;
+      renderGenericPage();
+    }
+    if (nextRoute.view === "town" && nextRoute.town) {
+      state.selectedTown = nextRoute.town;
+      renderTownPage();
+    }
+    if (nextRoute.view === "property" && nextRoute.property) {
+      state.selectedProperty = data.properties.find((property) => property.id === nextRoute.property) || state.selectedProperty;
+      renderPropertyDetail();
+    }
+    if (nextRoute.view === "search" && nextRoute.town) {
+      state.filters.location = "";
+      state.filters.towns = [nextRoute.town];
+    }
+    if (nextRoute.pill) {
+      applyPillFilter(nextRoute.pill);
+    }
+    if (nextRoute.view === "search") {
+      renderResults();
+    }
+
+    setView(nextRoute.view);
+    return nextRoute;
+  }
+
+  function navigateToRoute(route, options = {}) {
+    const nextRoute = applyRoute(route);
+    const url = routeUrl(nextRoute);
+    const historyMode = options.history || "push";
+
+    if (historyMode === "replace") {
+      window.history.replaceState({ route: nextRoute }, "", url);
+      return;
+    }
+    if (historyMode !== "none" && url.href !== window.location.href) {
+      window.history.pushState({ route: nextRoute }, "", url);
+    }
+  }
+
+  function updateHomeVersionQuery(view) {
+    navigateToRoute({ view }, { history: "replace" });
   }
 
   function initViewFromQuery() {
-    const params = new URLSearchParams(window.location.search);
-    const hashView = window.location.hash.replace("#", "");
-    if (hashView && document.querySelector(`[data-view="${hashView}"]`)) {
-      state.view = hashView;
+    const route = routeFromUrl();
+    state.view = route.view;
+    if (route.page) {
+      state.selectedPage = route.page;
     }
-    if (params.get("v") === "home") {
-      state.view = "home";
+    if (route.town) {
+      state.selectedTown = route.town;
     }
-    if (params.get("v") === "video-home") {
-      state.view = "home-video";
+    if (route.property) {
+      state.selectedProperty = data.properties.find((property) => property.id === route.property) || state.selectedProperty;
+    }
+    if (route.view === "search" && route.town) {
+      state.filters.location = "";
+      state.filters.towns = [route.town];
+    }
+    if (route.pill) {
+      applyPillFilter(route.pill);
     }
   }
 
@@ -1469,8 +1556,7 @@
       const homeVersion = event.target.closest("[data-home-version]");
       if (homeVersion) {
         event.preventDefault();
-        setView(homeVersion.dataset.homeVersion);
-        updateHomeVersionQuery(homeVersion.dataset.homeVersion);
+        navigateToRoute({ view: homeVersion.dataset.homeVersion });
         return;
       }
 
@@ -1544,34 +1630,22 @@
       if (viewLink) {
         event.preventDefault();
         const isPrimaryNavParent = viewLink.matches(".nav-item > button");
-        const town = viewLink.dataset.town;
-        if (town && viewLink.dataset.viewLink === "search") {
-          state.filters.location = "";
-          state.filters.towns = [town];
-        }
-        if (town && viewLink.dataset.viewLink === "town") {
-          state.selectedTown = town;
-          renderTownPage();
-        }
-        if (viewLink.dataset.page) {
-          state.selectedPage = viewLink.dataset.page;
-          renderGenericPage();
-        }
-        setView(viewLink.dataset.viewLink);
-        if (viewLink.dataset.pill) {
-          applyPillFilter(viewLink.dataset.pill);
-        }
-        if (viewLink.dataset.viewLink === "search") {
-          renderResults();
-        }
+        navigateToRoute({
+          view: viewLink.dataset.viewLink,
+          town: viewLink.dataset.town || "",
+          page: viewLink.dataset.page || "",
+          pill: viewLink.dataset.pill || ""
+        });
         if (!isPrimaryNavParent) {
           closePrimaryMenu();
         }
+        return;
       }
 
       const propertyButton = event.target.closest("[data-property-id]");
       if (propertyButton) {
         openPropertyDetail(data.properties.find((property) => property.id === propertyButton.dataset.propertyId));
+        return;
       }
 
       const pill = event.target.closest("[data-pill]");
@@ -1613,7 +1687,7 @@
         state.filters.locationClass = formData.get("locationClass") || "";
         syncFilterControls();
         renderResults();
-        setView("search");
+        navigateToRoute({ view: "search" });
       });
     });
 
@@ -1672,6 +1746,10 @@
     syncFilterControls();
     bindEvents();
     setView(state.view);
+    window.history.replaceState({ route: routeFromUrl() }, "", routeUrl(routeFromUrl()));
+    window.addEventListener("popstate", () => {
+      navigateToRoute(routeFromUrl(), { history: "none" });
+    });
     document.querySelectorAll("[data-review-carousel]").forEach((carousel) => setReviewSlide(carousel, Number(carousel.dataset.reviewIndex) || 0));
     window.setInterval(rotateHero, 5000);
     window.setInterval(rotateTownCarousel, 4500);
