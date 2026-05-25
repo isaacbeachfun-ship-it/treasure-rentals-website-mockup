@@ -435,6 +435,7 @@ p {
 .booking-search label,
 .filters label,
 .booking-panel label {
+  min-width: 0;
   display: grid;
   gap: 6px;
   color: var(--ink-soft);
@@ -450,12 +451,26 @@ p {
 .booking-panel input,
 .site-footer input {
   width: 100%;
+  min-width: 0;
+  max-width: 100%;
   min-height: 44px;
+  box-sizing: border-box;
   border: 1px solid var(--line);
   border-radius: 6px;
   padding: 10px 12px;
   color: var(--ink);
   background: var(--white);
+}
+
+.booking-search input[type="date"] {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  inline-size: 100%;
+}
+
+.booking-search input[type="date"]::-webkit-date-and-time-value {
+  text-align: left;
 }
 
 .booking-search input:focus-visible,

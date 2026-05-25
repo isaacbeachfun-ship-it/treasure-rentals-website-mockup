@@ -528,6 +528,12 @@ assert(styles.includes("box-shadow: 0 18px 34px rgba(29, 49, 53, .22);"), "Quick
 ].forEach((selector) => {
   assert(styles.includes(selector), `Parrot teal pass should touch ${selector}.`);
 });
+assert(styleBlock(".booking-search label").includes("min-width: 0;"), "Booking search labels should be allowed to shrink on iPhone.");
+assert(styleBlock(".booking-search input,\n.booking-search select").includes("min-width: 0;"), "Booking search controls should not keep an iOS intrinsic minimum width.");
+assert(styleBlock(".booking-search input,\n.booking-search select").includes("max-width: 100%;"), "Booking search controls should stay inside their card.");
+assert(styleBlock(".booking-search input[type=\"date\"]").includes("-webkit-appearance: none;"), "Mobile date fields should neutralize iOS Safari's oversized native date input.");
+assert(styleBlock(".booking-search input[type=\"date\"]").includes("inline-size: 100%;"), "Mobile date fields should explicitly fit their grid cell.");
+assert(styles.includes(".booking-search input[type=\"date\"]::-webkit-date-and-time-value"), "Date input value should be aligned after removing iOS appearance.");
 properties.forEach((property) => {
   assert(Number.isFinite(property.lat) && Number.isFinite(property.lng), `Missing map coordinates for ${property.id}`);
   if (["P37382", "P37437"].includes(property.id)) {
