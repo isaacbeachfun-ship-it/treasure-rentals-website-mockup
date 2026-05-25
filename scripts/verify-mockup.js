@@ -399,30 +399,52 @@ assert(styles.includes(".carousel-button"), "Search result carousel controls nee
 assert(styles.includes(".detail-photo-track"), "Property detail needs a scrollable gallery track.");
 [
   "detail-photo-mosaic",
+  "detail-property-kicker",
+  "detail-page-actions",
+  "detail-key-facts",
   "detail-action-icons",
   "detail-summary-grid",
+  "property-deal-banner",
   "weekly-specials",
   "detail-location-map",
   "detail-calendar-pair",
+  "featured-amenities",
   "amenity-category-grid",
+  "bedding-room-grid",
   "guest-info-list",
+  "property-qa-panel",
+  "request-info-panel",
   "review-list",
+  "mobile-availability-bar",
   "detail-booking-sidebar"
 ].forEach((token) => {
-  assert(script.includes(token), `Property detail should include Joe Lamb-style ${token}.`);
+  assert(script.includes(token), `Property detail should include reference-style ${token}.`);
 });
-assert(script.includes("Choose your dates"), "Property detail booking sidebar should use Joe Lamb-style choose-your-dates language.");
+assert(script.includes("Matterport Virtual Tour"), "Property detail should expose a virtual tour action near the photo/title area.");
+assert(script.includes("Send to a Friend"), "Property detail should include send-to-friend action like the reference flow.");
+assert(script.includes("Ask Your Question"), "Property detail should include a property-specific Q&A prompt.");
+assert(script.includes("Request Info"), "Property detail should include a request-info form panel.");
+assert(script.includes("Choose your dates"), "Property detail booking sidebar should use reference-style choose-your-dates language.");
 assert(!script.includes("<h2>Book This Stay</h2>"), "Property detail should not use the old generic Book This Stay sidebar.");
 [
   ".detail-photo-mosaic",
+  ".detail-property-kicker",
+  ".detail-page-actions",
+  ".detail-key-facts",
   ".detail-action-icons",
   ".detail-summary-grid",
+  ".property-deal-banner",
   ".weekly-specials",
   ".detail-location-map",
   ".detail-calendar-pair",
+  ".featured-amenities",
   ".amenity-category-grid",
+  ".bedding-room-grid",
   ".guest-info-list",
+  ".property-qa-panel",
+  ".request-info-panel",
   ".review-list",
+  ".mobile-availability-bar",
   ".detail-booking-sidebar"
 ].forEach((selector) => {
   assert(styles.includes(selector), `Property detail styles should include ${selector}.`);

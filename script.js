@@ -1096,11 +1096,32 @@
     const consideredCount = 24 + (property.bedrooms % 9);
     const guestCount = Math.min(property.sleeps, 8);
     const isDogFriendly = property.tags.includes("Dog Friendly");
+    const fullBaths = Math.floor(property.baths);
+    const hasHalfBath = property.baths % 1 !== 0;
+    const detailFacts = [
+      { icon: "bed", label: "Bedrooms", value: `${property.bedrooms}` },
+      { icon: "bath", label: "Bathrooms", value: `${fullBaths || property.baths}${hasHalfBath ? ".5" : ""}` },
+      { icon: "guests", label: "Sleeps", value: `${property.sleeps}` },
+      Number.isFinite(property.squareFeet) ? { icon: "area", label: "Square Feet", value: formatSquareFeet(property.squareFeet) } : null,
+      { icon: isDogFriendly ? "paw" : "paw", label: "Pets", value: isDogFriendly ? "Dog Friendly" : "Ask First" }
+    ].filter(Boolean);
+    const featuredAmenities = [
+      property.locationClass,
+      isDogFriendly ? "Dog Friendly" : "No Pets Listed",
+      property.tags.includes("Private Pool") ? "Private Pool" : "Outdoor Living",
+      property.tags.includes("Elevator") ? "Elevator" : "Keyless Entry",
+      "Wifi",
+      "Linens Provided"
+    ];
     const bedding = [
       `${Math.max(1, Math.min(4, Math.round(property.bedrooms / 3)))} King`,
       `${Math.max(1, Math.round(property.bedrooms / 2))} Queen`,
       `${Math.max(1, property.bedrooms - 2)} Single`
     ];
+    const beddingRooms = Array.from({ length: Math.min(property.bedrooms, 8) }, (_, index) => {
+      const bedType = index === 0 ? "1 King" : index % 3 === 0 ? "2 Twin" : index % 2 === 0 ? "1 Queen" : "1 King";
+      return { room: `Bedroom ${index + 1}`, bed: bedType };
+    });
     const amenityGroups = [
       ["Additional Amenities", ["Furnishings", "Deck Furniture", "Beach Cart"]],
       ["Appliances", ["Regular Coffee Maker(s)", "Dishwasher", "Microwave"]],
@@ -1172,7 +1193,7 @@
           <button type="button" aria-label="Save ${property.name}"><span aria-hidden="true">&#9825;</span></button>
         </div>
       </nav>
-      <section class="detail-photo-mosaic" aria-label="Photos for ${property.name}">
+      <section id="detail-photos" class="detail-photo-mosaic" aria-label="Photos for ${property.name}">
         <div class="mosaic-main detail-carousel">
           <div class="detail-photo-track" tabindex="0" aria-label="Photos for ${property.name}">
             ${extraImages.map((image) => `<div class="detail-photo-frame" style="background-image:url('${image}')"></div>`).join("")}
@@ -1185,14 +1206,33 @@
           <button type="button" style="background-image:url('${extraImages[2]}')"><span>Search ${Math.max(9, extraImages.length * 9)}</span></button>
         </div>
       </section>
+      <section class="detail-property-kicker" aria-label="Property overview">
+        <div>
+          <span>${property.locationClass} - Rating ${property.rating} (${property.reviews})</span>
+          <strong>${property.location}</strong>
+        </div>
+        <div class="detail-page-actions" aria-label="Property actions">
+          <button type="button" data-scroll-target="detail-photos">Matterport Virtual Tour</button>
+          <button type="button" data-share-property>Share</button>
+          <a href="mailto:?subject=${encodeURIComponent(property.name)}&body=${encodeURIComponent(`Take a look at ${property.name} from Treasure Vacation Rentals.`)}">Send to a Friend</a>
+        </div>
+      </section>
       <div class="detail-layout">
         <article class="detail-main">
           <div class="detail-rating-row">
             <span class="stars">&#9733; ${property.rating} (${property.reviews})</span>
-            <button type="button">Share</button>
           </div>
           <h1>${property.name}</h1>
           <p class="address">${property.address}</p>
+          <div class="detail-key-facts" aria-label="Key property facts">
+            ${detailFacts.map((fact) => `
+              <span>
+                ${cardIcon(fact.icon)}
+                <b>${fact.value}</b>
+                <small>${fact.label}</small>
+              </span>
+            `).join("")}
+          </div>
           <div class="detail-summary-grid">
             <span><b>Address</b>${property.address || "Topsail Island"}</span>
             <span><b>Town</b>${property.location}</span>
@@ -1203,6 +1243,10 @@
             <span><b>Pets</b>${isDogFriendly ? "Pets Allowed" : "Ask About Pets"}</span>
             <span><b>Check-In</b>${property.turnDay}</span>
           </div>
+          <section class="property-deal-banner" aria-label="Property special">
+            <span>Special - Save up to 20% off Summer Stays</span>
+            <p>Book before June 21 and save on select stays between now and Labor Day. Ask our team to confirm the best available week for this home.</p>
+          </section>
           <section class="weekly-specials" aria-label="Weekly specials">
             <h2>Weekly Specials</h2>
             <p>5/24/26 to 5/30/26 - Reduced from <s>${money(Math.round(property.weeklyRate * 1.12))}</s> to ${money(property.weeklyRate)}</p>
@@ -1221,7 +1265,7 @@
           <section id="description">
             <h2>Description</h2>
             <p>${property.description}</p>
-            <p>This Treasure page now follows the practical property-detail depth of Joe Lamb's layout: large photos first, facts near the title, specials, location context, availability, bedding, amenities, policies, and reviews without making the guest hunt for the booking tools.</p>
+            <p>From wide gathering spaces to easy beach-day routines, this home is arranged for families who want room to spread out and a straightforward path from morning coffee to sunset on the deck.</p>
             <p><b>Main Level:</b> Open living, dining, and kitchen areas built for a beach week, with easy access to decks and outdoor gathering space.</p>
             <p><b>Features include:</b> ${property.tags.join(", ")}, wireless internet, washer/dryer, covered deck, and a fully equipped kitchen.</p>
             <button class="outline-button" type="button">Read More</button>
@@ -1242,10 +1286,25 @@
           </section>
           <section id="bedding">
             <h2>Bedding</h2>
+            <div class="bedding-room-grid">
+              ${beddingRooms.map((room) => `
+                <span>
+                  <small>Bed</small>
+                  <b>${room.room}</b>
+                  <em>${room.bed}</em>
+                </span>
+              `).join("")}
+            </div>
             <div class="bedding-grid">${bedding.map((item) => `<span>${item}</span>`).join("")}</div>
           </section>
           <section id="amenities">
-            <h2>Amenities</h2>
+            <h2>Amenities <span>${featuredAmenities.length + amenityGroups.flatMap(([, items]) => items).length} Amenities</span></h2>
+            <div class="featured-amenities">
+              <h3>Featured Amenities</h3>
+              <div>
+                ${featuredAmenities.map((amenity) => `<span>${amenity}</span>`).join("")}
+              </div>
+            </div>
             <div class="amenity-category-grid">
               ${amenityGroups.map(([group, items]) => `
                 <div>
@@ -1264,6 +1323,24 @@
               <p><b>Security deposit waiver</b> and house rules should be reviewed before booking.</p>
             </div>
             <button class="outline-button" type="button">Read More</button>
+          </section>
+          <section class="property-qa-panel">
+            <div>
+              <h2>Have a question?</h2>
+              <p>Want to know specifics? Ask anything about this property before you reserve.</p>
+            </div>
+            <button type="button" data-scroll-target="request-info">Ask Your Question</button>
+          </section>
+          <section id="request-info" class="request-info-panel">
+            <h2>Request More Info</h2>
+            <p>Ask anything in reference to vacationing at this property and we will follow up with helpful local context.</p>
+            <div class="request-info-grid">
+              <label>First Name <input type="text"></label>
+              <label>Last Name <input type="text"></label>
+              <label>Email <input type="email"></label>
+              <label>Comments / Questions <textarea rows="3"></textarea></label>
+            </div>
+            <button type="button">Request Info</button>
           </section>
           <section id="reviews">
             <h2>Reviews <span>${property.rating} (${property.reviews})</span></h2>
@@ -1297,7 +1374,19 @@
           <button type="button">Submit Request</button>
         </aside>
       </div>
+      <div class="mobile-availability-bar" data-mobile-availability-bar>
+        <a href="#availability">Check Availability</a>
+        <a href="#description">See More</a>
+      </div>
     `;
+    updateMobileAvailabilityBar();
+  }
+
+  function updateMobileAvailabilityBar() {
+    const bar = document.querySelector("[data-mobile-availability-bar]");
+    if (!bar) return;
+    const shouldShow = state.view === "property" && window.matchMedia("(max-width: 620px)").matches && window.scrollY > 520;
+    bar.classList.toggle("visible", shouldShow);
   }
 
   function setView(view) {
@@ -1307,8 +1396,11 @@
     });
     syncHomeVersionToggle();
     window.scrollTo({ top: 0, behavior: "auto" });
+    updateMobileAvailabilityBar();
     window.setTimeout(() => window.scrollTo({ top: 0, behavior: "auto" }), 0);
+    window.setTimeout(updateMobileAvailabilityBar, 0);
     window.setTimeout(() => window.scrollTo({ top: 0, behavior: "auto" }), 150);
+    window.setTimeout(updateMobileAvailabilityBar, 150);
   }
 
   function syncHomeVersionToggle() {
@@ -1598,6 +1690,33 @@
         return;
       }
 
+      const scrollTarget = event.target.closest("[data-scroll-target]");
+      if (scrollTarget) {
+        event.preventDefault();
+        const target = document.getElementById(scrollTarget.dataset.scrollTarget);
+        target?.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+
+      const shareProperty = event.target.closest("[data-share-property]");
+      if (shareProperty) {
+        event.preventDefault();
+        const shareUrl = window.location.href;
+        const shareTitle = state.selectedProperty ? state.selectedProperty.name : document.title;
+        if (navigator.share) {
+          navigator.share({ title: shareTitle, url: shareUrl }).catch(() => {});
+        } else if (navigator.clipboard) {
+          navigator.clipboard.writeText(shareUrl).then(() => {
+            const previousText = shareProperty.textContent;
+            shareProperty.textContent = "Link Copied";
+            window.setTimeout(() => {
+              shareProperty.textContent = previousText;
+            }, 1600);
+          }).catch(() => {});
+        }
+        return;
+      }
+
       const filterToggle = event.target.closest("[data-filter-toggle]");
       if (filterToggle) {
         event.preventDefault();
@@ -1750,6 +1869,8 @@
     window.addEventListener("popstate", () => {
       navigateToRoute(routeFromUrl(), { history: "none" });
     });
+    window.addEventListener("scroll", updateMobileAvailabilityBar, { passive: true });
+    window.addEventListener("resize", updateMobileAvailabilityBar);
     document.querySelectorAll("[data-review-carousel]").forEach((carousel) => setReviewSlide(carousel, Number(carousel.dataset.reviewIndex) || 0));
     window.setInterval(rotateHero, 5000);
     window.setInterval(rotateTownCarousel, 4500);
