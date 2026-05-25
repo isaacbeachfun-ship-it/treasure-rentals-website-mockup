@@ -23,6 +23,12 @@ assert(html.includes('data-view="home-video"'), "Mockup needs a copied video hom
 assert(html.includes('data-home-version="home-video" aria-label="Show video homepage">1</button>'), "Demo switcher should make video version 1.");
 assert(html.includes('data-home-version="home" aria-label="Show image homepage">2</button>'), "Demo switcher should make image version 2.");
 assert(html.includes('class="brand" href="#home-video" data-view-link="home-video"'), "Header logo should route to the default video homepage.");
+assert(html.includes('data-menu-toggle aria-expanded="false" aria-controls="primary-navigation"'), "Mobile menu button should expose expanded state.");
+assert(html.includes('id="primary-navigation"'), "Primary navigation should be targetable by the mobile menu button.");
+assert(script.includes("function closePrimaryMenu()"), "Mobile navigation needs a helper to close the open menu.");
+assert(script.includes("function togglePrimaryMenu()"), "Mobile navigation needs a helper to toggle expanded state.");
+assert(script.includes('const isPrimaryNavParent = viewLink.matches(".nav-item > button");'), "Mobile nav should distinguish parent menu buttons from final selections.");
+assert(script.includes("if (!isPrimaryNavParent) {\n          closePrimaryMenu();"), "Final navigation selections should close the mobile menu after routing.");
 assert(html.includes('name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex"'), "Hosted review mockup should discourage search indexing.");
 assert(fs.existsSync(".nojekyll"), "GitHub Pages deploy should include .nojekyll for a plain static site.");
 assert(html.includes("downloaded-assets/Tvr-Hero.mp4"), "Video homepage should use the provided Tvr-Hero.mp4 asset.");
