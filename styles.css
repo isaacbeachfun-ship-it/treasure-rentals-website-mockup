@@ -3705,6 +3705,17 @@ p {
 }
 
 @media (max-width: 620px) {
+  .demo-home-toggle {
+    position: static;
+    top: auto;
+    left: auto;
+    z-index: 1;
+    display: flex;
+    width: max-content;
+    margin: 8px auto;
+    transform: none;
+  }
+
   .brand img {
     width: 240px;
   }

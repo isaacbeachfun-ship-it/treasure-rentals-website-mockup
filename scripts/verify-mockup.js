@@ -43,6 +43,9 @@ assert(styles.includes(".video-hero-message {\n  align-self: center;"), "Video h
 assert(styles.includes(".video-search-dock"), "Video homepage search needs dedicated in-video dock styling.");
 assert(styles.includes("margin: 0 auto;"), "Video homepage search should sit inside the video rather than below it.");
 assert(styles.includes(".demo-home-toggle"), "Demo home switcher needs top-of-page styling.");
+assert(styles.includes("@media (max-width: 620px) {\n  .demo-home-toggle {"), "Mobile demo switcher needs its own responsive top row.");
+assert(styleBlock("@media (max-width: 620px) {\n  .demo-home-toggle").includes("position: static;"), "Mobile demo switcher should not overlay the account links.");
+assert(styleBlock("@media (max-width: 620px) {\n  .demo-home-toggle").includes("margin: 8px auto;"), "Mobile demo switcher should sit above the header as its own centered row.");
 assert(styles.includes("translateX(calc(var(--hero-slide-index, 0) * -100%))"), "Image homepage hero should slide horizontally between photos.");
 assert(styles.includes(".hero-slides.no-transition"), "Image homepage hero needs a no-transition reset state for looping.");
 assert(script.includes("initViewFromQuery"), "Mockup should initialize the copied video homepage from the URL.");
