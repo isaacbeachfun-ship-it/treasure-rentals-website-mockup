@@ -1,8 +1,14 @@
 # Treasure Vacation Rentals Vision Mockup
 
+## Open the live website
+
+Use this link for sharing the mockup:
+
+https://isaacbeachfun-ship-it.github.io/treasure-rentals-website-mockup/#home-video
+
 This is a fast internal mockup: Treasure visual direction plus Joe Lamb-style rental-site structure.
 
-Open `index.html` in a browser.
+The GitHub repository page is only the source-code page. The `github.io` link above is the actual website.
 
 Edit `mockup-data.js` to change:
 
