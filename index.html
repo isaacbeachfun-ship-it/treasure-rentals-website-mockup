@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Treasure Vacation Rentals Vision Mockup</title>
+    <meta name="description" content="Internal vision mockup for a Treasure Vacation Rentals website direction.">
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://treasurevacprd.wpenginepowered.com">
+    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+    <link rel="stylesheet" href="./styles.css?v=20260525-home-reviews">
+  </head>
+  <body>
+    <div class="demo-home-toggle" aria-label="Homepage demo version">
+      <button type="button" data-home-version="home-video" aria-label="Show video homepage">1</button>
+      <button type="button" data-home-version="home" aria-label="Show image homepage">2</button>
+    </div>
+    <header class="site-header">
+      <div class="utility-bar">
+        <nav aria-label="Account links">
+          <a href="#content" data-view-link="content" data-page="owner-portal">Owner Login</a>
+          <a href="#content" data-view-link="content" data-page="guest-portal">Guest Login</a>
+          <a href="#management" data-view-link="management">Property Management</a>
+          <a href="tel:9103284444">(910) 328-4444</a>
+        </nav>
+      </div>
+      <div class="main-nav">
+        <a class="brand" href="#home-video" data-view-link="home-video" aria-label="Treasure Vacation Rentals home">
+          <img data-logo alt="Treasure Vacation Rentals logo">
+        </a>
+        <button class="menu-button" type="button" aria-label="Toggle navigation" data-menu-toggle>Menu</button>
+        <nav class="nav-links" aria-label="Primary navigation" data-primary-nav></nav>
+      </div>
+    </header>
+
+    <main>
+      <section id="home" class="view active" data-view="home">
+        <section class="hero" aria-label="Topsail Island hero">
+          <div class="hero-slides" data-hero-slides></div>
+          <div class="hero-overlay"></div>
+          <div class="hero-content">
+            <div class="eyebrow">Topsail Island, North Carolina</div>
+            <h1>You're a Treasure. Find Your Spot.</h1>
+            <p>Thoughtfully cared-for beach homes for slow mornings, salt air, and time that finally feels like your own.</p>
+            <form class="booking-search compact-search" data-search-form>
+              <label>
+                <span>Arrival</span>
+                <input type="date" name="arrival">
+              </label>
+              <label>
+                <span>Departure</span>
+                <input type="date" name="departure">
+              </label>
+              <label>
+                <span>Bedrooms</span>
+                <select name="bedrooms">
+                  <option value="">Any</option>
+                  <option value="2">2+</option>
+                  <option value="3">3+</option>
+                  <option value="4">4+</option>
+                  <option value="5">5+</option>
+                  <option value="6">6+</option>
+                </select>
+              </label>
+              <label>
+                <span>Location Type</span>
+                <select name="locationClass">
+                  <option value="">Any location</option>
+                  <option>Oceanfront</option>
+                  <option>Second Row</option>
+                  <option>Sound View</option>
+                  <option>Sound Front</option>
+                  <option>Canal Front</option>
+                  <option>Interior</option>
+                </select>
+              </label>
+              <button type="submit">Search Rentals</button>
+            </form>
+          </div>
+        </section>
+
+        <section class="intro-block intro-band">
+          <div class="intro-band-inner">
+            <h2><span>Vacation Rentals Designed for Your</span> <span class="intro-script">Topsail Island Getaway</span></h2>
+            <div class="intro-copy">
+              <p>Welcome to Treasure Vacation Rentals...your starting point for a more meaningful stay on Topsail Island. Let's get you settled into slow mornings, salt air, and time that feels like your own. Find Eastern North Carolina peace in thoughtfully cared-for spaces that invite you to unwind, stay awhile, and truly feel at home.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="quick-links section-pad" aria-labelledby="quick-heading">
+          <div class="section-heading">
+            <span class="eyebrow">Stay with style</span>
+            <h2 id="quick-heading">Popular Topsail Searches</h2>
+          </div>
+          <div class="quick-grid" data-quick-links></div>
+        </section>
+        <section class="section-pad town-picture-section" aria-labelledby="town-picture-heading">
+          <div class="section-heading row-heading town-picture-heading">
+            <div>
+              <span class="eyebrow">Why visit Topsail Island?</span>
+              <h2 id="town-picture-heading">Three Beach Towns, One Easy Island Rhythm</h2>
+            </div>
+            <p>Experience the charm of our 26-mile barrier island off the coast of North Carolina, where every stay feels uniquely your own. Topsail Island is home to three distinct communities, North Topsail Beach, Surf City, and Topsail Beach, each offering its own rhythm and character, all contributing to the island's award-winning appeal. Days here are spent by the water - fishing at sunrise, paddling through quiet inlets, boating along the Intracoastal, or surfing rolling Atlantic waves. Evenings invite exploration of locally loved restaurants, coastal shops, and vibrant community events. With its rich history and quiet access to nature, Topsail Island is the perfect destination for a relaxed, beach-focused getaway.</p>
+          </div>
+          <div class="town-picture-grid" data-town-cards>
+            <button class="town-picture-card" type="button" data-town="North Topsail Beach" data-view-link="town">
+              <span class="town-picture-image" role="img" aria-label="North Topsail Beach" style="background-image:url('./assets/town-cards/north-topsail-beach.jpg')"></span>
+              <span class="town-picture-body">
+                <strong>North Topsail Beach</strong>
+                <span>The north end is for guests who want room to breathe: long beach walks, big oceanfront homes, inlet views, and a quieter residential feel. It is the best fit for families who want the beach to be the main event.</span>
+              </span>
+            </button>
+            <button class="town-picture-card" type="button" data-town="Surf City" data-view-link="town">
+              <span class="town-picture-image" role="img" aria-label="Surf City" style="background-image:url('./assets/town-cards/surf-city-pier-bridge.webp')"></span>
+              <span class="town-picture-body">
+                <strong>Surf City</strong>
+                <span>Surf City is the island's easy middle: the bridge, pier, parks, coffee, restaurants, and rainy-day stops are all close. It is a smart pick for first-time Topsail guests and mixed-age groups.</span>
+              </span>
+            </button>
+            <button class="town-picture-card" type="button" data-town="Topsail Beach" data-view-link="town">
+              <span class="town-picture-image" role="img" aria-label="Topsail Beach" style="background-image:url('./assets/topsail-beach/island-overview.jpg')"></span>
+              <span class="town-picture-body">
+                <strong>Topsail Beach</strong>
+                <span>Topsail Beach keeps the south-end rhythm slower: Jolly Roger Pier, sound sunsets, small restaurants, the Point, and old-school beach-week traditions. It feels classic, relaxed, and a little tucked away.</span>
+              </span>
+            </button>
+          </div>
+        </section>
+
+        <section class="featured-section" aria-labelledby="featured-heading">
+          <div class="featured-band">
+            <div class="featured-band-inner">
+              <h2 id="featured-heading"><span>The</span> <span class="featured-script">Treasure Trove</span></h2>
+              <p>Our featured homes capture the best of Topsail Island living - set along its beaches, soundside marshes, and quiet coastal neighborhoods. Whether it's a true oceanfront retreat, a luxury escape near the water, or a home with sweeping sunset views, each one offers a stay that feels distinctly local and genuinely memorable.</p>
+            </div>
+          </div>
+          <div class="featured-property-shell">
+            <div class="featured-carousel" aria-label="Featured properties">
+              <div class="featured-property-track" data-featured-properties tabindex="0"></div>
+              <div class="featured-carousel-controls" aria-label="Featured property controls">
+                <button class="featured-scroll-button" type="button" data-featured-scroll="-1" aria-label="Previous featured properties"><span aria-hidden="true">&lsaquo;</span></button>
+                <button class="featured-scroll-button" type="button" data-featured-scroll="1" aria-label="Next featured properties"><span aria-hidden="true">&rsaquo;</span></button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-pad reviews-band" aria-labelledby="guest-reviews-heading">
+          <div class="reviews-inner">
+            <h2 id="guest-reviews-heading" class="reviews-script-heading">What Our Guests Say</h2>
+            <div class="review-carousel" data-review-carousel data-review-paused="false" aria-live="polite" tabindex="0">
+              <article class="review-slide active" data-review-slide>
+                <div class="review-stars" aria-label="5 out of 5 stars"><span aria-hidden="true">&#9733; &#9733; &#9733; &#9733; &#9733;</span></div>
+                <h3>"The house matched the listing exactly"</h3>
+                <p>"We booked a last-minute long weekend in North Topsail and the whole thing felt easy. The photos were honest, beach access was exactly where they said it would be, and every question was answered quickly." <cite>- HEATHER M., RALEIGH, NC</cite></p>
+              </article>
+              <article class="review-slide" data-review-slide>
+                <div class="review-stars" aria-label="5 out of 5 stars"><span aria-hidden="true">&#9733; &#9733; &#9733; &#9733; &#9733;</span></div>
+                <h3>"The right home for our whole family"</h3>
+                <p>"The search made it simple to compare bedrooms, views, and location. We ended up in Surf City close to coffee, dinner, and the pier, but the house still felt quiet and comfortable when we came back from the beach." <cite>- MARCUS AND LENA P., DURHAM, NC</cite></p>
+              </article>
+              <article class="review-slide" data-review-slide>
+                <div class="review-stars" aria-label="5 out of 5 stars"><span aria-hidden="true">&#9733; &#9733; &#9733; &#9733; &#9733;</span></div>
+                <h3>"It felt local, not generic"</h3>
+                <p>"The notes about the property, restaurants, parking, and beach access sounded like they were written by people who actually know Topsail. That local detail made the trip feel calmer from the start." <cite>- ALLISON R., CHARLOTTE, NC</cite></p>
+              </article>
+              <article class="review-slide" data-review-slide>
+                <div class="review-stars" aria-label="5 out of 5 stars"><span aria-hidden="true">&#9733; &#9733; &#9733; &#9733; &#9733;</span></div>
+                <h3>"One of the easiest beach weeks we have planned"</h3>
+                <p>"We have rented homes up and down the coast for years, and this was one of the smoothest arrivals we have had. The layout was clear, the view was better than expected, and checkout was straightforward." <cite>- THE BENNETT FAMILY, RICHMOND, VA</cite></p>
+              </article>
+              <div class="review-dots" aria-label="Guest review slides">
+                <button type="button" class="active" data-review-dot="0" aria-label="Show review 1" aria-pressed="true"></button>
+                <button type="button" data-review-dot="1" aria-label="Show review 2" aria-pressed="false"></button>
+                <button type="button" data-review-dot="2" aria-label="Show review 3" aria-pressed="false"></button>
+                <button type="button" data-review-dot="3" aria-label="Show review 4" aria-pressed="false"></button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section id="home-video" class="view" data-view="home-video">
+        <section class="hero video-home-hero" aria-label="Topsail Island video hero">
+          <video class="video-hero-media" autoplay muted loop playsinline preload="metadata" poster="./assets/topsail-downloads/wide-topsail-beach.jpg">
+            <source src="./downloaded-assets/Tvr-Hero.mp4" type="video/mp4">
+          </video>
+          <div class="hero-overlay video-hero-overlay"></div>
+          <div class="hero-content video-hero-content">
+            <div class="video-hero-message">
+              <div class="eyebrow">Topsail Island, North Carolina</div>
+              <h1>You're a Treasure. Find Your Spot.</h1>
+              <p>Thoughtfully cared-for beach homes for slow mornings, salt air, and time that finally feels like your own.</p>
+            </div>
+            <form class="booking-search compact-search video-search-dock" data-search-form data-video-home-search-form>
+              <label>
+                <span>Arrival</span>
+                <input type="date" name="arrival">
+              </label>
+              <label>
+                <span>Departure</span>
+                <input type="date" name="departure">
+              </label>
+              <label>
+                <span>Bedrooms</span>
+                <select name="bedrooms">
+                  <option value="">Any</option>
+                  <option value="2">2+</option>
+                  <option value="3">3+</option>
+                  <option value="4">4+</option>
+                  <option value="5">5+</option>
+                  <option value="6">6+</option>
+                </select>
+              </label>
+              <label>
+                <span>Location Type</span>
+                <select name="locationClass">
+                  <option value="">Any location</option>
+                  <option>Oceanfront</option>
+                  <option>Second Row</option>
+                  <option>Sound View</option>
+                  <option>Sound Front</option>
+                  <option>Canal Front</option>
+                  <option>Interior</option>
+                </select>
+              </label>
+              <button type="submit">Search Rentals</button>
+            </form>
+          </div>
+        </section>
+
+        <section class="intro-block intro-band">
+          <div class="intro-band-inner">
+            <h2><span>Vacation Rentals Designed for Your</span> <span class="intro-script">Topsail Island Getaway</span></h2>
+            <div class="intro-copy">
+              <p>Welcome to Treasure Vacation Rentals...your starting point for a more meaningful stay on Topsail Island. Let's get you settled into slow mornings, salt air, and time that feels like your own. Find Eastern North Carolina peace in thoughtfully cared-for spaces that invite you to unwind, stay awhile, and truly feel at home.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="quick-links section-pad" aria-labelledby="quick-heading-video">
+          <div class="section-heading">
+            <span class="eyebrow">Stay with style</span>
+            <h2 id="quick-heading-video">Popular Topsail Searches</h2>
+          </div>
+          <div class="quick-grid" data-quick-links></div>
+        </section>
+        <section class="section-pad town-picture-section" aria-labelledby="town-picture-heading-video">
+          <div class="section-heading row-heading town-picture-heading">
+            <div>
+              <span class="eyebrow">Why visit Topsail Island?</span>
+              <h2 id="town-picture-heading-video">Three Beach Towns, One Easy Island Rhythm</h2>
+            </div>
+            <p>Experience the charm of our 26-mile barrier island off the coast of North Carolina, where every stay feels uniquely your own. Topsail Island is home to three distinct communities, North Topsail Beach, Surf City, and Topsail Beach, each offering its own rhythm and character, all contributing to the island's award-winning appeal. Days here are spent by the water - fishing at sunrise, paddling through quiet inlets, boating along the Intracoastal, or surfing rolling Atlantic waves. Evenings invite exploration of locally loved restaurants, coastal shops, and vibrant community events. With its rich history and quiet access to nature, Topsail Island is the perfect destination for a relaxed, beach-focused getaway.</p>
+          </div>
+          <div class="town-picture-grid" data-town-cards>
+            <button class="town-picture-card" type="button" data-town="North Topsail Beach" data-view-link="town">
+              <span class="town-picture-image" role="img" aria-label="North Topsail Beach" style="background-image:url('./assets/town-cards/north-topsail-beach.jpg')"></span>
+              <span class="town-picture-body">
+                <strong>North Topsail Beach</strong>
+                <span>The north end is for guests who want room to breathe: long beach walks, big oceanfront homes, inlet views, and a quieter residential feel. It is the best fit for families who want the beach to be the main event.</span>
+              </span>
+            </button>
+            <button class="town-picture-card" type="button" data-town="Surf City" data-view-link="town">
+              <span class="town-picture-image" role="img" aria-label="Surf City" style="background-image:url('./assets/town-cards/surf-city-pier-bridge.webp')"></span>
+              <span class="town-picture-body">
+                <strong>Surf City</strong>
+                <span>Surf City is the island's easy middle: the bridge, pier, parks, coffee, restaurants, and rainy-day stops are all close. It is a smart pick for first-time Topsail guests and mixed-age groups.</span>
+              </span>
+            </button>
+            <button class="town-picture-card" type="button" data-town="Topsail Beach" data-view-link="town">
+              <span class="town-picture-image" role="img" aria-label="Topsail Beach" style="background-image:url('./assets/topsail-beach/island-overview.jpg')"></span>
+              <span class="town-picture-body">
+                <strong>Topsail Beach</strong>
+                <span>Topsail Beach keeps the south-end rhythm slower: Jolly Roger Pier, sound sunsets, small restaurants, the Point, and old-school beach-week traditions. It feels classic, relaxed, and a little tucked away.</span>
+              </span>
+            </button>
+          </div>
+        </section>
+
+        <section class="featured-section" aria-labelledby="featured-heading-video">
+          <div class="featured-band">
+            <div class="featured-band-inner">
+              <h2 id="featured-heading-video"><span>The</span> <span class="featured-script">Treasure Trove</span></h2>
+              <p>Our featured homes capture the best of Topsail Island living - set along its beaches, soundside marshes, and quiet coastal neighborhoods. Whether it's a true oceanfront retreat, a luxury escape near the water, or a home with sweeping sunset views, each one offers a stay that feels distinctly local and genuinely memorable.</p>
+            </div>
+          </div>
+          <div class="featured-property-shell">
+            <div class="featured-carousel" aria-label="Featured properties">
+              <div class="featured-property-track" data-featured-properties tabindex="0"></div>
+              <div class="featured-carousel-controls" aria-label="Featured property controls">
+                <button class="featured-scroll-button" type="button" data-featured-scroll="-1" aria-label="Previous featured properties"><span aria-hidden="true">&lsaquo;</span></button>
+                <button class="featured-scroll-button" type="button" data-featured-scroll="1" aria-label="Next featured properties"><span aria-hidden="true">&rsaquo;</span></button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-pad reviews-band" aria-labelledby="guest-reviews-heading-video">
+          <div class="reviews-inner">
+            <h2 id="guest-reviews-heading-video" class="reviews-script-heading">What Our Guests Say</h2>
+            <div class="review-carousel" data-review-carousel data-review-paused="false" aria-live="polite" tabindex="0">
+              <article class="review-slide active" data-review-slide>
+                <div class="review-stars" aria-label="5 out of 5 stars"><span aria-hidden="true">&#9733; &#9733; &#9733; &#9733; &#9733;</span></div>
+                <h3>"The house matched the listing exactly"</h3>
+                <p>"We booked a last-minute long weekend in North Topsail and the whole thing felt easy. The photos were honest, beach access was exactly where they said it would be, and every question was answered quickly." <cite>- HEATHER M., RALEIGH, NC</cite></p>
+              </article>
+              <article class="review-slide" data-review-slide>
+                <div class="review-stars" aria-label="5 out of 5 stars"><span aria-hidden="true">&#9733; &#9733; &#9733; &#9733; &#9733;</span></div>
+                <h3>"The right home for our whole family"</h3>
+                <p>"The search made it simple to compare bedrooms, views, and location. We ended up in Surf City close to coffee, dinner, and the pier, but the house still felt quiet and comfortable when we came back from the beach." <cite>- MARCUS AND LENA P., DURHAM, NC</cite></p>
+              </article>
+              <article class="review-slide" data-review-slide>
+                <div class="review-stars" aria-label="5 out of 5 stars"><span aria-hidden="true">&#9733; &#9733; &#9733; &#9733; &#9733;</span></div>
+                <h3>"It felt local, not generic"</h3>
+                <p>"The notes about the property, restaurants, parking, and beach access sounded like they were written by people who actually know Topsail. That local detail made the trip feel calmer from the start." <cite>- ALLISON R., CHARLOTTE, NC</cite></p>
+              </article>
+              <article class="review-slide" data-review-slide>
+                <div class="review-stars" aria-label="5 out of 5 stars"><span aria-hidden="true">&#9733; &#9733; &#9733; &#9733; &#9733;</span></div>
+                <h3>"One of the easiest beach weeks we have planned"</h3>
+                <p>"We have rented homes up and down the coast for years, and this was one of the smoothest arrivals we have had. The layout was clear, the view was better than expected, and checkout was straightforward." <cite>- THE BENNETT FAMILY, RICHMOND, VA</cite></p>
+              </article>
+              <div class="review-dots" aria-label="Guest review slides">
+                <button type="button" class="active" data-review-dot="0" aria-label="Show review 1" aria-pressed="true"></button>
+                <button type="button" data-review-dot="1" aria-label="Show review 2" aria-pressed="false"></button>
+                <button type="button" data-review-dot="2" aria-label="Show review 3" aria-pressed="false"></button>
+                <button type="button" data-review-dot="3" aria-label="Show review 4" aria-pressed="false"></button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section id="search" class="view" data-view="search">
+        <section class="page-hero search-hero">
+          <div>
+            <span class="eyebrow">Vacation rentals</span>
+            <h1>Topsail Island Rentals</h1>
+            <p>Browse the right home by area, location class, bedrooms, amenities, and flexible stay needs.</p>
+          </div>
+        </section>
+
+        <section class="results-shell">
+          <div class="results-control-bar" aria-label="Rental filters">
+            <button type="button" class="date-menu-button" aria-label="Arrival date">
+              <span>Arrival</span>
+            </button>
+            <button type="button" class="date-menu-button" aria-label="Departure date">
+              <span>Departure</span>
+            </button>
+            <button type="button" class="filter-menu-button" data-filter-toggle aria-expanded="false" aria-controls="top-filter-panel">
+              <span class="filter-menu-icon" aria-hidden="true"></span>
+              <span>Filters</span>
+              <b data-filter-count hidden>0</b>
+            </button>
+            <label class="sort-control">
+              <span>Sort by</span>
+              <select data-sort>
+                <option value="featured">Featured</option>
+                <option value="beds">Bedrooms</option>
+                <option value="rate">Highest weekly rate</option>
+              </select>
+            </label>
+            <button type="button" class="secondary-button" data-clear-filters>Clear Filters</button>
+          </div>
+
+          <div class="top-filter-panel" id="top-filter-panel" data-filter-panel hidden>
+            <div class="filter-panel-header">
+              <div>
+                <h2>Filters</h2>
+                <p>Dial in a Topsail stay by town, water position, bedrooms, amenities, and the special collections in this mock inventory.</p>
+              </div>
+              <button type="button" class="save-search-button">Save Search</button>
+            </div>
+
+            <div class="filter-stepper-stack">
+              <div class="filter-stepper" data-filter-counter="bedrooms">
+                <strong>Bedrooms</strong>
+                <label class="filter-toggle">
+                  <input type="checkbox" data-filter-exact="bedrooms">
+                  <span>Exact</span>
+                </label>
+                <button type="button" data-counter-step="bedrooms" data-step="-1" aria-label="Fewer bedrooms">-</button>
+                <span data-counter-value="bedrooms">Any</span>
+                <button type="button" data-counter-step="bedrooms" data-step="1" aria-label="More bedrooms">+</button>
+              </div>
+              <div class="filter-stepper" data-filter-counter="bathrooms">
+                <strong>Bathrooms</strong>
+                <label class="filter-toggle">
+                  <input type="checkbox" data-filter-exact="bathrooms">
+                  <span>Exact</span>
+                </label>
+                <button type="button" data-counter-step="bathrooms" data-step="-1" aria-label="Fewer bathrooms">-</button>
+                <span data-counter-value="bathrooms">Any</span>
+                <button type="button" data-counter-step="bathrooms" data-step="1" aria-label="More bathrooms">+</button>
+              </div>
+            </div>
+
+            <div class="filter-section-grid">
+              <section class="filter-section" data-filter-group="towns">
+                <div class="filter-section-heading">
+                  <h3>Town</h3>
+                  <button type="button" data-select-all="towns">Select All</button>
+                </div>
+                <div class="filter-checkbox-grid">
+                  <label><input type="checkbox" data-filter-checkbox="towns" value="North Topsail Beach">North Topsail Beach</label>
+                  <label><input type="checkbox" data-filter-checkbox="towns" value="Surf City">Surf City</label>
+                  <label><input type="checkbox" data-filter-checkbox="towns" value="Topsail Beach">Topsail Beach</label>
+                </div>
+              </section>
+
+              <section class="filter-section" data-filter-group="locationClasses">
+                <div class="filter-section-heading">
+                  <h3>Location</h3>
+                  <button type="button" data-select-all="locationClasses">Select All</button>
+                </div>
+                <div class="filter-checkbox-grid">
+                  <label><input type="checkbox" data-filter-checkbox="locationClasses" value="Oceanfront">Oceanfront</label>
+                  <label><input type="checkbox" data-filter-checkbox="locationClasses" value="Second Row">Second Row</label>
+                  <label><input type="checkbox" data-filter-checkbox="locationClasses" value="Sound View">Sound View</label>
+                  <label><input type="checkbox" data-filter-checkbox="locationClasses" value="Sound Front">Sound Front</label>
+                  <label><input type="checkbox" data-filter-checkbox="locationClasses" value="Canal Front">Canal Front</label>
+                  <label><input type="checkbox" data-filter-checkbox="locationClasses" value="Interior">Interior</label>
+                </div>
+              </section>
+
+              <section class="filter-section" data-filter-group="stayTypes">
+                <div class="filter-section-heading">
+                  <h3>Stay Type</h3>
+                  <button type="button" data-select-all="stayTypes">Select All</button>
+                </div>
+                <div class="filter-checkbox-grid">
+                  <label><input type="checkbox" data-filter-checkbox="stayTypes" value="Saturday Turn Day">Saturday Turn Day</label>
+                  <label><input type="checkbox" data-filter-checkbox="stayTypes" value="Sunday Arrival">Sunday Arrival</label>
+                  <label><input type="checkbox" data-filter-checkbox="stayTypes" value="Flexible/Partial Week">Flexible/Partial Week</label>
+                </div>
+              </section>
+
+              <section class="filter-section wide-filter-section" data-filter-group="amenities">
+                <div class="filter-section-heading">
+                  <h3>Amenities</h3>
+                  <button type="button" data-select-all="amenities">Select All</button>
+                </div>
+                <div class="filter-checkbox-grid">
+                  <label><input type="checkbox" data-filter-checkbox="amenities" value="Private Pool">Private Pool</label>
+                  <label><input type="checkbox" data-filter-checkbox="amenities" value="Community Pool">Community Pool</label>
+                  <label><input type="checkbox" data-filter-checkbox="amenities" value="Hot Tub">Hot Tub</label>
+                  <label><input type="checkbox" data-filter-checkbox="amenities" value="Elevator">Elevator</label>
+                  <label><input type="checkbox" data-filter-checkbox="amenities" value="Dog Friendly">Dog Friendly</label>
+                  <label><input type="checkbox" data-filter-checkbox="amenities" value="Boat Friendly">Boat Friendly</label>
+                </div>
+              </section>
+
+              <section class="filter-section" data-filter-group="collections">
+                <div class="filter-section-heading">
+                  <h3>Topsail Collections</h3>
+                  <button type="button" data-select-all="collections">Select All</button>
+                </div>
+                <div class="filter-checkbox-grid">
+                  <label><input type="checkbox" data-filter-checkbox="collections" value="High-End Top 20">High-End Top 20</label>
+                  <label><input type="checkbox" data-filter-checkbox="collections" value="Scotch Bonnet">Scotch Bonnet Lane</label>
+                  <label><input type="checkbox" data-filter-checkbox="collections" value="Hampton Colony">Hampton Colony</label>
+                  <label><input type="checkbox" data-filter-checkbox="collections" value="Chris Playford">Chris Playford Properties</label>
+                  <label><input type="checkbox" data-filter-checkbox="collections" value="10+ Bedrooms">10+ Bedrooms</label>
+                  <label><input type="checkbox" data-filter-checkbox="collections" value="Topsail Beach">Topsail Beach Homes</label>
+                </div>
+              </section>
+
+              <section class="filter-section" data-filter-group="unitTypes">
+                <div class="filter-section-heading">
+                  <h3>Unit Type</h3>
+                  <button type="button" data-select-all="unitTypes">Select All</button>
+                </div>
+                <div class="filter-checkbox-grid">
+                  <label><input type="checkbox" data-filter-checkbox="unitTypes" value="Beach House">Beach House</label>
+                  <label><input type="checkbox" data-filter-checkbox="unitTypes" value="Duplex/Fourplex">Duplex/Fourplex</label>
+                  <label><input type="checkbox" data-filter-checkbox="unitTypes" value="Condo">Condo</label>
+                  <label><input type="checkbox" data-filter-checkbox="unitTypes" value="Townhome">Townhome</label>
+                </div>
+              </section>
+
+              <section class="filter-section" data-filter-group="specials">
+                <div class="filter-section-heading">
+                  <h3>Specials</h3>
+                </div>
+                <div class="filter-checkbox-grid">
+                  <label><input type="checkbox" data-filter-checkbox="specials" value="Featured High-End Inventory">Featured High-End Inventory</label>
+                  <label><input type="checkbox" data-filter-checkbox="specials" value="New or Review-Light">New or Review-Light</label>
+                  <label><input type="checkbox" data-filter-checkbox="specials" value="Top Rated">Top Rated</label>
+                </div>
+              </section>
+
+              <section class="filter-section specific-property-filter">
+                <div class="filter-section-heading">
+                  <h3>Looking for a specific property?</h3>
+                </div>
+                <label>
+                  <span>Property name or number</span>
+                  <input type="search" data-specific-property placeholder="Start typing a property name or ID">
+                </label>
+              </section>
+            </div>
+          </div>
+
+          <div class="search-results-layout">
+            <div class="results-panel">
+              <div class="results-toolbar">
+                <strong><span data-result-count></span> properties available</strong>
+              </div>
+              <div class="results-list compact-results" data-results-list></div>
+            </div>
+
+            <div class="island-panel" aria-label="Topsail Island property map">
+              <div id="property-map" class="property-map" data-island-map></div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section id="property" class="view" data-view="property">
+        <section class="property-detail" data-property-detail></section>
+      </section>
+
+      <section id="owners" class="view content-view" data-view="owners">
+        <div data-owner-page></div>
+      </section>
+
+      <section id="management" class="view content-view" data-view="management">
+        <div data-management-page></div>
+      </section>
+
+      <section id="area" class="view content-view" data-view="area">
+        <div data-area-page></div>
+      </section>
+
+      <section id="town" class="view content-view" data-view="town">
+        <div data-town-page></div>
+      </section>
+
+      <section id="restaurants" class="view content-view" data-view="restaurants">
+        <div data-restaurants-page></div>
+      </section>
+
+      <section id="nightlife" class="view content-view" data-view="nightlife">
+        <div data-nightlife-page></div>
+      </section>
+
+      <section id="content" class="view content-view" data-view="content">
+        <div data-generic-page></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <img data-footer-logo alt="Treasure Vacation Rentals logo">
+        <p>PO Box 1017, Sneads Ferry, NC 28460<br>1950 NC HWY 172 Suite P, Sneads Ferry, NC 28460<br>stay@treasurerentals.com | 910-328-4444</p>
+      </div>
+      <nav aria-label="Footer links">
+        <a href="#search" data-view-link="search">Vacation Rentals</a>
+        <a href="#content" data-view-link="content" data-page="specials">Specials</a>
+        <a href="#management" data-view-link="management">Property Management</a>
+        <a href="#area" data-view-link="area">Area Guide</a>
+        <a href="#restaurants" data-view-link="restaurants">Restaurants</a>
+        <a href="#nightlife" data-view-link="nightlife">Nightlife</a>
+        <a href="#content" data-view-link="content" data-page="contact">Contact</a>
+      </nav>
+      <form>
+        <label for="newsletter">Stay Connected</label>
+        <div class="newsletter-row">
+          <input id="newsletter" type="email" placeholder="Email address">
+          <button type="button">Submit</button>
+        </div>
+      </form>
+    </footer>
+
+    <script src="./mockup-data.js?v=20260525-specials-card"></script>
+    <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+    <script src="./script.js?v=20260525-home-reviews"></script>
+  </body>
+</html>

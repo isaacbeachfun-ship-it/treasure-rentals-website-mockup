@@ -1,0 +1,1662 @@
+(function () {
+  const data = window.TREASURE_MOCKUP;
+  function defaultFilters() {
+    return {
+      location: "",
+      locationClass: "",
+      bedrooms: "",
+      bathrooms: "",
+      exactBedrooms: false,
+      exactBathrooms: false,
+      amenity: "",
+      collection: "",
+      towns: [],
+      locationClasses: [],
+      amenities: [],
+      collections: [],
+      stayTypes: [],
+      unitTypes: [],
+      specials: [],
+      propertyName: ""
+    };
+  }
+
+  const state = {
+    view: "home-video",
+    selectedProperty: data.properties[1],
+    selectedTown: "Surf City",
+    selectedPage: "faq",
+    restaurantTown: "All",
+    nightlifeTown: "All",
+    filters: defaultFilters(),
+    sort: "featured",
+    slide: 0,
+    slidePosition: 0
+  };
+
+  const locationTypes = ["Oceanfront", "Second Row", "Sound View", "Sound Front", "Canal Front", "Interior"];
+  const amenityTypes = ["Private Pool", "Hot Tub", "Elevator", "Dog Friendly", "Community Pool", "Boat Friendly"];
+  const collectionTypes = ["High-End Top 20", "Scotch Bonnet", "Hampton Colony", "Chris Playford", "10+ Bedrooms", "Topsail Beach"];
+  const TOPSAIL_PRESENTATION_BEARING = 55;
+  const FEATURED_PROPERTY_COUNT = 11;
+  let resultsMap = null;
+  let resultMarkers = [];
+
+  const money = (value) => new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0
+  }).format(value);
+  const number = new Intl.NumberFormat("en-US", {
+    maximumFractionDigits: 0
+  });
+  const formatSquareFeet = (value) => `${number.format(value)} sq ft`;
+
+  function setLogo() {
+    document.querySelectorAll("[data-logo], [data-footer-logo]").forEach((img) => {
+      img.src = data.logo;
+    });
+  }
+
+  function renderNav() {
+    const nav = document.querySelector("[data-primary-nav]");
+    nav.innerHTML = data.nav.map((item) => `
+      <div class="nav-item">
+        <button type="button" ${item.view ? `data-view-link="${item.view}"` : ""}>${item.label}</button>
+        <div class="subnav">
+          ${item.children.map((child) => {
+            const entry = typeof child === "string" ? { label: child, view: item.view } : child;
+            const view = entry.view || item.view || "home";
+            return `<a href="#${view}" data-view-link="${view}" ${entry.town ? `data-town="${entry.town}"` : ""} ${entry.page ? `data-page="${entry.page}"` : ""} ${entry.pill ? `data-pill="${entry.pill}"` : ""}>${entry.label}</a>`;
+          }).join("")}
+        </div>
+      </div>
+    `).join("");
+  }
+
+  function renderHero() {
+    const slides = document.querySelector("[data-hero-slides]");
+    if (!slides) return;
+    const visualSlides = data.heroSlides.concat(data.heroSlides[0]);
+    slides.style.setProperty("--hero-slide-index", state.slidePosition);
+    slides.innerHTML = visualSlides.map((slide, index) => `
+      <div class="hero-slide ${index === state.slide ? "active" : ""}" style="background-image:url('${slide.image}')">
+        <span>${slide.title}</span>
+      </div>
+    `).join("");
+  }
+
+  function rotateHero() {
+    state.slidePosition += 1;
+    state.slide = (state.slide + 1) % data.heroSlides.length;
+    renderHero();
+    if (state.slidePosition === data.heroSlides.length) {
+      window.setTimeout(() => {
+        const slides = document.querySelector("[data-hero-slides]");
+        if (!slides) return;
+        state.slidePosition = 0;
+        slides.classList.add("no-transition");
+        renderHero();
+        window.requestAnimationFrame(() => {
+          window.requestAnimationFrame(() => slides.classList.remove("no-transition"));
+        });
+      }, 1050);
+    }
+  }
+
+  function renderQuickLinks() {
+    const quickLinkRouteAttributes = (link) => [
+      `data-view-link="${link.view || "search"}"`,
+      link.page ? `data-page="${link.page}"` : "",
+      link.pill ? `data-pill="${link.pill}"` : ""
+    ].filter(Boolean).join(" ");
+
+    const quickLinksMarkup = data.quickLinks.map((link) => `
+      <button class="quick-card" type="button" ${quickLinkRouteAttributes(link)} style="background-image:url('${link.image}')">
+        <span>${link.label}</span>
+        <small>${link.text}</small>
+      </button>
+    `).join("");
+    document.querySelectorAll("[data-quick-links]").forEach((container) => {
+      container.innerHTML = quickLinksMarkup;
+    });
+
+    const townCardsMarkup = data.towns.map((town) => `
+      <button class="town-picture-card" type="button" data-town="${town.label}" data-view-link="town">
+        <span class="town-picture-image" role="img" aria-label="${town.label}" style="background-image:url('${town.image}')"></span>
+        <span class="town-picture-body">
+          <strong>${town.label}</strong>
+          <span>${town.description}</span>
+        </span>
+      </button>
+    `).join("");
+    document.querySelectorAll("[data-town-cards]").forEach((container) => {
+      container.innerHTML = townCardsMarkup;
+    });
+
+    const searchPillsMarkup = data.searchPills.map((pill) => `
+      <button type="button" data-pill="${pill}">${pill}</button>
+    `).join("");
+    document.querySelectorAll("[data-search-pills]").forEach((container) => {
+      container.innerHTML = searchPillsMarkup;
+    });
+  }
+
+  function galleryImages(property) {
+    const images = Array.isArray(property.images) && property.images.length
+      ? property.images
+      : [property.image];
+
+    return images.filter(Boolean).slice(0, 8);
+  }
+
+  function galleryDots(images) {
+    return `
+      <div class="photo-scroll-indicator" aria-hidden="true">
+        ${images.map((_, index) => `<span class="${index === 0 ? "active" : ""}"></span>`).join("")}
+      </div>
+    `;
+  }
+
+  function restaurantPhotoCarousel(restaurant) {
+    const images = Array.isArray(restaurant.images) && restaurant.images.length
+      ? restaurant.images.filter(Boolean).slice(0, 6)
+      : [];
+
+    if (!images.length) return "";
+
+    return `
+      <div class="restaurant-photo-carousel">
+        <div class="photo-track restaurant-photo-track" tabindex="0" aria-label="Photos for ${restaurant.name}">
+          ${images.map((image) => `<div class="photo-frame restaurant-photo-frame" style="background-image:url('${image}')"></div>`).join("")}
+        </div>
+        <button class="carousel-button carousel-button-prev" type="button" data-carousel-direction="-1" aria-label="Previous photo for ${restaurant.name}"><span aria-hidden="true">&lsaquo;</span></button>
+        <button class="carousel-button carousel-button-next" type="button" data-carousel-direction="1" aria-label="Next photo for ${restaurant.name}"><span aria-hidden="true">&rsaquo;</span></button>
+        ${galleryDots(images)}
+      </div>
+    `;
+  }
+
+  function cardIcon(type) {
+    const icons = {
+      bed: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11V5a2 2 0 0 1 2-2h5a3 3 0 0 1 3 3v5"/><path d="M14 8h4a3 3 0 0 1 3 3v7"/><path d="M4 18v-7h17v7"/><path d="M4 21v-3"/><path d="M21 21v-3"/></svg>',
+      bath: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16v3a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5v-3Z"/><path d="M7 12V5a2 2 0 0 1 2-2h1"/><path d="M10 5l2 2"/><path d="M5 21l1-2"/><path d="M19 21l-1-2"/></svg>',
+      guests: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+      area: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="M9 4v16"/><path d="M15 4v16"/><path d="M4 9h16"/><path d="M4 15h16"/></svg>',
+      paw: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6.5" cy="9" r="2.5"/><circle cx="11" cy="5.5" r="2.5"/><circle cx="15.5" cy="9" r="2.5"/><circle cx="18.5" cy="13.5" r="2"/><path d="M8.5 15.5c1-2 4-2 5 0l1.2 2.1c.9 1.7-.3 3.4-2.2 3.4h-3c-1.9 0-3.1-1.7-2.2-3.4l1.2-2.1Z"/></svg>'
+    };
+    return icons[type] || "";
+  }
+
+  function compactPropertyCard(property) {
+    const images = galleryImages(property);
+    const fullBaths = Math.floor(property.baths);
+    const hasHalfBath = property.baths % 1 !== 0;
+    const facts = [
+      { icon: "bed", text: `${property.bedrooms} ${property.bedrooms === 1 ? "bedroom" : "bedrooms"}` },
+      { icon: "bath", text: `${fullBaths || property.baths} ${fullBaths === 1 ? "bath" : "baths"}` },
+      hasHalfBath ? { icon: "bath", text: "1 half bath" } : null,
+      { icon: "guests", text: `Sleeps ${property.sleeps}` },
+      Number.isFinite(property.squareFeet) ? { icon: "area", text: formatSquareFeet(property.squareFeet) } : null,
+      property.tags.includes("Dog Friendly") ? { icon: "paw", text: "Dog Friendly" } : null
+    ].filter(Boolean);
+
+    return `
+      <article class="property-card compact">
+        <div class="property-photo compact-property-photo">
+          <div class="photo-track" tabindex="0" aria-label="Photos for ${property.name}">
+            ${images.map((image) => `<div class="photo-frame" style="background-image:url('${image}')"></div>`).join("")}
+          </div>
+          <button class="carousel-button carousel-button-prev" type="button" data-carousel-direction="-1" aria-label="Previous photo for ${property.name}"><span aria-hidden="true">&lsaquo;</span></button>
+          <button class="carousel-button carousel-button-next" type="button" data-carousel-direction="1" aria-label="Next photo for ${property.name}"><span aria-hidden="true">&rsaquo;</span></button>
+          <button class="save-button" type="button" aria-label="Save ${property.name}"><span aria-hidden="true">&#9825;</span></button>
+          <span class="location-badge">${property.locationClass}</span>
+          ${galleryDots(images)}
+        </div>
+        <div class="property-body">
+          <div class="results-card-head">
+            <h3>${property.name}</h3>
+            <span class="results-rating"><span aria-hidden="true">★</span>${property.rating} (${property.reviews})</span>
+          </div>
+          <p class="results-location-line">${property.locationClass} - ${property.location}</p>
+          <div class="results-fact-grid">
+            ${facts.map((fact) => `<span class="results-fact">${cardIcon(fact.icon)}${fact.text}</span>`).join("")}
+          </div>
+          <button class="results-details-button" type="button" data-property-id="${property.id}">View Property Details</button>
+        </div>
+      </article>
+    `;
+  }
+
+  function propertyCard(property, mode = "grid") {
+    if (mode === "compact") return compactPropertyCard(property);
+
+    const images = galleryImages(property);
+
+    return `
+      <article class="property-card ${mode === "list" ? "wide" : ""} ${mode === "compact" ? "compact" : ""} ${mode === "featured" ? "featured" : ""}">
+        <div class="property-photo">
+          <div class="photo-track" tabindex="0" aria-label="Photos for ${property.name}">
+            ${images.map((image) => `<div class="photo-frame" style="background-image:url('${image}')"></div>`).join("")}
+          </div>
+          <button class="carousel-button carousel-button-prev" type="button" data-carousel-direction="-1" aria-label="Previous photo for ${property.name}"><span aria-hidden="true">&lsaquo;</span></button>
+          <button class="carousel-button carousel-button-next" type="button" data-carousel-direction="1" aria-label="Next photo for ${property.name}"><span aria-hidden="true">&rsaquo;</span></button>
+          <button class="save-button" type="button" aria-label="Save ${property.name}"><span aria-hidden="true">&#9825;</span></button>
+          <span class="location-badge">${property.locationClass}</span>
+          ${galleryDots(images)}
+        </div>
+        <div class="property-body">
+          <div class="property-title-row">
+            <h3>${property.name}</h3>
+            <span>${property.rating} (${property.reviews})</span>
+          </div>
+          <p>${property.location} - ${property.turnDay} turn day</p>
+          <div class="facts">
+            <span>${property.bedrooms} bedrooms</span>
+            <span>${property.baths} baths</span>
+            <span>Sleeps ${property.sleeps}</span>
+            ${Number.isFinite(property.squareFeet) ? `<span>${formatSquareFeet(property.squareFeet)}</span>` : ""}
+          </div>
+          <div class="tag-row">${property.tags.slice(0, 3).map((tag) => `<span>${tag}</span>`).join("")}</div>
+          <div class="card-actions">
+            <strong>From ${money(property.weeklyRate)}/week</strong>
+            <button type="button" data-property-id="${property.id}">View Details</button>
+          </div>
+        </div>
+      </article>
+    `;
+  }
+
+  function renderFeatured() {
+    const seen = new Set();
+    const featured = data.properties.filter((property) => {
+      const key = property.name.toLowerCase().replace(/[^a-z0-9]/g, "");
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    }).slice(0, FEATURED_PROPERTY_COUNT);
+
+    const featuredMarkup = featured.map((property) => propertyCard(property, "featured")).join("");
+    document.querySelectorAll("[data-featured-properties]").forEach((container) => {
+      container.innerHTML = featuredMarkup;
+    });
+  }
+
+  function selectedValues(...groups) {
+    return groups.flatMap((group) => group || []).filter(Boolean);
+  }
+
+  function matchesLocationClass(property, value) {
+    return property.locationClass === value || property.tags.includes(value);
+  }
+
+  function matchesStayType(property, value) {
+    if (value === "Saturday Turn Day") return property.turnDay === "Saturday";
+    if (value === "Sunday Arrival") return property.turnDay === "Sunday";
+    if (value === "Flexible/Partial Week") return !["Saturday", "Sunday"].includes(property.turnDay);
+    return true;
+  }
+
+  function matchesUnitType(property, value) {
+    const haystack = `${property.name} ${property.tags.join(" ")} ${property.source}`.toLowerCase();
+    const isDuplex = /duplex|4plex|fourplex/.test(haystack);
+    const isCondo = /condo|villa|st\. regis|capriani/.test(haystack);
+    const isTownhome = /townhome|townhouse/.test(haystack);
+    if (value === "Duplex/Fourplex") return isDuplex;
+    if (value === "Condo") return isCondo;
+    if (value === "Townhome") return isTownhome;
+    if (value === "Beach House") return !isDuplex && !isCondo && !isTownhome;
+    return true;
+  }
+
+  function matchesSpecial(property, value) {
+    if (value === "Featured High-End Inventory") return property.tags.includes("High-End Top 20");
+    if (value === "New or Review-Light") return property.reviews <= 1;
+    if (value === "Top Rated") return property.rating >= 4.9;
+    return true;
+  }
+
+  function filteredProperties() {
+    let properties = [...data.properties];
+    const towns = selectedValues(state.filters.towns, state.filters.location ? [state.filters.location] : []);
+    const locationClasses = selectedValues(
+      state.filters.locationClasses,
+      state.filters.locationClass ? [state.filters.locationClass] : []
+    );
+    const amenities = selectedValues(
+      state.filters.amenities,
+      state.filters.amenity ? [state.filters.amenity] : []
+    );
+    const collections = selectedValues(
+      state.filters.collections,
+      state.filters.collection ? [state.filters.collection] : []
+    );
+
+    if (towns.length) {
+      properties = properties.filter((property) => towns.includes(property.location));
+    }
+    if (locationClasses.length) {
+      properties = properties.filter((property) => locationClasses.some((value) => matchesLocationClass(property, value)));
+    }
+    if (state.filters.bedrooms) {
+      const bedroomCount = Number(state.filters.bedrooms);
+      properties = properties.filter((property) => (
+        state.filters.exactBedrooms
+          ? property.bedrooms === bedroomCount
+          : property.bedrooms >= bedroomCount
+      ));
+    }
+    if (state.filters.bathrooms) {
+      const bathroomCount = Number(state.filters.bathrooms);
+      properties = properties.filter((property) => (
+        state.filters.exactBathrooms
+          ? property.baths === bathroomCount
+          : property.baths >= bathroomCount
+      ));
+    }
+    if (amenities.length) {
+      properties = properties.filter((property) => amenities.every((tag) => property.tags.includes(tag)));
+    }
+    if (collections.length) {
+      properties = properties.filter((property) => collections.some((tag) => property.tags.includes(tag)));
+    }
+    if (state.filters.stayTypes.length) {
+      properties = properties.filter((property) => state.filters.stayTypes.some((value) => matchesStayType(property, value)));
+    }
+    if (state.filters.unitTypes.length) {
+      properties = properties.filter((property) => state.filters.unitTypes.some((value) => matchesUnitType(property, value)));
+    }
+    if (state.filters.specials.length) {
+      properties = properties.filter((property) => state.filters.specials.some((value) => matchesSpecial(property, value)));
+    }
+    if (state.filters.propertyName.trim()) {
+      const query = state.filters.propertyName.trim().toLowerCase();
+      properties = properties.filter((property) => (
+        property.name.toLowerCase().includes(query) ||
+        property.id.toLowerCase().includes(query) ||
+        String(property.address || "").toLowerCase().includes(query)
+      ));
+    }
+    if (state.sort === "beds") {
+      properties.sort((a, b) => b.bedrooms - a.bedrooms);
+    }
+    if (state.sort === "rate") {
+      properties.sort((a, b) => b.weeklyRate - a.weeklyRate);
+    }
+    return properties;
+  }
+
+  function mapPopupCard(property) {
+    const image = galleryImages(property)[0] || property.image;
+
+    return `
+      <button type="button" class="map-popup-card" data-property-id="${property.id}" data-map-property-id="${property.id}" aria-label="View ${property.name}">
+        <span class="map-popup-photo" style="background-image:url('${image}')">
+          <span class="map-popup-save" aria-hidden="true">&#9825;</span>
+        </span>
+        <span class="map-popup-body">
+          <strong>${property.name}</strong>
+          <span>${property.locationClass} - ${property.location}</span>
+          <span class="map-popup-facts">
+            <b>${property.bedrooms}</b> beds
+            <b>${property.baths}</b> baths
+          </span>
+        </span>
+      </button>
+    `;
+  }
+
+  function openPropertyDetail(property) {
+    state.selectedProperty = property || data.properties[0];
+    renderPropertyDetail();
+    setView("property");
+  }
+
+  function renderIslandMap(properties) {
+    const map = document.querySelector("[data-island-map]");
+    if (!map) return;
+
+    const mappedProperties = properties.filter((property) => (
+      Number.isFinite(property.lat) && Number.isFinite(property.lng)
+    ));
+
+    if (!window.maplibregl || (typeof maplibregl.supported === "function" && !maplibregl.supported())) {
+      map.innerHTML = `<div class="map-unavailable">Map tiles could not load. The property coordinates are still attached to the listings.</div>`;
+      return;
+    }
+
+    if (!resultsMap) {
+      resultsMap = new maplibregl.Map({
+        container: map,
+        style: {
+          version: 8,
+          sources: {
+            "openstreetmap": {
+              type: "raster",
+              tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+              tileSize: 256,
+              attribution: "&copy; OpenStreetMap contributors"
+            }
+          },
+          layers: [
+            {
+              id: "openstreetmap",
+              type: "raster",
+              source: "openstreetmap"
+            }
+          ]
+        },
+        center: [-77.46, 34.47],
+        zoom: 10.6,
+        bearing: TOPSAIL_PRESENTATION_BEARING,
+        pitch: 0,
+        dragRotate: false,
+        scrollZoom: false,
+        attributionControl: false
+      });
+      resultsMap.addControl(new maplibregl.NavigationControl({ showCompass: true }), "top-left");
+      resultsMap.addControl(new maplibregl.AttributionControl({ compact: true }), "bottom-right");
+      resultsMap.once("load", () => renderIslandMap(properties));
+      return;
+    }
+
+    resultMarkers.forEach((marker) => marker.remove());
+    resultMarkers = [];
+
+    if (!mappedProperties.length) {
+      resultsMap.jumpTo({
+        center: [-77.46, 34.47],
+        zoom: 10.6,
+        bearing: TOPSAIL_PRESENTATION_BEARING
+      });
+      return;
+    }
+
+    if (!resultsMap.loaded()) {
+      resultsMap.once("load", () => renderIslandMap(properties));
+      return;
+    }
+
+    const bounds = new maplibregl.LngLatBounds();
+    mappedProperties.forEach((property) => {
+      const markerElement = document.createElement("button");
+      markerElement.type = "button";
+      markerElement.className = "property-map-marker";
+      markerElement.setAttribute("aria-label", `${property.name} on map`);
+      markerElement.innerHTML = `<span class="marker-pin"><b>${property.bedrooms}</b></span>`;
+      markerElement.addEventListener("click", () => {
+        state.selectedProperty = property;
+      });
+
+      bounds.extend([property.lng, property.lat]);
+
+      const popup = new maplibregl.Popup({
+        offset: 26,
+        closeButton: true,
+        closeOnClick: true,
+        className: "property-map-popup"
+      }).setHTML(mapPopupCard(property));
+      popup.on("open", () => {
+        markerElement.classList.add("marker-active");
+        const popupCard = popup.getElement().querySelector("[data-map-property-id]");
+        if (popupCard) {
+          popupCard.addEventListener("click", (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            openPropertyDetail(property);
+          }, { once: true });
+        }
+      });
+      popup.on("close", () => markerElement.classList.remove("marker-active"));
+
+      const marker = new maplibregl.Marker({
+        element: markerElement,
+        anchor: "bottom"
+      })
+        .setLngLat([property.lng, property.lat])
+        .setPopup(popup)
+        .addTo(resultsMap);
+
+      resultMarkers.push(marker);
+    });
+
+    if (mappedProperties.length === 1) {
+      resultsMap.jumpTo({
+        center: [mappedProperties[0].lng, mappedProperties[0].lat],
+        zoom: 14,
+        bearing: TOPSAIL_PRESENTATION_BEARING
+      });
+    } else {
+      resultsMap.fitBounds(bounds, {
+        padding: 42,
+        maxZoom: 13.2,
+        bearing: TOPSAIL_PRESENTATION_BEARING,
+        duration: 0
+      });
+    }
+
+    window.setTimeout(() => resultsMap.resize(), 0);
+  }
+
+  function renderResults() {
+    const properties = filteredProperties();
+    document.querySelector("[data-result-count]").textContent = properties.length;
+    document.querySelector("[data-results-list]").innerHTML = properties.length
+      ? properties.map((property) => propertyCard(property, "compact")).join("")
+      : `<div class="no-results"><h2>No exact matches</h2><p>Loosen a filter or use this area for a helpful contact form instead of a dead end.</p></div>`;
+    renderIslandMap(properties);
+  }
+
+  function demoPage(pageId) {
+    return data.demoPages.find((page) => page.id === pageId) || data.demoPages[0];
+  }
+
+  function townRentals(townName) {
+    return data.properties.filter((property) => property.location === townName);
+  }
+
+  function townCard(town) {
+    const count = townRentals(town.label).length;
+    return `
+      <article class="town-guide-card">
+        <div class="town-guide-photo" style="background-image:url('${town.image}')"></div>
+        <div>
+          <span class="eyebrow">${town.kicker}</span>
+          <h3>${town.label}</h3>
+          <p>${town.summary}</p>
+          <div class="guide-chip-row">
+            ${town.bestFor.map((item) => `<span>${item}</span>`).join("")}
+          </div>
+          <div class="town-card-actions">
+            <button type="button" data-view-link="town" data-town="${town.label}">Explore ${town.label}</button>
+            <button type="button" class="secondary-button" data-view-link="search" data-town="${town.label}">${count} rentals</button>
+          </div>
+        </div>
+      </article>
+    `;
+  }
+
+  function renderOwnerPages() {
+    const ownerPage = document.querySelector("[data-owner-page]");
+    const managementPage = document.querySelector("[data-management-page]");
+    if (!ownerPage || !managementPage) return;
+
+    ownerPage.innerHTML = `
+      <section class="page-hero owner-hero">
+        <div>
+          <span class="eyebrow">Owners</span>
+          <h1>Property Management With A Real Topsail Pulse</h1>
+          <p>Owners should immediately understand that Treasure is not just taking bookings. The pitch is local care, smarter revenue thinking, clean communication, and protecting the long-term value of the house.</p>
+          <div class="hero-button-row">
+            <button type="button" data-view-link="management">See the management plan</button>
+            <button type="button" class="secondary-button" data-view-link="search">Review the rental inventory</button>
+          </div>
+        </div>
+      </section>
+      <section class="content-shell">
+        <div class="section-heading row-heading">
+          <div>
+            <span class="eyebrow">Why Treasure</span>
+            <h2>Owners Need More Than A Portal Login</h2>
+          </div>
+          <p>The owner page should make a clear argument: a Topsail home is a serious asset, and the company managing it needs to be excellent at both hospitality and stewardship.</p>
+        </div>
+        <div class="editorial-grid three-up">
+          ${data.ownerHighlights.map((item) => `
+            <article class="content-card">
+              <h3>${item.title}</h3>
+              <p>${item.text}</p>
+            </article>
+          `).join("")}
+        </div>
+        <div class="owner-proof-band">
+          <span><b>${data.properties.length}</b> selected inventory examples in this mockup</span>
+          <span><b>${data.properties.filter((property) => property.tags.includes("Oceanfront")).length}</b> oceanfront homes represented</span>
+          <span><b>${data.properties.filter((property) => property.bedrooms >= 8).length}</b> large-home examples</span>
+        </div>
+      </section>
+    `;
+
+    managementPage.innerHTML = `
+      <section class="page-hero management-hero">
+        <div>
+          <span class="eyebrow">Property Management</span>
+          <h1>We'll Take Care of It</h1>
+          <p>With a proven track record as a leader in the short term rental market on Topsail Island, you can trust our local experts to provide the service and support that you deserve.</p>
+          <div class="hero-button-row">
+            <a class="management-action-link" href="tel:9103284444">Call 910-328-4444</a>
+            <a class="management-action-link secondary-management-link" href="mailto:Owners@treasurerentals.com">Request a Call Back</a>
+          </div>
+        </div>
+      </section>
+      <section class="content-shell property-management-body">
+        <div class="management-contact-grid">
+          <article class="management-contact-copy">
+            <span class="eyebrow">Property Management / Contact Page</span>
+            <h2>Property Management</h2>
+            <p>With a proven track record as a leader in the short term rental market on Topsail Island, you can trust our local experts to provide the service and support that you deserve.</p>
+            <div class="management-callout">
+              <strong>Ready for the rental program?</strong>
+              <span>Call 910-328-4444 today or Request a Call Back</span>
+            </div>
+          </article>
+          <article class="management-form-card" aria-label="Owner inquiry mock form">
+            <div class="form-card-heading">
+              <span class="eyebrow">Tell us about the home</span>
+              <h3>Request a Call Back</h3>
+            </div>
+            <div class="mock-form-grid">
+              <label>First name<input type="text" placeholder="First name"></label>
+              <label>Last name<input type="text" placeholder="Last name"></label>
+              <label>Phone<input type="tel" placeholder="Phone"></label>
+              <label>Email<input type="email" placeholder="Email"></label>
+              <label class="full-field">Property address<input type="text" placeholder="Property address"></label>
+              <label class="full-field">Anything you'd like to share<textarea placeholder="Anything you'd like to share"></textarea></label>
+            </div>
+            <a class="management-submit-link" href="mailto:Owners@treasurerentals.com">Send owner inquiry</a>
+          </article>
+        </div>
+
+        <section class="management-why-section" aria-labelledby="management-why-heading">
+          <div class="section-heading row-heading">
+            <div>
+              <span class="eyebrow">Owner confidence</span>
+              <h2 id="management-why-heading">Why Should You Choose Treasure Vacation Rentals?</h2>
+            </div>
+            <p>The better version of this page should feel specific, local, and serious. Not lorem ipsum. Not vague promises. These are the three owner-facing points from the document, built out with enough visual weight to feel like a real proposal.</p>
+          </div>
+          <div class="management-reasons-grid">
+            ${data.managementPillars.map((pillar) => `
+              <article class="management-reason-card">
+                <div class="management-reason-photo" style="background-image:url('${pillar.image}')"></div>
+                <div class="management-reason-copy">
+                  <span class="reason-index">${pillar.label.charAt(0)}</span>
+                <h3>${pillar.label}</h3>
+                <p>${pillar.detail}</p>
+                </div>
+              </article>
+            `).join("")}
+          </div>
+        </section>
+
+        <section class="management-revenue-band" aria-labelledby="management-revenue-heading">
+          <div>
+            <span class="eyebrow">Looking For Estimated Revenue?</span>
+            <h2 id="management-revenue-heading">A better estimate starts with the actual property.</h2>
+            <p>We look beyond bedroom count when evaluating potential revenue. Share your property address with us, and we'll provide a prompt, accurate estimate based on real market insight.</p>
+          </div>
+          <div class="management-revenue-actions">
+            <a class="management-action-link" href="tel:9103284444">Call/Text 910-328-4444</a>
+            <a class="management-email-link" href="mailto:Owners@treasurerentals.com">Owners@treasurerentals.com</a>
+          </div>
+        </section>
+
+        <section class="management-testimonial-hold">
+          <span class="eyebrow">Owner reviews/testimonials</span>
+          <h2>Table this until we have some new.</h2>
+          <p>The original implementation used fake John Doe reviews. That is worse than leaving the section out. This mockup keeps the space ready for real owner quotes without pretending we already have them.</p>
+        </section>
+      </section>
+    `;
+  }
+
+  function renderAreaPage() {
+    const areaPage = document.querySelector("[data-area-page]");
+    if (!areaPage) return;
+
+    areaPage.innerHTML = `
+      <section class="page-hero area-hero">
+        <div>
+          <span class="eyebrow">Area Guide</span>
+          <h1>Know The Island Before You Pick The House</h1>
+          <p>Topsail is one island, but it does not feel the same from end to end. This guide gives guests the practical difference between North Topsail Beach, Surf City, and Topsail Beach, then points them toward food, beach access, and easy family days.</p>
+        </div>
+      </section>
+      <section class="content-shell">
+        <div class="town-guide-list">
+          ${data.areaTowns.map((town) => townCard(town)).join("")}
+        </div>
+        <div class="section-heading">
+          <span class="eyebrow">Plan the week</span>
+          <h2>Helpful Guide Sections To Build Out</h2>
+        </div>
+        <div class="editorial-grid four-up">
+          ${data.areaCollections.map((item) => `
+            <article class="content-card guide-note">
+              <h3>${item.title}</h3>
+              <p>${item.text}</p>
+            </article>
+          `).join("")}
+        </div>
+        <div class="area-cta-band">
+          <div>
+            <span class="eyebrow">Food guide</span>
+            <h2>Complete The Trip With The Restaurant Page</h2>
+          </div>
+          <button type="button" data-view-link="restaurants">Browse restaurants</button>
+        </div>
+      </section>
+    `;
+  }
+
+  function townHeroSlides(town) {
+    const images = Array.isArray(town.images) && town.images.length ? town.images : [town.image];
+    return `
+      <div class="town-hero-media" data-town-carousel>
+        ${images.map((image, index) => `
+          <span class="town-hero-slide ${index === 0 ? "active" : ""}" style="background-image:url('${image}')"></span>
+        `).join("")}
+      </div>
+    `;
+  }
+
+  function renderTownPage() {
+    const townPage = document.querySelector("[data-town-page]");
+    if (!townPage) return;
+    const town = data.areaTowns.find((entry) => entry.label === state.selectedTown) || data.areaTowns[0];
+    const rentals = townRentals(town.label);
+    const restaurants = data.restaurants.filter((restaurant) => restaurant.town === town.label || restaurant.near === town.label).slice(0, 4);
+    const featuredRentalMarkup = rentals.length
+      ? rentals.slice(0, 3).map((property) => propertyCard(property)).join("")
+      : `
+        <div class="no-results town-empty">
+          <h3>No selected ${town.label} inventory is in this mockup yet</h3>
+          <p>The page still belongs here. Before a real launch, this section should either pull live Topsail Beach inventory or become a guide-first page with nearby Surf City homes suggested below.</p>
+          <button type="button" class="secondary-button" data-view-link="search">Browse all selected rentals</button>
+        </div>
+      `;
+
+    townPage.innerHTML = `
+      <section class="town-hero">
+        ${townHeroSlides(town)}
+        <div class="town-hero-content">
+          <span class="eyebrow">${town.kicker}</span>
+          <h1>${town.label}</h1>
+          <p>${town.summary}</p>
+          <div class="hero-button-row">
+            <button type="button" data-view-link="search" data-town="${town.label}">View ${rentals.length} rentals</button>
+            <button type="button" class="secondary-button" data-view-link="restaurants">Nearby restaurants</button>
+          </div>
+        </div>
+      </section>
+      <section class="content-shell town-detail-shell">
+        <div class="town-detail-grid">
+          <article>
+            <span class="eyebrow">Best for</span>
+            <h2>What Guests Usually Love Here</h2>
+            <div class="guide-chip-row large">
+              ${town.bestFor.map((item) => `<span>${item}</span>`).join("")}
+            </div>
+            <p class="local-tip">${town.localTip}</p>
+          </article>
+          <aside>
+            <h3>Town highlights</h3>
+            <ul>${town.highlights.map((item) => `<li>${item}</li>`).join("")}</ul>
+          </aside>
+        </div>
+        <div class="section-heading row-heading">
+          <div>
+            <span class="eyebrow">${town.label}</span>
+            <h2>Featured Homes In This Area</h2>
+          </div>
+          <button type="button" class="secondary-button" data-view-link="search" data-town="${town.label}">See all ${rentals.length}</button>
+        </div>
+        <div class="property-grid">
+          ${featuredRentalMarkup}
+        </div>
+        <div class="section-heading">
+          <span class="eyebrow">Eat nearby</span>
+          <h2>Restaurants To Mention</h2>
+        </div>
+        <div class="restaurant-mini-grid">
+          ${restaurants.map((restaurant) => `
+            <article class="content-card">
+              <h3>${restaurant.name}</h3>
+              <p>${restaurant.vibe}</p>
+              <span>${restaurant.category}</span>
+            </article>
+          `).join("")}
+        </div>
+      </section>
+    `;
+  }
+
+  function rotateTownCarousel(direction = 1) {
+    const carousel = document.querySelector("[data-town-carousel]");
+    if (!carousel) return;
+    const slides = Array.from(carousel.querySelectorAll(".town-hero-slide"));
+    if (slides.length <= 1) return;
+    const current = Math.max(0, slides.findIndex((slide) => slide.classList.contains("active")));
+    const next = (current + Number(direction) + slides.length) % slides.length;
+    slides.forEach((slide, index) => slide.classList.toggle("active", index === next));
+  }
+
+  function setReviewSlide(carousel, index) {
+    const slides = Array.from(carousel.querySelectorAll("[data-review-slide]"));
+    if (!slides.length) return;
+    const dots = Array.from(carousel.querySelectorAll("[data-review-dot]"));
+    const next = (Number(index) + slides.length) % slides.length;
+    carousel.dataset.reviewIndex = String(next);
+    slides.forEach((slide, slideIndex) => {
+      const active = slideIndex === next;
+      slide.classList.toggle("active", active);
+      slide.setAttribute("aria-hidden", String(!active));
+    });
+    dots.forEach((dot, dotIndex) => {
+      const active = dotIndex === next;
+      dot.classList.toggle("active", active);
+      dot.setAttribute("aria-pressed", String(active));
+    });
+  }
+
+  function moveReviewCarousel(carousel, direction = 1, force = false) {
+    if (!force && (carousel.dataset.reviewPaused === "true" || carousel.matches(":hover") || carousel.contains(document.activeElement))) return;
+    const slides = Array.from(carousel.querySelectorAll("[data-review-slide]"));
+    if (slides.length <= 1) return;
+    const current = Number.isFinite(Number(carousel.dataset.reviewIndex))
+      ? Number(carousel.dataset.reviewIndex)
+      : Math.max(0, slides.findIndex((slide) => slide.classList.contains("active")));
+    setReviewSlide(carousel, current + Number(direction));
+  }
+
+  function rotateReviewCarousels() {
+    document.querySelectorAll("[data-review-carousel]").forEach((carousel) => {
+      moveReviewCarousel(carousel);
+    });
+  }
+
+  function renderRestaurantsPage() {
+    const restaurantsPage = document.querySelector("[data-restaurants-page]");
+    if (!restaurantsPage) return;
+    const towns = ["All", "Surf City", "North Topsail Beach", "Topsail Beach", "Sneads Ferry"];
+    const restaurants = state.restaurantTown === "All"
+      ? data.restaurants
+      : data.restaurants.filter((restaurant) => restaurant.town === state.restaurantTown || restaurant.near === state.restaurantTown);
+
+    restaurantsPage.innerHTML = `
+      <section class="page-hero restaurants-hero">
+        <div>
+          <span class="eyebrow">Restaurants</span>
+          <h1>Where To Eat Around Topsail Island</h1>
+          <p>A temporary but useful restaurant guide for guests: north-end views, Surf City staples, south-end seafood, easy takeout, and places that feel like part of the beach week.</p>
+        </div>
+      </section>
+      <section class="content-shell">
+        <div class="restaurant-filter-bar" aria-label="Restaurant town filters">
+          ${towns.map((town) => `<button type="button" class="${state.restaurantTown === town ? "active" : ""}" data-restaurant-town="${town}">${town}</button>`).join("")}
+        </div>
+        <div class="restaurants-layout">
+          ${restaurants.map((restaurant) => `
+            <article class="restaurant-card">
+              ${restaurantPhotoCarousel(restaurant)}
+              <div class="restaurant-card-body">
+                <span class="restaurant-town">${restaurant.town}${restaurant.near ? ` / near ${restaurant.near}` : ""}</span>
+                <h2>${restaurant.name}</h2>
+                <p>${restaurant.vibe}</p>
+                <div class="restaurant-card-meta">
+                  <strong class="restaurant-category">${restaurant.category}</strong>
+                  <small>${restaurant.priceRange} - ${restaurant.goodFor}</small>
+                </div>
+                <div class="restaurant-card-actions">
+                  ${restaurant.page ? `<button type="button" class="outline-button" data-view-link="content" data-page="${restaurant.page}">Open guide page</button>` : ""}
+                  ${restaurant.menuUrl ? `<a class="outline-button" href="${restaurant.menuUrl}" target="_blank" rel="noreferrer">Menu</a>` : ""}
+                </div>
+              </div>
+            </article>
+          `).join("")}
+        </div>
+        <p class="source-note">Mockup note: restaurant hours and menus change fast on Topsail, especially seasonally. Before launch, each listing should link to the restaurant's current site or profile and be rechecked.</p>
+      </section>
+    `;
+  }
+
+  function renderNightlifePage() {
+    const nightlifePage = document.querySelector("[data-nightlife-page]");
+    if (!nightlifePage) return;
+    const towns = ["All", "Surf City", "North Topsail Beach", "Topsail Beach", "Hampstead", "Sneads Ferry", "Holly Ridge"];
+    const bars = state.nightlifeTown === "All"
+      ? data.nightlife
+      : data.nightlife.filter((bar) => bar.town === state.nightlifeTown || bar.near === state.nightlifeTown);
+
+    nightlifePage.innerHTML = `
+      <section class="page-hero nightlife-hero">
+        <div>
+          <span class="eyebrow">Nightlife</span>
+          <h1>Where To Grab A Drink Around Topsail</h1>
+          <p>A practical guide to breweries, beach bars, cocktail rooms, pub food, live music, and easy after-dinner stops across Topsail Island, Hampstead, Sneads Ferry, and Holly Ridge.</p>
+        </div>
+      </section>
+      <section class="content-shell">
+        <div class="restaurant-filter-bar" aria-label="Nightlife town filters">
+          ${towns.map((town) => `<button type="button" class="${state.nightlifeTown === town ? "active" : ""}" data-nightlife-town="${town}">${town}</button>`).join("")}
+        </div>
+        <div class="restaurants-layout">
+          ${bars.map((bar) => `
+            <article class="restaurant-card">
+              ${restaurantPhotoCarousel(bar)}
+              <div class="restaurant-card-body">
+                <span class="restaurant-town">${bar.town}${bar.near ? ` / near ${bar.near}` : ""}</span>
+                <h2>${bar.name}</h2>
+                <p>${bar.vibe}</p>
+                <div class="restaurant-card-meta">
+                  <strong class="restaurant-category">${bar.category}</strong>
+                  <small>${bar.priceRange} - ${bar.goodFor}</small>
+                </div>
+                <div class="restaurant-card-actions">
+                  ${bar.page ? `<button type="button" class="outline-button" data-view-link="content" data-page="${bar.page}">Open guide page</button>` : ""}
+                  ${bar.menuUrl ? `<a class="outline-button" href="${bar.menuUrl}" target="_blank" rel="noreferrer">Menu / site</a>` : ""}
+                </div>
+              </div>
+            </article>
+          `).join("")}
+        </div>
+        <p class="source-note">Mockup note: nightlife changes even faster than restaurants. Before launch, hours, age rules, entertainment calendars, and photo permissions should be rechecked directly with each business.</p>
+      </section>
+    `;
+  }
+
+  function renderGenericPage() {
+    const genericPage = document.querySelector("[data-generic-page]");
+    if (!genericPage) return;
+    const page = demoPage(state.selectedPage);
+    const matchingProperties = page.filterPill
+      ? data.properties.filter((property) => property.tags.includes(page.filterPill)).slice(0, 3)
+      : [];
+    const venue = page.venue;
+    const venueLinks = venue ? [
+      venue.officialUrl ? `<a href="${venue.officialUrl}" target="_blank" rel="noreferrer">Official site</a>` : "",
+      venue.menuUrl ? `<a href="${venue.menuUrl}" target="_blank" rel="noreferrer">Menu</a>` : "",
+      venue.googlePlaceUrl ? `<a href="${venue.googlePlaceUrl}" target="_blank" rel="noreferrer">Google Place</a>` : ""
+    ].filter(Boolean).join("") : "";
+    const venueMarkup = venue ? `
+      <section class="local-feature-panel" aria-label="${venue.name} local guide">
+        <div class="section-heading row-heading">
+          <div>
+            <span class="eyebrow">${venue.town} guide</span>
+            <h2>Why Guests Should Know It</h2>
+          </div>
+          <div class="feature-link-row">
+            ${venueLinks}
+          </div>
+        </div>
+        <div class="local-feature-gallery">
+          ${venue.images.map((image, index) => `
+            <div class="${index === 0 ? "feature-photo-large" : ""}" style="background-image:url('${image}')"></div>
+          `).join("")}
+        </div>
+        <div class="local-feature-grid">
+          <article>
+            <span class="eyebrow">At a glance</span>
+            <h3>${venue.name}</h3>
+            <p>${venue.address}</p>
+            <p>${venue.phone}</p>
+            <p>${venue.hours}</p>
+            <p><strong>${venue.priceRange}</strong> average check range</p>
+          </article>
+          <article>
+            <span class="eyebrow">Good for</span>
+            <h3>${venue.goodFor}</h3>
+            <p>${venue.vibe}</p>
+            <p>${venue.sourceNote}</p>
+          </article>
+        </div>
+        <div class="editorial-grid two-up">
+          <article class="content-card">
+            <h3>Menu notes</h3>
+            <ul>${(venue.menuHighlights || venue.highlights || []).map((item) => `<li>${item}</li>`).join("")}</ul>
+          </article>
+          <article class="content-card">
+            <h3>Positive review takeaways</h3>
+            <ul>${(venue.positiveReviews || venue.reviewSignals || []).map((item) => `<li>${item}</li>`).join("")}</ul>
+          </article>
+        </div>
+      </section>
+    ` : "";
+    const teamMarkup = page.isTeamPage ? `
+      <div class="team-feature-grid">
+        <figure class="team-photo-card">
+          <img src="${page.image}" alt="Treasure Vacation Rentals team on the beach">
+        </figure>
+        <article class="content-card team-copy-card">
+          <span class="eyebrow">${page.section}</span>
+          <h2>Local, A Little Playful, But Serious About Your Investment</h2>
+          <p>${page.summary}</p>
+          <p>This is the right kind of humorous for a mockup: it makes the page memorable, keeps the brand from feeling corporate, and still says there are real people behind the homes.</p>
+          <div class="guide-chip-row large">
+            ${page.bullets.map((item) => `<span>${item}</span>`).join("")}
+          </div>
+        </article>
+      </div>
+    ` : "";
+
+    genericPage.innerHTML = `
+      <section class="generic-hero ${page.isTeamPage ? "team-hero" : ""}" style="background-image:url('${page.image}')">
+        <div>
+          <span class="eyebrow">${page.section}</span>
+          <h1>${page.title}</h1>
+          <p>${page.summary}</p>
+          ${page.filterPill ? `
+            <div class="hero-button-row">
+              <button type="button" data-view-link="search" data-pill="${page.filterPill}">View matching rentals</button>
+            </div>
+          ` : ""}
+        </div>
+      </section>
+      <section class="content-shell generic-page-body ${page.isTeamPage ? "team-page-body" : ""}">
+        ${teamMarkup}
+        <div class="generic-content-grid ${page.isTeamPage ? "sr-only" : ""}">
+          <article>
+            <span class="eyebrow">${page.section}</span>
+            <h2>${venue ? "Why It Belongs In The Guide" : "This Original Demo Page Is Represented"}</h2>
+            <p>${page.summary}</p>
+            <div class="guide-chip-row large">
+              ${page.bullets.map((item) => `<span>${item}</span>`).join("")}
+            </div>
+          </article>
+          <aside class="content-card">
+            <h3>Mockup status</h3>
+            <p>This is a vision page, not the final production copy. It gives the page a visible home, route, navigation entry, and enough content to show how the final site should be filled out.</p>
+          </aside>
+        </div>
+        ${venueMarkup}
+        ${matchingProperties.length ? `
+          <div class="section-heading row-heading">
+            <div>
+              <span class="eyebrow">${page.filterPill}</span>
+              <h2>${page.matchingTitle || "Matching Rentals"}</h2>
+            </div>
+            <button type="button" class="secondary-button" data-view-link="search" data-pill="${page.filterPill}">See all matches</button>
+          </div>
+          <div class="property-grid">
+            ${matchingProperties.map((property) => propertyCard(property)).join("")}
+          </div>
+        ` : ""}
+      </section>
+    `;
+  }
+
+  function renderPropertyDetail() {
+    const property = state.selectedProperty;
+    const images = galleryImages(property);
+    const extraImages = images.length >= 3 ? images : images.concat(images, images).slice(0, 3);
+    const consideredCount = 24 + (property.bedrooms % 9);
+    const guestCount = Math.min(property.sleeps, 8);
+    const isDogFriendly = property.tags.includes("Dog Friendly");
+    const bedding = [
+      `${Math.max(1, Math.min(4, Math.round(property.bedrooms / 3)))} King`,
+      `${Math.max(1, Math.round(property.bedrooms / 2))} Queen`,
+      `${Math.max(1, property.bedrooms - 2)} Single`
+    ];
+    const amenityGroups = [
+      ["Additional Amenities", ["Furnishings", "Deck Furniture", "Beach Cart"]],
+      ["Appliances", ["Regular Coffee Maker(s)", "Dishwasher", "Microwave"]],
+      ["Entertainment", ["Wireless Internet", "TVs (Multiple)", property.tags.includes("Hot Tub") ? "Hot Tub" : "Smart TV"]],
+      ["Exterior Amenities", [property.locationClass, "Covered Deck", "Outside Shower"]],
+      ["Interior Amenities", ["C/AC & Heat", "Fully Equipped Kitchen", "Washer/Dryer"]],
+      ["Stay Type", ["Weekly", property.turnDay ? `${property.turnDay} Check-In` : "Flexible Check-In"]]
+    ];
+    const unavailableDays = new Set([3, 4, 5, 10, 11, 12, 17, 18, 19]);
+    const stayDays = new Set([24, 25, 26, 27, 28, 29, 30]);
+
+    function detailCalendarMonth(monthName, offset = 0) {
+      const blanks = Array.from({ length: offset }, () => `<span class="blank"></span>`).join("");
+      const days = Array.from({ length: 31 }, (_, index) => {
+        const day = index + 1;
+        const classes = [
+          unavailableDays.has(day) ? "unavailable" : "",
+          stayDays.has(day) ? "selected-stay" : "",
+          day === 24 ? "check-in" : "",
+          day === 30 ? "check-out" : ""
+        ].filter(Boolean).join(" ");
+        return `<button type="button" class="${classes}">${day}</button>`;
+      }).join("");
+
+      return `
+        <div class="detail-month">
+          <h4>${monthName}</h4>
+          <div class="weekday-row"><span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span></div>
+          <div class="detail-calendar-grid">${blanks}${days}</div>
+        </div>
+      `;
+    }
+
+    function sidebarCalendar() {
+      const days = Array.from({ length: 31 }, (_, index) => {
+        const day = index + 1;
+        const classes = [
+          day === 23 ? "today" : "",
+          stayDays.has(day) ? "selected-stay" : "",
+          day === 24 ? "check-in" : "",
+          day === 30 ? "check-out" : "",
+          unavailableDays.has(day) ? "unavailable" : ""
+        ].filter(Boolean).join(" ");
+        return `<button type="button" class="${classes}">${day}</button>`;
+      }).join("");
+
+      return `
+        <div class="sidebar-calendar">
+          <div class="sidebar-calendar-head"><button type="button" aria-label="Previous month">&lsaquo;</button><strong>May 2026</strong><button type="button" aria-label="Next month">&rsaquo;</button></div>
+          <div class="weekday-row"><span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span></div>
+          <div class="detail-calendar-grid">${days}</div>
+        </div>
+      `;
+    }
+
+    document.querySelector("[data-property-detail]").innerHTML = `
+      <nav class="detail-tabs" aria-label="Property details">
+        <div class="detail-tab-list">
+          <a href="#description">Description</a>
+          <a href="#availability">Availability Calendar</a>
+          <a href="#bedding">Bedding</a>
+          <a href="#amenities">Amenities</a>
+          <a href="#guest-info">Guest Info</a>
+          <a href="#reviews">Reviews</a>
+        </div>
+        <div class="detail-action-icons">
+          <a href="#location" aria-label="View location">Map</a>
+          <button type="button" aria-label="View photos">${extraImages.length}</button>
+          <button type="button" aria-label="Save ${property.name}"><span aria-hidden="true">&#9825;</span></button>
+        </div>
+      </nav>
+      <section class="detail-photo-mosaic" aria-label="Photos for ${property.name}">
+        <div class="mosaic-main detail-carousel">
+          <div class="detail-photo-track" tabindex="0" aria-label="Photos for ${property.name}">
+            ${extraImages.map((image) => `<div class="detail-photo-frame" style="background-image:url('${image}')"></div>`).join("")}
+          </div>
+          <button class="mosaic-save" type="button" aria-label="Save ${property.name}"><span aria-hidden="true">&#9825;</span></button>
+          ${galleryDots(extraImages)}
+        </div>
+        <div class="mosaic-side">
+          <div style="background-image:url('${extraImages[1]}')"></div>
+          <button type="button" style="background-image:url('${extraImages[2]}')"><span>Search ${Math.max(9, extraImages.length * 9)}</span></button>
+        </div>
+      </section>
+      <div class="detail-layout">
+        <article class="detail-main">
+          <div class="detail-rating-row">
+            <span class="stars">&#9733; ${property.rating} (${property.reviews})</span>
+            <button type="button">Share</button>
+          </div>
+          <h1>${property.name}</h1>
+          <p class="address">${property.address}</p>
+          <div class="detail-summary-grid">
+            <span><b>Address</b>${property.address || "Topsail Island"}</span>
+            <span><b>Town</b>${property.location}</span>
+            <span><b>Location</b>${property.locationClass}</span>
+            <span><b>Type</b>Home</span>
+            <span><b>Bedrooms</b>${property.bedrooms} bedrooms</span>
+            <span><b>Bathrooms</b>${property.baths} baths</span>
+            <span><b>Pets</b>${isDogFriendly ? "Pets Allowed" : "Ask About Pets"}</span>
+            <span><b>Check-In</b>${property.turnDay}</span>
+          </div>
+          <section class="weekly-specials" aria-label="Weekly specials">
+            <h2>Weekly Specials</h2>
+            <p>5/24/26 to 5/30/26 - Reduced from <s>${money(Math.round(property.weeklyRate * 1.12))}</s> to ${money(property.weeklyRate)}</p>
+          </section>
+          <section id="location" class="detail-section">
+            <h2>Location</h2>
+            <div class="detail-location-map" role="img" aria-label="${property.locationClass} map location for ${property.name}">
+              <span class="detail-map-road road-one"></span>
+              <span class="detail-map-road road-two"></span>
+              <span class="detail-map-road road-three"></span>
+              <span class="detail-map-water"></span>
+              <span class="detail-map-pin">${property.bedrooms}</span>
+              <strong>${property.address || property.location}</strong>
+            </div>
+          </section>
+          <section id="description">
+            <h2>Description</h2>
+            <p>${property.description}</p>
+            <p>This Treasure page now follows the practical property-detail depth of Joe Lamb's layout: large photos first, facts near the title, specials, location context, availability, bedding, amenities, policies, and reviews without making the guest hunt for the booking tools.</p>
+            <p><b>Main Level:</b> Open living, dining, and kitchen areas built for a beach week, with easy access to decks and outdoor gathering space.</p>
+            <p><b>Features include:</b> ${property.tags.join(", ")}, wireless internet, washer/dryer, covered deck, and a fully equipped kitchen.</p>
+            <button class="outline-button" type="button">Read More</button>
+          </section>
+          <section id="availability">
+            <h2>Availability Calendar</h2>
+            <p>Please select dates for price quote</p>
+            <div class="calendar-key" aria-label="Calendar key">
+              <span><i class="available"></i>Available</span>
+              <span><i class="unavailable"></i>Unavailable</span>
+              <span><i class="check-in"></i>Check-In</span>
+              <span><i class="check-out"></i>Check-Out</span>
+            </div>
+            <div class="detail-calendar-pair">
+              ${detailCalendarMonth("May 2026", 5)}
+              ${detailCalendarMonth("June 2026", 1)}
+            </div>
+          </section>
+          <section id="bedding">
+            <h2>Bedding</h2>
+            <div class="bedding-grid">${bedding.map((item) => `<span>${item}</span>`).join("")}</div>
+          </section>
+          <section id="amenities">
+            <h2>Amenities</h2>
+            <div class="amenity-category-grid">
+              ${amenityGroups.map(([group, items]) => `
+                <div>
+                  <h3>${group}</h3>
+                  <ul>${items.map((item) => `<li>${item}</li>`).join("")}</ul>
+                </div>
+              `).join("")}
+            </div>
+            <button class="outline-button" type="button">Show All Amenities</button>
+          </section>
+          <section id="guest-info">
+            <h2>Guest Info</h2>
+            <div class="guest-info-list">
+              <p><b>Review information and important tips</b> about check-in, keyless entry, trash collection days, and local policies before arrival.</p>
+              <p><b>Travel insurance</b> can help protect the trip if plans change.</p>
+              <p><b>Security deposit waiver</b> and house rules should be reviewed before booking.</p>
+            </div>
+            <button class="outline-button" type="button">Read More</button>
+          </section>
+          <section id="reviews">
+            <h2>Reviews <span>${property.rating} (${property.reviews})</span></h2>
+            <div class="review-list">
+              <blockquote><b>Rating 5</b><p>The home was clean, bright, and easy for our group.</p><cite>Recent Guest - Stayed 2026</cite></blockquote>
+              <blockquote><b>Rating 5</b><p>Great location, clear information, and the booking process felt simple.</p><cite>Treasure Guest - Stayed 2025</cite></blockquote>
+              <blockquote><b>Rating 4</b><p>Comfortable beds and plenty of space for a Topsail week.</p><cite>Family Traveler - Stayed 2024</cite></blockquote>
+            </div>
+            <button class="outline-button" type="button">See all reviews</button>
+          </section>
+        </article>
+        <aside class="detail-booking-sidebar">
+          <h2>Choose your dates</h2>
+          <div class="popular-callout"><b>${consideredCount}</b> People have considered this property in the last 24 hours <button type="button" aria-label="Dismiss">x</button></div>
+          <div class="sidebar-date-row">
+            <label>Arrival <input type="text" placeholder="Arrival"></label>
+            <label>Departure <input type="text" placeholder="Departure"></label>
+          </div>
+          ${sidebarCalendar()}
+          <div class="calendar-key sidebar-key">
+            <span><i class="available"></i>Available</span>
+            <span><i class="unavailable"></i>Unavailable</span>
+            <span><i class="check-in"></i>Check-In</span>
+            <span><i class="check-out"></i>Check-Out</span>
+          </div>
+          <button type="button" class="remind-button">Remind Me To Book This Later</button>
+          <button type="button">Book Now</button>
+          <button type="button" class="secondary-button">Split Cost Calculator</button>
+          <div class="rent-line"><span>Rent:</span><strong>${money(property.weeklyRate)}</strong></div>
+          <label>Guests <input type="number" min="1" value="${guestCount}"></label>
+          <button type="button">Submit Request</button>
+        </aside>
+      </div>
+    `;
+  }
+
+  function setView(view) {
+    state.view = view;
+    document.querySelectorAll("[data-view]").forEach((section) => {
+      section.classList.toggle("active", section.dataset.view === view);
+    });
+    syncHomeVersionToggle();
+    window.scrollTo({ top: 0, behavior: "auto" });
+    window.setTimeout(() => window.scrollTo({ top: 0, behavior: "auto" }), 0);
+    window.setTimeout(() => window.scrollTo({ top: 0, behavior: "auto" }), 150);
+  }
+
+  function syncHomeVersionToggle() {
+    document.querySelectorAll("[data-home-version]").forEach((button) => {
+      const active = button.dataset.homeVersion === state.view;
+      button.classList.toggle("active", active);
+      button.setAttribute("aria-pressed", String(active));
+    });
+  }
+
+  function updateHomeVersionQuery(view) {
+    const url = new URL(window.location.href);
+    if (view === "home") {
+      url.searchParams.set("v", "home");
+    } else {
+      url.searchParams.delete("v");
+    }
+    window.history.replaceState({}, "", url);
+  }
+
+  function initViewFromQuery() {
+    const params = new URLSearchParams(window.location.search);
+    const hashView = window.location.hash.replace("#", "");
+    if (hashView && document.querySelector(`[data-view="${hashView}"]`)) {
+      state.view = hashView;
+    }
+    if (params.get("v") === "home") {
+      state.view = "home";
+    }
+    if (params.get("v") === "video-home") {
+      state.view = "home-video";
+    }
+  }
+
+  function syncFilterControls() {
+    document.querySelectorAll("[data-filter]").forEach((filter) => {
+      filter.value = state.filters[filter.dataset.filter] || "";
+    });
+    document.querySelectorAll("[data-filter-checkbox]").forEach((input) => {
+      const group = input.dataset.filterCheckbox;
+      input.checked = (state.filters[group] || []).includes(input.value);
+    });
+    document.querySelectorAll("[data-filter-exact]").forEach((input) => {
+      const key = input.dataset.filterExact === "bedrooms" ? "exactBedrooms" : "exactBathrooms";
+      input.checked = Boolean(state.filters[key]);
+    });
+    document.querySelectorAll("[data-counter-value]").forEach((counter) => {
+      const kind = counter.dataset.counterValue;
+      const value = state.filters[kind];
+      const exact = kind === "bedrooms" ? state.filters.exactBedrooms : state.filters.exactBathrooms;
+      counter.textContent = value ? `${value}${exact ? "" : "+"}` : "Any";
+    });
+    const propertySearch = document.querySelector("[data-specific-property]");
+    if (propertySearch) propertySearch.value = state.filters.propertyName;
+    const activeCount = activeFilterCount();
+    const countBadge = document.querySelector("[data-filter-count]");
+    if (countBadge) {
+      countBadge.textContent = activeCount;
+      countBadge.hidden = activeCount === 0;
+    }
+  }
+
+  function activeFilterCount() {
+    return [
+      state.filters.location,
+      state.filters.locationClass,
+      state.filters.bedrooms,
+      state.filters.bathrooms,
+      state.filters.amenity,
+      state.filters.collection,
+      state.filters.propertyName,
+      ...state.filters.towns,
+      ...state.filters.locationClasses,
+      ...state.filters.amenities,
+      ...state.filters.collections,
+      ...state.filters.stayTypes,
+      ...state.filters.unitTypes,
+      ...state.filters.specials
+    ].filter(Boolean).length;
+  }
+
+  function toggleFilterPanel(forceOpen) {
+    const panel = document.querySelector("[data-filter-panel]");
+    const button = document.querySelector("[data-filter-toggle]");
+    if (!panel || !button) return;
+    const shouldOpen = typeof forceOpen === "boolean" ? forceOpen : panel.hidden;
+    panel.hidden = !shouldOpen;
+    button.setAttribute("aria-expanded", String(shouldOpen));
+  }
+
+  function updateCounterFilter(kind, step) {
+    const max = kind === "bedrooms" ? 16 : 17;
+    const current = Number(state.filters[kind] || 0);
+    const next = Math.max(0, Math.min(max, current + Number(step)));
+    state.filters[kind] = next ? String(next) : "";
+    syncFilterControls();
+    renderResults();
+  }
+
+  function applyFacetCheckbox(input) {
+    const group = input.dataset.filterCheckbox;
+    const checked = Array.from(document.querySelectorAll(`[data-filter-checkbox="${group}"]:checked`))
+      .map((item) => item.value);
+    state.filters[group] = checked;
+    if (group === "locationClasses") state.filters.locationClass = "";
+    if (group === "amenities") state.filters.amenity = "";
+    if (group === "collections") state.filters.collection = "";
+    syncFilterControls();
+    renderResults();
+  }
+
+  function applyPillFilter(value) {
+    state.filters.locationClass = "";
+    state.filters.amenity = "";
+    state.filters.collection = "";
+    state.filters.locationClasses = [];
+    state.filters.amenities = [];
+    state.filters.collections = [];
+
+    if (locationTypes.includes(value)) {
+      state.filters.locationClasses = [value];
+    } else if (amenityTypes.includes(value)) {
+      state.filters.amenities = [value];
+    } else if (collectionTypes.includes(value)) {
+      state.filters.collections = [value];
+    } else {
+      state.filters.amenities = [value];
+    }
+
+    syncFilterControls();
+  }
+
+  function moveCardCarousel(button) {
+    const photo = button.closest(".property-photo, .restaurant-photo-carousel");
+    const track = photo ? photo.querySelector(".photo-track") : null;
+    if (!track) return;
+
+    const direction = Number(button.dataset.carouselDirection || 1);
+    const frameWidth = track.clientWidth || track.getBoundingClientRect().width;
+    const maxIndex = Math.max(0, track.children.length - 1);
+    const currentIndex = Math.round(track.scrollLeft / frameWidth);
+    const nextIndex = Math.max(0, Math.min(maxIndex, currentIndex + direction));
+
+    track.scrollTo({
+      left: nextIndex * frameWidth,
+      behavior: "smooth"
+    });
+
+    const dots = photo.querySelectorAll(".photo-scroll-indicator span");
+    dots.forEach((dot, index) => {
+      dot.classList.toggle("active", index === nextIndex);
+    });
+  }
+
+  function bindEvents() {
+    document.addEventListener("click", (event) => {
+      const homeVersion = event.target.closest("[data-home-version]");
+      if (homeVersion) {
+        event.preventDefault();
+        setView(homeVersion.dataset.homeVersion);
+        updateHomeVersionQuery(homeVersion.dataset.homeVersion);
+        return;
+      }
+
+      const carouselButton = event.target.closest("[data-carousel-direction]");
+      if (carouselButton) {
+        event.preventDefault();
+        moveCardCarousel(carouselButton);
+        return;
+      }
+
+      const featuredScrollButton = event.target.closest("[data-featured-scroll]");
+      if (featuredScrollButton) {
+        event.preventDefault();
+        const carousel = featuredScrollButton.closest(".featured-carousel");
+        const track = carousel ? carousel.querySelector("[data-featured-properties]") : null;
+        if (!track) return;
+        const firstCard = track.querySelector(".property-card");
+        if (!firstCard) return;
+        const direction = Number(featuredScrollButton.dataset.featuredScroll) || 1;
+        const styles = window.getComputedStyle(track);
+        const gap = parseFloat(styles.columnGap || styles.gap) || 0;
+        const step = firstCard.getBoundingClientRect().width + gap;
+        const currentIndex = Math.round(track.scrollLeft / step);
+        const maxLeft = track.scrollWidth - track.clientWidth;
+        const nextLeft = Math.max(0, Math.min(maxLeft, (currentIndex + direction) * step));
+        track.scrollTo({
+          left: nextLeft,
+          behavior: "smooth"
+        });
+        return;
+      }
+
+      const reviewDot = event.target.closest("[data-review-dot]");
+      if (reviewDot) {
+        event.preventDefault();
+        const carousel = reviewDot.closest("[data-review-carousel]");
+        if (!carousel) return;
+        setReviewSlide(carousel, Number(reviewDot.dataset.reviewDot));
+        return;
+      }
+
+      const filterToggle = event.target.closest("[data-filter-toggle]");
+      if (filterToggle) {
+        event.preventDefault();
+        toggleFilterPanel();
+        return;
+      }
+
+      const counterButton = event.target.closest("[data-counter-step]");
+      if (counterButton) {
+        event.preventDefault();
+        updateCounterFilter(counterButton.dataset.counterStep, counterButton.dataset.step);
+        return;
+      }
+
+      const selectAllButton = event.target.closest("[data-select-all]");
+      if (selectAllButton) {
+        event.preventDefault();
+        const group = selectAllButton.dataset.selectAll;
+        const values = Array.from(document.querySelectorAll(`[data-filter-checkbox="${group}"]`)).map((input) => input.value);
+        state.filters[group] = values.every((value) => state.filters[group].includes(value)) ? [] : values;
+        if (group === "locationClasses") state.filters.locationClass = "";
+        if (group === "amenities") state.filters.amenity = "";
+        if (group === "collections") state.filters.collection = "";
+        syncFilterControls();
+        renderResults();
+        return;
+      }
+
+      const viewLink = event.target.closest("[data-view-link]");
+      if (viewLink) {
+        event.preventDefault();
+        const town = viewLink.dataset.town;
+        if (town && viewLink.dataset.viewLink === "search") {
+          state.filters.location = "";
+          state.filters.towns = [town];
+        }
+        if (town && viewLink.dataset.viewLink === "town") {
+          state.selectedTown = town;
+          renderTownPage();
+        }
+        if (viewLink.dataset.page) {
+          state.selectedPage = viewLink.dataset.page;
+          renderGenericPage();
+        }
+        setView(viewLink.dataset.viewLink);
+        if (viewLink.dataset.pill) {
+          applyPillFilter(viewLink.dataset.pill);
+        }
+        if (viewLink.dataset.viewLink === "search") {
+          renderResults();
+        }
+      }
+
+      const propertyButton = event.target.closest("[data-property-id]");
+      if (propertyButton) {
+        openPropertyDetail(data.properties.find((property) => property.id === propertyButton.dataset.propertyId));
+      }
+
+      const pill = event.target.closest("[data-pill]");
+      if (pill) {
+        applyPillFilter(pill.dataset.pill);
+        renderResults();
+      }
+
+      const restaurantTown = event.target.closest("[data-restaurant-town]");
+      if (restaurantTown) {
+        state.restaurantTown = restaurantTown.dataset.restaurantTown;
+        renderRestaurantsPage();
+      }
+
+      const nightlifeTown = event.target.closest("[data-nightlife-town]");
+      if (nightlifeTown) {
+        state.nightlifeTown = nightlifeTown.dataset.nightlifeTown;
+        renderNightlifePage();
+      }
+
+      if (event.target.matches("[data-menu-toggle]")) {
+        document.querySelector(".nav-links").classList.toggle("open");
+      }
+
+      if (event.target.matches("[data-clear-filters]")) {
+        state.filters = defaultFilters();
+        syncFilterControls();
+        renderResults();
+      }
+    });
+
+    document.querySelectorAll("[data-search-form]").forEach((form) => {
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget);
+        const bedrooms = String(formData.get("bedrooms") || "").replace("+", "");
+        state.filters.bedrooms = bedrooms;
+        state.filters.locationClass = formData.get("locationClass") || "";
+        syncFilterControls();
+        renderResults();
+        setView("search");
+      });
+    });
+
+    document.querySelectorAll("[data-filter]").forEach((filter) => {
+      filter.addEventListener("change", () => {
+        state.filters[filter.dataset.filter] = filter.value;
+        renderResults();
+      });
+    });
+
+    document.querySelectorAll("[data-filter-checkbox]").forEach((checkbox) => {
+      checkbox.addEventListener("change", () => {
+        applyFacetCheckbox(checkbox);
+      });
+    });
+
+    document.querySelectorAll("[data-filter-exact]").forEach((checkbox) => {
+      checkbox.addEventListener("change", () => {
+        const key = checkbox.dataset.filterExact === "bedrooms" ? "exactBedrooms" : "exactBathrooms";
+        state.filters[key] = checkbox.checked;
+        syncFilterControls();
+        renderResults();
+      });
+    });
+
+    const propertySearch = document.querySelector("[data-specific-property]");
+    if (propertySearch) {
+      propertySearch.addEventListener("input", () => {
+        state.filters.propertyName = propertySearch.value;
+        syncFilterControls();
+        renderResults();
+      });
+    }
+
+    document.querySelector("[data-sort]").addEventListener("change", (event) => {
+      state.sort = event.target.value;
+      renderResults();
+    });
+  }
+
+  function init() {
+    initViewFromQuery();
+    setLogo();
+    renderNav();
+    renderHero();
+    renderQuickLinks();
+    renderFeatured();
+    renderResults();
+    renderPropertyDetail();
+    renderOwnerPages();
+    renderAreaPage();
+    renderTownPage();
+    renderRestaurantsPage();
+    renderNightlifePage();
+    renderGenericPage();
+    syncFilterControls();
+    bindEvents();
+    setView(state.view);
+    document.querySelectorAll("[data-review-carousel]").forEach((carousel) => setReviewSlide(carousel, Number(carousel.dataset.reviewIndex) || 0));
+    window.setInterval(rotateHero, 5000);
+    window.setInterval(rotateTownCarousel, 4500);
+    window.setInterval(rotateReviewCarousels, 6500);
+  }
+
+  init();
+})();
