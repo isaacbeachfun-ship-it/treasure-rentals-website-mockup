@@ -49,7 +49,11 @@ assert(styleBlock(".video-home-hero .video-search-dock").includes("margin: 14px 
 assert(styles.includes(".demo-home-toggle"), "Demo home switcher needs top-of-page styling.");
 assert(styles.includes("@media (max-width: 620px) {\n  .demo-home-toggle {"), "Mobile demo switcher needs its own responsive top row.");
 assert(styleBlock("@media (max-width: 620px) {\n  .demo-home-toggle").includes("position: static;"), "Mobile demo switcher should not overlay the account links.");
-assert(styleBlock("@media (max-width: 620px) {\n  .demo-home-toggle").includes("margin: 8px auto;"), "Mobile demo switcher should sit above the header as its own centered row.");
+assert(styleBlock("@media (max-width: 620px) {\n  .demo-home-toggle").includes("margin: 6px auto;"), "Mobile demo switcher should sit above the header as its own compact centered row.");
+assert(styles.includes("  .utility-bar {\n    display: none;\n  }"), "Mobile header should hide the utility link strip to avoid wasting the first viewport.");
+assert(styles.includes("  .main-nav {\n    min-height: 78px;"), "Mobile header should use a compact logo/menu row.");
+assert(styles.includes("  .brand {\n    align-self: center;"), "Mobile brand should align inside the compact header instead of hanging below it.");
+assert(styles.includes("  .brand img {\n    width: 205px;"), "Mobile logo should be smaller than the desktop header logo.");
 assert(styles.includes("translateX(calc(var(--hero-slide-index, 0) * -100%))"), "Image homepage hero should slide horizontally between photos.");
 assert(styles.includes(".hero-slides.no-transition"), "Image homepage hero needs a no-transition reset state for looping.");
 assert(script.includes("initViewFromQuery"), "Mockup should initialize the copied video homepage from the URL.");

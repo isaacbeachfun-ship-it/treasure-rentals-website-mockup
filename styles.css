@@ -3712,12 +3712,33 @@ p {
     z-index: 1;
     display: flex;
     width: max-content;
-    margin: 8px auto;
+    margin: 6px auto;
     transform: none;
   }
 
+  .utility-bar {
+    display: none;
+  }
+
+  .main-nav {
+    min-height: 78px;
+    align-items: center;
+    gap: 14px;
+    padding: 7px 16px;
+  }
+
+  .brand {
+    align-self: center;
+    margin-bottom: 0;
+  }
+
   .brand img {
-    width: 240px;
+    width: 205px;
+  }
+
+  .menu-button {
+    min-height: 38px;
+    padding: 0 12px;
   }
 
   h1 {
