@@ -1,0 +1,422 @@
+[
+  {
+    "category": "Our Scrape Fleet (NC)",
+    "company": "Surf or Sound Realty",
+    "mainWebsite": "surforsound.com",
+    "trackTenantSlug": "",
+    "state": "NC",
+    "marketOrTown": "Hatteras Island (OBX)",
+    "propertyCount": "764",
+    "verificationNotes": "Umbraco + TrackHS; verified in our scraper code"
+  },
+  {
+    "category": "Our Scrape Fleet (NC)",
+    "company": "Joe Lamb Jr. & Associates",
+    "mainWebsite": "joelambjr.com",
+    "trackTenantSlug": "",
+    "state": "NC",
+    "marketOrTown": "Kill Devil Hills (OBX)",
+    "propertyCount": "505",
+    "verificationNotes": "ICND + TrackHS; verified in scraper code"
+  },
+  {
+    "category": "Our Scrape Fleet (NC)",
+    "company": "Ocracoke Island Realty",
+    "mainWebsite": "ocracokeislandrealty.com",
+    "trackTenantSlug": "",
+    "state": "NC",
+    "marketOrTown": "Ocracoke (OBX)",
+    "propertyCount": "303",
+    "verificationNotes": "ColdFusion + TrackHS; verified in scraper code"
+  },
+  {
+    "category": "Our Scrape Fleet (NC)",
+    "company": "Williamson Realty",
+    "mainWebsite": "williamsonrealty.com",
+    "trackTenantSlug": "williamsonrealtyvacations",
+    "state": "NC",
+    "marketOrTown": "Ocean Isle Beach",
+    "propertyCount": "239",
+    "verificationNotes": "WP + Atlas VRP + TrackHS; site copy says ~290; img.trackhs.com fingerprint"
+  },
+  {
+    "category": "Our Scrape Fleet (NC)",
+    "company": "Carolina Beach Realty",
+    "mainWebsite": "carolinabeachrealty.net",
+    "trackTenantSlug": "",
+    "state": "NC",
+    "marketOrTown": "Carolina Beach",
+    "propertyCount": "182",
+    "verificationNotes": "ColdFusion + TrackHS; verified in scraper code"
+  },
+  {
+    "category": "Our Scrape Fleet (NC)",
+    "company": "Lewis Realty",
+    "mainWebsite": "vacationsontopsail.com",
+    "trackTenantSlug": "",
+    "state": "NC",
+    "marketOrTown": "Topsail Island",
+    "propertyCount": "149",
+    "verificationNotes": "ColdFusion + TrackHS; verified in scraper code"
+  },
+  {
+    "category": "Our Scrape Fleet (NC)",
+    "company": "Sun-Surf Realty",
+    "mainWebsite": "sunsurfrealty.com",
+    "trackTenantSlug": "",
+    "state": "NC",
+    "marketOrTown": "Emerald Isle (Crystal Coast)",
+    "propertyCount": "136",
+    "verificationNotes": "WP + Atlas VRP + TrackHS; verified in scraper code"
+  },
+  {
+    "category": "Our Scrape Fleet (NC)",
+    "company": "Shorewood Real Estate",
+    "mainWebsite": "shorewoodrealestate.com",
+    "trackTenantSlug": "",
+    "state": "NC",
+    "marketOrTown": "Emerald Isle (Crystal Coast)",
+    "propertyCount": "66",
+    "verificationNotes": "ICND + TrackHS; verified in scraper code"
+  },
+  {
+    "category": "Our Scrape Fleet (NC) - Edge Case",
+    "company": "Topsail Realty",
+    "mainWebsite": "topsail-realty.com",
+    "trackTenantSlug": "",
+    "state": "NC",
+    "marketOrTown": "Topsail Island",
+    "propertyCount": "191",
+    "verificationNotes": "VTrips-on-Track (not a clean Track site; fees bundled, no itemization)"
+  },
+  {
+    "category": "External Verified - Live Main Site",
+    "company": "Brett/Robinson Vacation Rentals",
+    "mainWebsite": "brett-robinson.com",
+    "trackTenantSlug": "brett-robinson",
+    "state": "AL",
+    "marketOrTown": "Gulf Shores / Orange Beach",
+    "propertyCount": "322",
+    "verificationNotes": "img.trackhs.com + track-pm.s3 + cdn.trackhs.com on live site; 322 stated"
+  },
+  {
+    "category": "External Verified - Live Main Site",
+    "company": "30A Escapes",
+    "mainWebsite": "30aescapes.com",
+    "trackTenantSlug": "30aescapes",
+    "state": "FL",
+    "marketOrTown": "30A / Santa Rosa Beach (South Walton)",
+    "propertyCount": "unknown",
+    "verificationNotes": "img.trackhs.com + cdn.trackhs.com on live site; Track case study"
+  },
+  {
+    "category": "External Verified - Live Main Site",
+    "company": "Plumlee Gulf Beach Realty",
+    "mainWebsite": "plumleegulfbeachrealty.com",
+    "trackTenantSlug": "plumleegulfbeachrealty",
+    "state": "FL",
+    "marketOrTown": "Indian Rocks Beach / Indian Shores",
+    "propertyCount": "unknown",
+    "verificationNotes": "img.trackhs.com fingerprint on live site"
+  },
+  {
+    "category": "External Verified - Live Main Site",
+    "company": "Family Time Vacation Rentals",
+    "mainWebsite": "familytimevacationrentals.com",
+    "trackTenantSlug": "familytimevr",
+    "state": "UT / OR / ID",
+    "marketOrTown": "Zion-Bryce (UT), Bend/Sisters (OR), Boise (ID)",
+    "propertyCount": "152",
+    "verificationNotes": "img.trackhs.com + track-pm.s3/familytimevr on live site; 152 stated"
+  },
+  {
+    "category": "External Verified - Live Main Site",
+    "company": "Hiller Vacation Homes",
+    "mainWebsite": "hillervacationhomes.com",
+    "trackTenantSlug": "hillervacationhomes",
+    "state": "WI",
+    "marketOrTown": "St. Germain (Northwoods / Vilas County)",
+    "propertyCount": "90",
+    "verificationNotes": "track-pm.s3 + img.trackhs.com on live site; ~90 stated"
+  },
+  {
+    "category": "External Verified - Live Main Site",
+    "company": "Funtierland Vacation Rentals",
+    "mainWebsite": "funtierlandvacationrentals.com",
+    "trackTenantSlug": "funtierlandvr",
+    "state": "CA / HI",
+    "marketOrTown": "Anaheim/Disneyland + Kauai",
+    "propertyCount": "unknown",
+    "verificationNotes": "img.trackhs.com fingerprint on live site; Track case study"
+  },
+  {
+    "category": "External Verified - Live Main Site",
+    "company": "Cascade Vacation Rentals",
+    "mainWebsite": "cascadevacationrentals.com",
+    "trackTenantSlug": "cascadevacationrentals",
+    "state": "MN",
+    "marketOrTown": "Lutsen / Lake Superior North Shore",
+    "propertyCount": "175",
+    "verificationNotes": "cdn.trackhs.com + track-pm.s3 on live site; ~175 stated"
+  },
+  {
+    "category": "External Verified - Live Main Site",
+    "company": "Moving Mountains",
+    "mainWebsite": "movingmountains.com",
+    "trackTenantSlug": "movingmountains",
+    "state": "CO",
+    "marketOrTown": "Steamboat, Vail, Breckenridge, Beaver Creek",
+    "propertyCount": "unknown",
+    "verificationNotes": "Owner portal link on live site"
+  },
+  {
+    "category": "External Verified - Live Main Site",
+    "company": "Moose Management Vacation Rentals",
+    "mainWebsite": "vacationrentalsparkcity.com",
+    "trackTenantSlug": "moosemanagement",
+    "state": "UT",
+    "marketOrTown": "Park City",
+    "propertyCount": "unknown",
+    "verificationNotes": "cdn.trackhs.com + portal links on live site; Track case study"
+  },
+  {
+    "category": "External Verified - Live Main Site",
+    "company": "Tahoe Luxury Properties (TLUXP)",
+    "mainWebsite": "tluxp.com",
+    "trackTenantSlug": "tluxp",
+    "state": "CA / NV",
+    "marketOrTown": "Lake Tahoe / Truckee (Tahoe City + Incline Village)",
+    "propertyCount": "unknown",
+    "verificationNotes": "Owner portal link on live site"
+  },
+  {
+    "category": "External Verified - Live Main Site",
+    "company": "Red Rock Vacation Rentals",
+    "mainWebsite": "stgeorgeutahvacationrentals.com",
+    "trackTenantSlug": "redrockcompanies",
+    "state": "UT",
+    "marketOrTown": "St. George (Zion area / Southern Utah)",
+    "propertyCount": "300-500+",
+    "verificationNotes": "Owner portal on live site; site copy"
+  },
+  {
+    "category": "External Verified - Live Main Site",
+    "company": "Luxury Coastal Vacations",
+    "mainWebsite": "luxurycoastalvacations.com",
+    "trackTenantSlug": "luxurycoastalvacations",
+    "state": "AL / FL",
+    "marketOrTown": "Gulf Shores / Orange Beach / Fort Morgan / Perdido Key",
+    "propertyCount": "480",
+    "verificationNotes": "Owner + guest portal links on live site; ~480 stated"
+  },
+  {
+    "category": "External Verified - Live Main Site",
+    "company": "Cape & Coast Premier Properties",
+    "mainWebsite": "capeandcoast.com",
+    "trackTenantSlug": "capeandcoast",
+    "state": "FL",
+    "marketOrTown": "Cape San Blas / St. George Island / Indian Pass (Forgotten Coast)",
+    "propertyCount": "unknown",
+    "verificationNotes": "Owner portal link in footer; Track case study"
+  },
+  {
+    "category": "External Verified - Live Main Site",
+    "company": "Young's Suncoast Realty & Vacation Rentals",
+    "mainWebsite": "youngssuncoast.com",
+    "trackTenantSlug": "youngssuncoast",
+    "state": "AL",
+    "marketOrTown": "Gulf Shores / Orange Beach / Fort Morgan",
+    "propertyCount": "250",
+    "verificationNotes": "Owner + guest portal links on live site; 250 stated"
+  },
+  {
+    "category": "External Verified - Live Main Site",
+    "company": "Charleston Coast Vacations (Dunes Properties)",
+    "mainWebsite": "charlestoncoastvacations.com / dunesproperties.com",
+    "trackTenantSlug": "dunesproperties",
+    "state": "SC",
+    "marketOrTown": "Folly Beach + Isle of Palms / Wild Dunes",
+    "propertyCount": "unknown",
+    "verificationNotes": "Portal links + S3 image references on live site"
+  },
+  {
+    "category": "External Verified - Live Main Site",
+    "company": "I Go Maui Vacation Rentals & Realty",
+    "mainWebsite": "igomaui.com",
+    "trackTenantSlug": "igomauivacationrentals",
+    "state": "HI",
+    "marketOrTown": "Maui (Maalaea / Wailuku)",
+    "propertyCount": "unknown",
+    "verificationNotes": "Owner portal link on live site; portal branded I Go Maui"
+  },
+  {
+    "category": "External Verified - Portal Only",
+    "company": "Buzz Vacation Rentals",
+    "mainWebsite": "buzzvacationrentals.com",
+    "trackTenantSlug": "buzzvr",
+    "state": "TX",
+    "marketOrTown": "Houston / Galveston",
+    "propertyCount": "unknown",
+    "verificationNotes": "Track guest portal branded Buzz Vacation Rentals; main-site fingerprint not pulled"
+  },
+  {
+    "category": "External Verified - Portal Only",
+    "company": "Tybee Vacation Rentals",
+    "mainWebsite": "tybeevacationrentals.com",
+    "trackTenantSlug": "tybeevacationrentals",
+    "state": "GA",
+    "marketOrTown": "Tybee Island / Savannah",
+    "propertyCount": "unknown",
+    "verificationNotes": "Track portal branded Tybee Vacation Rentals"
+  },
+  {
+    "category": "External Verified - Portal Only",
+    "company": "Southern Vacation Rentals",
+    "mainWebsite": "unconfirmed",
+    "trackTenantSlug": "svr",
+    "state": "FL",
+    "marketOrTown": "Panhandle (30A / Destin / Panama City Beach)",
+    "propertyCount": "unknown",
+    "verificationNotes": "Portal branded SVR; main consumer domain could not be confirmed; Track case study"
+  },
+  {
+    "category": "External Verified - Portal Only",
+    "company": "Railey Vacations",
+    "mainWebsite": "deepcreek.com / railey.com",
+    "trackTenantSlug": "deepcreek",
+    "state": "MD",
+    "marketOrTown": "Deep Creek Lake",
+    "propertyCount": "unknown",
+    "verificationNotes": "Owner portal account branded Railey Vacations"
+  },
+  {
+    "category": "External Verified - Portal Only",
+    "company": "Bluefish Vacation Rentals",
+    "mainWebsite": "bluefishvacations.com",
+    "trackTenantSlug": "bluefishvacations",
+    "state": "MI",
+    "marketOrTown": "New Buffalo / Lake Michigan (Harbor Country)",
+    "propertyCount": "unknown",
+    "verificationNotes": "Track portal branded Bluefish Vacation Rentals"
+  },
+  {
+    "category": "External Verified - Portal Only",
+    "company": "Wild Dunes Vacation Rentals",
+    "mainWebsite": "wilddunesresort.com",
+    "trackTenantSlug": "wilddunesvacations",
+    "state": "SC",
+    "marketOrTown": "Isle of Palms",
+    "propertyCount": "unknown",
+    "verificationNotes": "Owner portal linked from owner-portal-instructions page"
+  },
+  {
+    "category": "External Verified - Portal Only",
+    "company": "Meredith Lodging",
+    "mainWebsite": "meredithlodging.com",
+    "trackTenantSlug": "meredith",
+    "state": "OR",
+    "marketOrTown": "Oregon Coast (Lincoln City HQ) + Central OR",
+    "propertyCount": "unknown",
+    "verificationNotes": "Guest portal referenced from main site; homepage shows no Track resource"
+  },
+  {
+    "category": "External Verified - Portal Only",
+    "company": "Beachfront Only Vacation Rentals",
+    "mainWebsite": "beachfrontonly.com (verify)",
+    "trackTenantSlug": "bovr",
+    "state": "FL",
+    "marketOrTown": "Fort Myers Beach",
+    "propertyCount": "unknown",
+    "verificationNotes": "Track guest portal branded Beachfront Only"
+  },
+  {
+    "category": "External Verified - Portal Only",
+    "company": "Jetty East",
+    "mainWebsite": "jettyeast.com",
+    "trackTenantSlug": "jettyeast",
+    "state": "FL",
+    "marketOrTown": "Destin (Holiday Isle - single condominium resort)",
+    "propertyCount": "n/a single resort",
+    "verificationNotes": "Track guest portal branded Jetty East"
+  },
+  {
+    "category": "Lead - Unconfirmed",
+    "company": "SkyRun Vacation Rentals",
+    "mainWebsite": "skyrun.com",
+    "trackTenantSlug": "",
+    "state": "CO + national franchise",
+    "marketOrTown": "Breckenridge, Vail, Frisco, Summit + national",
+    "propertyCount": "unknown",
+    "verificationNotes": "Named Track case study; main franchise site showed no Track resource"
+  },
+  {
+    "category": "Lead - Unconfirmed",
+    "company": "Carolina Mornings",
+    "mainWebsite": "carolinamornings.com",
+    "trackTenantSlug": "",
+    "state": "NC",
+    "marketOrTown": "Asheville / Blue Ridge",
+    "propertyCount": "unknown",
+    "verificationNotes": "Named Track case study; not independently fingerprinted"
+  },
+  {
+    "category": "Lead - Unconfirmed",
+    "company": "Vacation Your Way",
+    "mainWebsite": "vacationyourway.co",
+    "trackTenantSlug": "",
+    "state": "TX + FL/AZ/NH/OK",
+    "marketOrTown": "Multi-market",
+    "propertyCount": "unknown",
+    "verificationNotes": "Named Track case study; not fingerprinted"
+  },
+  {
+    "category": "Lead - Unconfirmed",
+    "company": "Third Coast Vacations",
+    "mainWebsite": "thirdcoastrentalstx.com (possible mismatch)",
+    "trackTenantSlug": "",
+    "state": "TX",
+    "marketOrTown": "Aransas Pass / Port Aransas",
+    "propertyCount": "unknown",
+    "verificationNotes": "Track case study name; TX site found showed no fingerprint - possible name mismatch"
+  },
+  {
+    "category": "Lead - Unconfirmed",
+    "company": "Newman-Dailey Resort Properties",
+    "mainWebsite": "destinvacation.com",
+    "trackTenantSlug": "",
+    "state": "FL",
+    "marketOrTown": "Destin",
+    "propertyCount": "unknown",
+    "verificationNotes": "Main site + guests page showed no Track fingerprint; likely not currently Track"
+  },
+  {
+    "category": "Lead - Unconfirmed",
+    "company": "Resort Group / Moose Management (parent)",
+    "mainWebsite": "unconfirmed",
+    "trackTenantSlug": "",
+    "state": "CO / UT",
+    "marketOrTown": "Resort markets",
+    "propertyCount": "unknown",
+    "verificationNotes": "Track case study names only; unresolved"
+  },
+  {
+    "category": "Lead - Unconfirmed",
+    "company": "Vacation Perfect",
+    "mainWebsite": "unconfirmed",
+    "trackTenantSlug": "vacationperfect",
+    "state": "unknown",
+    "marketOrTown": "unknown",
+    "propertyCount": "unknown",
+    "verificationNotes": "vacationperfect.trackhs.com portal exists but vacationperfect.com is a different (Paris/London) company"
+  },
+  {
+    "category": "Lead - Unconfirmed",
+    "company": "SoCo Vacation Rentals",
+    "mainWebsite": "socovacationrentals.com",
+    "trackTenantSlug": "soco",
+    "state": "CA",
+    "marketOrTown": "Guerneville / Russian River",
+    "propertyCount": "unknown",
+    "verificationNotes": "Public site currently shows OwnerRez; likely migrated off Track"
+  }
+]

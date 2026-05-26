@@ -1,0 +1,3496 @@
+{
+  "generatedAt": "2026-05-26T16:17:15.747Z",
+  "generatedMode": "api",
+  "source": {
+    "title": "Track PMS Vacation Rental Sites - 2026-05-23",
+    "spreadsheetUrl": "https://docs.google.com/spreadsheets/d/1YrcuzgVAJvAzPzLxI7IDIlcXJoXt1qNx_9mI2jRpBM0",
+    "rowCount": 42
+  },
+  "api": {
+    "pageSpeedInsights": "https://www.googleapis.com/pagespeedonline/v5/runPagespeed",
+    "chromeUxReport": "https://chromeuxreport.googleapis.com/v1/records:queryRecord",
+    "fieldDataGranularity": "origin"
+  },
+  "sites": [
+    {
+      "id": "1-surf-or-sound-realty",
+      "category": "Our Scrape Fleet (NC)",
+      "company": "Surf or Sound Realty",
+      "mainWebsite": "surforsound.com",
+      "trackTenantSlug": "",
+      "state": "NC",
+      "marketOrTown": "Hatteras Island (OBX)",
+      "propertyCount": "764",
+      "verificationNotes": "Umbraco + TrackHS; verified in our scraper code",
+      "normalizedUrl": "https://surforsound.com/",
+      "origin": "https://surforsound.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://www.surforsound.com/",
+            "timestamp": "2026-05-26T15:49:14.346Z",
+            "scores": {
+              "performance": 34,
+              "accessibility": 91,
+              "bestPractices": 81,
+              "seo": 85
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "good",
+              "bestPractices": "needs-improvement",
+              "seo": "needs-improvement"
+            },
+            "lab": {
+              "fcpMs": 3809.211974775433,
+              "lcpMs": 27209.466398354765,
+              "cls": 0.042038,
+              "tbtMs": 1847.5,
+              "speedIndexMs": 6881.023836195235
+            },
+            "labDisplay": {
+              "fcpMs": "3.8 s",
+              "lcpMs": "27.2 s",
+              "cls": "0.042",
+              "tbtMs": "1,850 ms",
+              "speedIndexMs": "6.9 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        },
+        "desktop": {
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          },
+          "psi": {
+            "finalUrl": "https://www.surforsound.com/",
+            "timestamp": "2026-05-26T16:03:34.254Z",
+            "scores": {
+              "performance": 41,
+              "accessibility": 87,
+              "bestPractices": 73,
+              "seo": 85
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "needs-improvement",
+              "bestPractices": "needs-improvement",
+              "seo": "needs-improvement"
+            },
+            "lab": {
+              "fcpMs": 1208.7058845191445,
+              "lcpMs": 4567.933339019222,
+              "cls": 0.007002,
+              "tbtMs": 927.5000000000009,
+              "speedIndexMs": 2519.256168012769
+            },
+            "labDisplay": {
+              "fcpMs": "1.2 s",
+              "lcpMs": "4.6 s",
+              "cls": "0.007",
+              "tbtMs": "930 ms",
+              "speedIndexMs": "2.5 s"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "2-joe-lamb-jr-associates",
+      "category": "Our Scrape Fleet (NC)",
+      "company": "Joe Lamb Jr. & Associates",
+      "mainWebsite": "joelambjr.com",
+      "trackTenantSlug": "",
+      "state": "NC",
+      "marketOrTown": "Kill Devil Hills (OBX)",
+      "propertyCount": "505",
+      "verificationNotes": "ICND + TrackHS; verified in scraper code",
+      "normalizedUrl": "https://joelambjr.com/",
+      "origin": "https://joelambjr.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://www.joelambjr.com/",
+            "timestamp": "2026-05-26T15:49:14.660Z",
+            "scores": {
+              "performance": 58,
+              "accessibility": 73,
+              "bestPractices": 100,
+              "seo": 83
+            },
+            "scoreStatus": {
+              "performance": "needs-improvement",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "needs-improvement"
+            },
+            "lab": {
+              "fcpMs": 1833.0031833143892,
+              "lcpMs": 4906.0162349033835,
+              "cls": 0.11075600000000001,
+              "tbtMs": 586,
+              "speedIndexMs": 5673.278453163107
+            },
+            "labDisplay": {
+              "fcpMs": "1.8 s",
+              "lcpMs": "4.9 s",
+              "cls": "0.111",
+              "tbtMs": "590 ms",
+              "speedIndexMs": "5.7 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        },
+        "desktop": {
+          "psi": {
+            "finalUrl": "https://www.joelambjr.com/",
+            "timestamp": "2026-05-26T15:50:14.657Z",
+            "scores": {
+              "performance": 51,
+              "accessibility": 70,
+              "bestPractices": 100,
+              "seo": 83
+            },
+            "scoreStatus": {
+              "performance": "needs-improvement",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "needs-improvement"
+            },
+            "lab": {
+              "fcpMs": 513.004144934964,
+              "lcpMs": 2616.0041449349637,
+              "cls": 0.153306,
+              "tbtMs": 497.5,
+              "speedIndexMs": 2969.4326566550735
+            },
+            "labDisplay": {
+              "fcpMs": "0.5 s",
+              "lcpMs": "2.6 s",
+              "cls": "0.153",
+              "tbtMs": "500 ms",
+              "speedIndexMs": "3.0 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        }
+      }
+    },
+    {
+      "id": "3-ocracoke-island-realty",
+      "category": "Our Scrape Fleet (NC)",
+      "company": "Ocracoke Island Realty",
+      "mainWebsite": "ocracokeislandrealty.com",
+      "trackTenantSlug": "",
+      "state": "NC",
+      "marketOrTown": "Ocracoke (OBX)",
+      "propertyCount": "303",
+      "verificationNotes": "ColdFusion + TrackHS; verified in scraper code",
+      "normalizedUrl": "https://ocracokeislandrealty.com/",
+      "origin": "https://ocracokeislandrealty.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://www.ocracokeislandrealty.com/",
+            "timestamp": "2026-05-26T15:49:46.216Z",
+            "scores": {
+              "performance": 68,
+              "accessibility": 88,
+              "bestPractices": 96,
+              "seo": 100
+            },
+            "scoreStatus": {
+              "performance": "needs-improvement",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 3031.0489193599437,
+              "lcpMs": 4231.079023581448,
+              "cls": 0,
+              "tbtMs": 448.0000000000009,
+              "speedIndexMs": 3536.643579708468
+            },
+            "labDisplay": {
+              "fcpMs": "3.0 s",
+              "lcpMs": "4.2 s",
+              "cls": "0",
+              "tbtMs": "450 ms",
+              "speedIndexMs": "3.5 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        },
+        "desktop": {
+          "psi": {
+            "finalUrl": "https://www.ocracokeislandrealty.com/",
+            "timestamp": "2026-05-26T15:49:55.121Z",
+            "scores": {
+              "performance": 57,
+              "accessibility": 88,
+              "bestPractices": 96,
+              "seo": 100
+            },
+            "scoreStatus": {
+              "performance": "needs-improvement",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 839.009737662176,
+              "lcpMs": 1489.0030187560194,
+              "cls": 0.000394,
+              "tbtMs": 1225.5000000000005,
+              "speedIndexMs": 3572.296521567612
+            },
+            "labDisplay": {
+              "fcpMs": "0.8 s",
+              "lcpMs": "1.5 s",
+              "cls": "0",
+              "tbtMs": "1,230 ms",
+              "speedIndexMs": "3.6 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        }
+      }
+    },
+    {
+      "id": "4-williamson-realty",
+      "category": "Our Scrape Fleet (NC)",
+      "company": "Williamson Realty",
+      "mainWebsite": "williamsonrealty.com",
+      "trackTenantSlug": "williamsonrealtyvacations",
+      "state": "NC",
+      "marketOrTown": "Ocean Isle Beach",
+      "propertyCount": "239",
+      "verificationNotes": "WP + Atlas VRP + TrackHS; site copy says ~290; img.trackhs.com fingerprint",
+      "normalizedUrl": "https://williamsonrealty.com/",
+      "origin": "https://williamsonrealty.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://www.williamsonrealty.com/",
+            "timestamp": "2026-05-26T15:50:05.383Z",
+            "scores": {
+              "performance": 31,
+              "accessibility": 77,
+              "bestPractices": 92,
+              "seo": 85
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "needs-improvement"
+            },
+            "lab": {
+              "fcpMs": 6069.065335050238,
+              "lcpMs": 13915.180198283719,
+              "cls": 0.0041919999999999995,
+              "tbtMs": 1513.9999999999982,
+              "speedIndexMs": 9277.053277320576
+            },
+            "labDisplay": {
+              "fcpMs": "6.1 s",
+              "lcpMs": "13.9 s",
+              "cls": "0.004",
+              "tbtMs": "1,510 ms",
+              "speedIndexMs": "9.3 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        },
+        "desktop": {
+          "psi": {
+            "finalUrl": "https://www.williamsonrealty.com/",
+            "timestamp": "2026-05-26T15:50:19.299Z",
+            "scores": {
+              "performance": 51,
+              "accessibility": 75,
+              "bestPractices": 96,
+              "seo": 85
+            },
+            "scoreStatus": {
+              "performance": "needs-improvement",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "needs-improvement"
+            },
+            "lab": {
+              "fcpMs": 1509.0274475713652,
+              "lcpMs": 2740.069190752818,
+              "cls": 0.008868,
+              "tbtMs": 679.5000000000018,
+              "speedIndexMs": 2162.7884447007805
+            },
+            "labDisplay": {
+              "fcpMs": "1.5 s",
+              "lcpMs": "2.7 s",
+              "cls": "0.009",
+              "tbtMs": "680 ms",
+              "speedIndexMs": "2.2 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        }
+      }
+    },
+    {
+      "id": "5-carolina-beach-realty",
+      "category": "Our Scrape Fleet (NC)",
+      "company": "Carolina Beach Realty",
+      "mainWebsite": "carolinabeachrealty.net",
+      "trackTenantSlug": "",
+      "state": "NC",
+      "marketOrTown": "Carolina Beach",
+      "propertyCount": "182",
+      "verificationNotes": "ColdFusion + TrackHS; verified in scraper code",
+      "normalizedUrl": "https://carolinabeachrealty.net/",
+      "origin": "https://carolinabeachrealty.net",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://www.carolinabeachrealty.net/",
+            "timestamp": "2026-05-26T15:50:39.559Z",
+            "scores": {
+              "performance": 36,
+              "accessibility": 88,
+              "bestPractices": 96,
+              "seo": 100
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 5286.008307175174,
+              "lcpMs": 11218.018216803863,
+              "cls": 0,
+              "tbtMs": 1127.4999059302154,
+              "speedIndexMs": 6673.206010977847
+            },
+            "labDisplay": {
+              "fcpMs": "5.3 s",
+              "lcpMs": "11.2 s",
+              "cls": "0",
+              "tbtMs": "1,130 ms",
+              "speedIndexMs": "6.7 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        },
+        "desktop": {
+          "psi": {
+            "finalUrl": "https://www.carolinabeachrealty.net/",
+            "timestamp": "2026-05-26T15:50:50.120Z",
+            "scores": {
+              "performance": 70,
+              "accessibility": 88,
+              "bestPractices": 96,
+              "seo": 100
+            },
+            "scoreStatus": {
+              "performance": "needs-improvement",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 1115.7292944609785,
+              "lcpMs": 1775.7657024822233,
+              "cls": 0.13759600000000002,
+              "tbtMs": 312.2531618945791,
+              "speedIndexMs": 1611.3258180772837
+            },
+            "labDisplay": {
+              "fcpMs": "1.1 s",
+              "lcpMs": "1.8 s",
+              "cls": "0.138",
+              "tbtMs": "310 ms",
+              "speedIndexMs": "1.6 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        }
+      }
+    },
+    {
+      "id": "6-lewis-realty",
+      "category": "Our Scrape Fleet (NC)",
+      "company": "Lewis Realty",
+      "mainWebsite": "vacationsontopsail.com",
+      "trackTenantSlug": "",
+      "state": "NC",
+      "marketOrTown": "Topsail Island",
+      "propertyCount": "149",
+      "verificationNotes": "ColdFusion + TrackHS; verified in scraper code",
+      "normalizedUrl": "https://vacationsontopsail.com/",
+      "origin": "https://vacationsontopsail.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://www.vacationsontopsail.com/",
+            "timestamp": "2026-05-26T15:50:53.541Z",
+            "scores": {
+              "performance": 28,
+              "accessibility": 75,
+              "bestPractices": 100,
+              "seo": 77
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "needs-improvement"
+            },
+            "lab": {
+              "fcpMs": 4264.977765701117,
+              "lcpMs": 32148.61096281204,
+              "cls": 0.049217,
+              "tbtMs": 3056.5,
+              "speedIndexMs": 10774.131480979282
+            },
+            "labDisplay": {
+              "fcpMs": "4.3 s",
+              "lcpMs": "32.1 s",
+              "cls": "0.049",
+              "tbtMs": "3,060 ms",
+              "speedIndexMs": "10.8 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        },
+        "desktop": {
+          "psi": {
+            "finalUrl": "https://www.vacationsontopsail.com/",
+            "timestamp": "2026-05-26T15:50:57.997Z",
+            "scores": {
+              "performance": 51,
+              "accessibility": 73,
+              "bestPractices": 96,
+              "seo": 77
+            },
+            "scoreStatus": {
+              "performance": "needs-improvement",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "needs-improvement"
+            },
+            "lab": {
+              "fcpMs": 955.9247299034712,
+              "lcpMs": 1532.558486437558,
+              "cls": 0.17646199999999998,
+              "tbtMs": 1854.4999999999982,
+              "speedIndexMs": 2239.8563118023353
+            },
+            "labDisplay": {
+              "fcpMs": "1.0 s",
+              "lcpMs": "1.5 s",
+              "cls": "0.176",
+              "tbtMs": "1,850 ms",
+              "speedIndexMs": "2.2 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        }
+      }
+    },
+    {
+      "id": "7-sun-surf-realty",
+      "category": "Our Scrape Fleet (NC)",
+      "company": "Sun-Surf Realty",
+      "mainWebsite": "sunsurfrealty.com",
+      "trackTenantSlug": "",
+      "state": "NC",
+      "marketOrTown": "Emerald Isle (Crystal Coast)",
+      "propertyCount": "136",
+      "verificationNotes": "WP + Atlas VRP + TrackHS; verified in scraper code",
+      "normalizedUrl": "https://sunsurfrealty.com/",
+      "origin": "https://sunsurfrealty.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "http://www.sunsurfrealty.com/",
+            "timestamp": "2026-05-26T15:51:09.551Z",
+            "scores": {
+              "performance": 44,
+              "accessibility": 82,
+              "bestPractices": 69,
+              "seo": 92
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "needs-improvement",
+              "bestPractices": "needs-improvement",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 4370.515225982368,
+              "lcpMs": 6450.515225982368,
+              "cls": 0.000725,
+              "tbtMs": 1015.5,
+              "speedIndexMs": 4370.515225982368
+            },
+            "labDisplay": {
+              "fcpMs": "4.4 s",
+              "lcpMs": "6.5 s",
+              "cls": "0.001",
+              "tbtMs": "1,020 ms",
+              "speedIndexMs": "4.4 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        },
+        "desktop": {
+          "psi": {
+            "finalUrl": "http://www.sunsurfrealty.com/",
+            "timestamp": "2026-05-26T15:51:22.571Z",
+            "scores": {
+              "performance": 81,
+              "accessibility": 84,
+              "bestPractices": 81,
+              "seo": 92
+            },
+            "scoreStatus": {
+              "performance": "needs-improvement",
+              "accessibility": "needs-improvement",
+              "bestPractices": "needs-improvement",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 950.0019272743623,
+              "lcpMs": 1310.0019272743623,
+              "cls": 0.001426,
+              "tbtMs": 308.50000000000045,
+              "speedIndexMs": 1330.280974858065
+            },
+            "labDisplay": {
+              "fcpMs": "1.0 s",
+              "lcpMs": "1.3 s",
+              "cls": "0.001",
+              "tbtMs": "310 ms",
+              "speedIndexMs": "1.3 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        }
+      }
+    },
+    {
+      "id": "8-shorewood-real-estate",
+      "category": "Our Scrape Fleet (NC)",
+      "company": "Shorewood Real Estate",
+      "mainWebsite": "shorewoodrealestate.com",
+      "trackTenantSlug": "",
+      "state": "NC",
+      "marketOrTown": "Emerald Isle (Crystal Coast)",
+      "propertyCount": "66",
+      "verificationNotes": "ICND + TrackHS; verified in scraper code",
+      "normalizedUrl": "https://shorewoodrealestate.com/",
+      "origin": "https://shorewoodrealestate.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://shorewoodrealestate.com/",
+            "timestamp": "2026-05-26T15:51:33.419Z",
+            "scores": {
+              "performance": 74,
+              "accessibility": 81,
+              "bestPractices": 100,
+              "seo": 100
+            },
+            "scoreStatus": {
+              "performance": "needs-improvement",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 1651.0421889846639,
+              "lcpMs": 5872.444911283386,
+              "cls": 0.027726,
+              "tbtMs": 113,
+              "speedIndexMs": 4730.175565281758
+            },
+            "labDisplay": {
+              "fcpMs": "1.7 s",
+              "lcpMs": "5.9 s",
+              "cls": "0.028",
+              "tbtMs": "110 ms",
+              "speedIndexMs": "4.7 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        },
+        "desktop": {
+          "psi": {
+            "finalUrl": "https://shorewoodrealestate.com/",
+            "timestamp": "2026-05-26T15:51:38.530Z",
+            "scores": {
+              "performance": 40,
+              "accessibility": 78,
+              "bestPractices": 100,
+              "seo": 100
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 769.0100820961745,
+              "lcpMs": 3572.5100820961743,
+              "cls": 0.042184,
+              "tbtMs": 3761.5,
+              "speedIndexMs": 8428.462541718527
+            },
+            "labDisplay": {
+              "fcpMs": "0.8 s",
+              "lcpMs": "3.6 s",
+              "cls": "0.042",
+              "tbtMs": "3,760 ms",
+              "speedIndexMs": "8.4 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        }
+      }
+    },
+    {
+      "id": "9-topsail-realty",
+      "category": "Our Scrape Fleet (NC) - Edge Case",
+      "company": "Topsail Realty",
+      "mainWebsite": "topsail-realty.com",
+      "trackTenantSlug": "",
+      "state": "NC",
+      "marketOrTown": "Topsail Island",
+      "propertyCount": "191",
+      "verificationNotes": "VTrips-on-Track (not a clean Track site; fees bundled, no itemization)",
+      "normalizedUrl": "https://topsail-realty.com/",
+      "origin": "https://topsail-realty.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psiError": {
+            "message": "This operation was aborted"
+          },
+          "crux": {
+            "source": "origin",
+            "key": {
+              "formFactor": "PHONE",
+              "origin": "https://topsail-realty.com"
+            },
+            "collectionPeriod": "2026-04-27 to 2026-05-24",
+            "field": {
+              "lcpMs": 1672,
+              "cls": 0.01,
+              "inpMs": 275,
+              "fcpMs": 856,
+              "ttfbMs": 525
+            },
+            "status": {
+              "lcp": "good",
+              "cls": "good",
+              "inp": "needs-improvement",
+              "coreWebVitals": "fail"
+            }
+          }
+        },
+        "desktop": {
+          "psiError": {
+            "message": "500: Lighthouse returned error: PAGE_HUNG. Lighthouse was unable to reliably load the URL you requested because the page stopped responding."
+          },
+          "crux": {
+            "source": "origin",
+            "key": {
+              "formFactor": "DESKTOP",
+              "origin": "https://topsail-realty.com"
+            },
+            "collectionPeriod": "2026-04-27 to 2026-05-24",
+            "field": {
+              "lcpMs": 1705,
+              "cls": 0,
+              "inpMs": 207,
+              "fcpMs": 719,
+              "ttfbMs": 408
+            },
+            "status": {
+              "lcp": "good",
+              "cls": "good",
+              "inp": "needs-improvement",
+              "coreWebVitals": "fail"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "10-brett-robinson-vacation-rentals",
+      "category": "External Verified - Live Main Site",
+      "company": "Brett/Robinson Vacation Rentals",
+      "mainWebsite": "brett-robinson.com",
+      "trackTenantSlug": "brett-robinson",
+      "state": "AL",
+      "marketOrTown": "Gulf Shores / Orange Beach",
+      "propertyCount": "322",
+      "verificationNotes": "img.trackhs.com + track-pm.s3 + cdn.trackhs.com on live site; 322 stated",
+      "normalizedUrl": "https://brett-robinson.com/",
+      "origin": "https://brett-robinson.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://www.brett-robinson.com/",
+            "timestamp": "2026-05-26T15:53:06.466Z",
+            "scores": {
+              "performance": 27,
+              "accessibility": 63,
+              "bestPractices": 73,
+              "seo": 92
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "needs-improvement",
+              "bestPractices": "needs-improvement",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 7599.035963480948,
+              "lcpMs": 20098.21456517037,
+              "cls": 0.047268,
+              "tbtMs": 2048,
+              "speedIndexMs": 13238.098893544333
+            },
+            "labDisplay": {
+              "fcpMs": "7.6 s",
+              "lcpMs": "20.1 s",
+              "cls": "0.047",
+              "tbtMs": "2,050 ms",
+              "speedIndexMs": "13.2 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        },
+        "desktop": {
+          "psiError": {
+            "message": "This operation was aborted"
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        }
+      }
+    },
+    {
+      "id": "11-30a-escapes",
+      "category": "External Verified - Live Main Site",
+      "company": "30A Escapes",
+      "mainWebsite": "30aescapes.com",
+      "trackTenantSlug": "30aescapes",
+      "state": "FL",
+      "marketOrTown": "30A / Santa Rosa Beach (South Walton)",
+      "propertyCount": "unknown",
+      "verificationNotes": "img.trackhs.com + cdn.trackhs.com on live site; Track case study",
+      "normalizedUrl": "https://30aescapes.com/",
+      "origin": "https://30aescapes.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://www.30aescapes.com/",
+            "timestamp": "2026-05-26T15:53:01.571Z",
+            "scores": {
+              "performance": 35,
+              "accessibility": 65,
+              "bestPractices": 96,
+              "seo": 85
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "needs-improvement"
+            },
+            "lab": {
+              "fcpMs": 3115.8978910762476,
+              "lcpMs": 24351.967954503038,
+              "cls": 0.041608,
+              "tbtMs": 1252,
+              "speedIndexMs": 14435.711967356929
+            },
+            "labDisplay": {
+              "fcpMs": "3.1 s",
+              "lcpMs": "24.4 s",
+              "cls": "0.042",
+              "tbtMs": "1,250 ms",
+              "speedIndexMs": "14.4 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        },
+        "desktop": {
+          "psi": {
+            "finalUrl": "https://www.30aescapes.com/",
+            "timestamp": "2026-05-26T15:53:21.579Z",
+            "scores": {
+              "performance": 13,
+              "accessibility": 65,
+              "bestPractices": 96,
+              "seo": 85
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "needs-improvement"
+            },
+            "lab": {
+              "fcpMs": 698.5354455141227,
+              "lcpMs": 5138.965467992097,
+              "cls": 1.4190740000000002,
+              "tbtMs": 1526.6275445427327,
+              "speedIndexMs": 4158.736153007182
+            },
+            "labDisplay": {
+              "fcpMs": "0.7 s",
+              "lcpMs": "5.1 s",
+              "cls": "1.419",
+              "tbtMs": "1,530 ms",
+              "speedIndexMs": "4.2 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        }
+      }
+    },
+    {
+      "id": "12-plumlee-gulf-beach-realty",
+      "category": "External Verified - Live Main Site",
+      "company": "Plumlee Gulf Beach Realty",
+      "mainWebsite": "plumleegulfbeachrealty.com",
+      "trackTenantSlug": "plumleegulfbeachrealty",
+      "state": "FL",
+      "marketOrTown": "Indian Rocks Beach / Indian Shores",
+      "propertyCount": "unknown",
+      "verificationNotes": "img.trackhs.com fingerprint on live site",
+      "normalizedUrl": "https://plumleegulfbeachrealty.com/",
+      "origin": "https://plumleegulfbeachrealty.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://www.plumleegulfbeachrealty.com/",
+            "timestamp": "2026-05-26T15:53:45.792Z",
+            "scores": {
+              "performance": 31,
+              "accessibility": 87,
+              "bestPractices": 100,
+              "seo": 92
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 5955.449851787059,
+              "lcpMs": 29873.000739483825,
+              "cls": 0.102066,
+              "tbtMs": 1027.9999999999982,
+              "speedIndexMs": 11995.468429962402
+            },
+            "labDisplay": {
+              "fcpMs": "6.0 s",
+              "lcpMs": "29.9 s",
+              "cls": "0.102",
+              "tbtMs": "1,030 ms",
+              "speedIndexMs": "12.0 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        },
+        "desktop": {
+          "psi": {
+            "finalUrl": "https://www.plumleegulfbeachrealty.com/",
+            "timestamp": "2026-05-26T15:54:03.623Z",
+            "scores": {
+              "performance": 36,
+              "accessibility": 87,
+              "bestPractices": 100,
+              "seo": 92
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 1421.0771977946597,
+              "lcpMs": 6312.526348599952,
+              "cls": 0.06957,
+              "tbtMs": 778,
+              "speedIndexMs": 3242.6902249685077
+            },
+            "labDisplay": {
+              "fcpMs": "1.4 s",
+              "lcpMs": "6.3 s",
+              "cls": "0.07",
+              "tbtMs": "780 ms",
+              "speedIndexMs": "3.2 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        }
+      }
+    },
+    {
+      "id": "13-family-time-vacation-rentals",
+      "category": "External Verified - Live Main Site",
+      "company": "Family Time Vacation Rentals",
+      "mainWebsite": "familytimevacationrentals.com",
+      "trackTenantSlug": "familytimevr",
+      "state": "UT / OR / ID",
+      "marketOrTown": "Zion-Bryce (UT), Bend/Sisters (OR), Boise (ID)",
+      "propertyCount": "152",
+      "verificationNotes": "img.trackhs.com + track-pm.s3/familytimevr on live site; 152 stated",
+      "normalizedUrl": "https://familytimevacationrentals.com/",
+      "origin": "https://familytimevacationrentals.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://www.familytimevacationrentals.com/",
+            "timestamp": "2026-05-26T15:54:19.025Z",
+            "scores": {
+              "performance": 61,
+              "accessibility": 93,
+              "bestPractices": 100,
+              "seo": 100
+            },
+            "scoreStatus": {
+              "performance": "needs-improvement",
+              "accessibility": "good",
+              "bestPractices": "good",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 2881.0220810817505,
+              "lcpMs": 11512.008033075375,
+              "cls": 0.042595,
+              "tbtMs": 207.5,
+              "speedIndexMs": 6113.669969396502
+            },
+            "labDisplay": {
+              "fcpMs": "2.9 s",
+              "lcpMs": "11.5 s",
+              "cls": "0.043",
+              "tbtMs": "210 ms",
+              "speedIndexMs": "6.1 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        },
+        "desktop": {
+          "psi": {
+            "finalUrl": "https://www.familytimevacationrentals.com/",
+            "timestamp": "2026-05-26T15:54:33.399Z",
+            "scores": {
+              "performance": 74,
+              "accessibility": 90,
+              "bestPractices": 100,
+              "seo": 100
+            },
+            "scoreStatus": {
+              "performance": "needs-improvement",
+              "accessibility": "good",
+              "bestPractices": "good",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 775.0180351837016,
+              "lcpMs": 1011.0334488841277,
+              "cls": 0.007758,
+              "tbtMs": 463.5,
+              "speedIndexMs": 2139.7803395332753
+            },
+            "labDisplay": {
+              "fcpMs": "0.8 s",
+              "lcpMs": "1.0 s",
+              "cls": "0.008",
+              "tbtMs": "460 ms",
+              "speedIndexMs": "2.1 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        }
+      }
+    },
+    {
+      "id": "14-hiller-vacation-homes",
+      "category": "External Verified - Live Main Site",
+      "company": "Hiller Vacation Homes",
+      "mainWebsite": "hillervacationhomes.com",
+      "trackTenantSlug": "hillervacationhomes",
+      "state": "WI",
+      "marketOrTown": "St. Germain (Northwoods / Vilas County)",
+      "propertyCount": "90",
+      "verificationNotes": "track-pm.s3 + img.trackhs.com on live site; ~90 stated",
+      "normalizedUrl": "https://hillervacationhomes.com/",
+      "origin": "https://hillervacationhomes.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://hillervacationhomes.com/",
+            "timestamp": "2026-05-26T15:54:44.451Z",
+            "scores": {
+              "performance": 28,
+              "accessibility": 81,
+              "bestPractices": 77,
+              "seo": 92
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "needs-improvement",
+              "bestPractices": "needs-improvement",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 5098.113384884343,
+              "lcpMs": 154629.64394637998,
+              "cls": 0.042038,
+              "tbtMs": 2088,
+              "speedIndexMs": 12028.010111603577
+            },
+            "labDisplay": {
+              "fcpMs": "5.1 s",
+              "lcpMs": "154.6 s",
+              "cls": "0.042",
+              "tbtMs": "2,090 ms",
+              "speedIndexMs": "12.0 s"
+            }
+          },
+          "crux": {
+            "source": "origin",
+            "key": {
+              "formFactor": "PHONE",
+              "origin": "https://hillervacationhomes.com"
+            },
+            "collectionPeriod": "2026-04-27 to 2026-05-24",
+            "field": {
+              "lcpMs": 2283,
+              "cls": 0.1,
+              "inpMs": 96,
+              "fcpMs": 1823,
+              "ttfbMs": 1065
+            },
+            "status": {
+              "lcp": "good",
+              "cls": "good",
+              "inp": "good",
+              "coreWebVitals": "pass"
+            }
+          }
+        },
+        "desktop": {
+          "psi": {
+            "finalUrl": "https://hillervacationhomes.com/",
+            "timestamp": "2026-05-26T15:54:44.813Z",
+            "scores": {
+              "performance": 36,
+              "accessibility": 85,
+              "bestPractices": 77,
+              "seo": 92
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "needs-improvement",
+              "bestPractices": "needs-improvement",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 1198.0432291631291,
+              "lcpMs": 25924.448449794116,
+              "cls": 0.021396000000000002,
+              "tbtMs": 1184.9999999999998,
+              "speedIndexMs": 2881.336943444072
+            },
+            "labDisplay": {
+              "fcpMs": "1.2 s",
+              "lcpMs": "25.9 s",
+              "cls": "0.021",
+              "tbtMs": "1,180 ms",
+              "speedIndexMs": "2.9 s"
+            }
+          },
+          "crux": {
+            "source": "origin",
+            "key": {
+              "formFactor": "DESKTOP",
+              "origin": "https://hillervacationhomes.com"
+            },
+            "collectionPeriod": "2026-04-27 to 2026-05-24",
+            "field": {
+              "lcpMs": 2126,
+              "cls": 0.13,
+              "inpMs": 70,
+              "fcpMs": 1680,
+              "ttfbMs": 983
+            },
+            "status": {
+              "lcp": "good",
+              "cls": "needs-improvement",
+              "inp": "good",
+              "coreWebVitals": "fail"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "15-funtierland-vacation-rentals",
+      "category": "External Verified - Live Main Site",
+      "company": "Funtierland Vacation Rentals",
+      "mainWebsite": "funtierlandvacationrentals.com",
+      "trackTenantSlug": "funtierlandvr",
+      "state": "CA / HI",
+      "marketOrTown": "Anaheim/Disneyland + Kauai",
+      "propertyCount": "unknown",
+      "verificationNotes": "img.trackhs.com fingerprint on live site; Track case study",
+      "normalizedUrl": "https://funtierlandvacationrentals.com/",
+      "origin": "https://funtierlandvacationrentals.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://www.funtierlandvacationrentals.com/",
+            "timestamp": "2026-05-26T15:55:03.371Z",
+            "scores": {
+              "performance": 26,
+              "accessibility": 75,
+              "bestPractices": 96,
+              "seo": 85
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "needs-improvement"
+            },
+            "lab": {
+              "fcpMs": 8000.095684369873,
+              "lcpMs": 12032.777443533352,
+              "cls": 0.29896999999999996,
+              "tbtMs": 628,
+              "speedIndexMs": 8000.095684369873
+            },
+            "labDisplay": {
+              "fcpMs": "8.0 s",
+              "lcpMs": "12.0 s",
+              "cls": "0.299",
+              "tbtMs": "630 ms",
+              "speedIndexMs": "8.0 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        },
+        "desktop": {
+          "psi": {
+            "finalUrl": "https://www.funtierlandvacationrentals.com/",
+            "timestamp": "2026-05-26T15:55:04.191Z",
+            "scores": {
+              "performance": 58,
+              "accessibility": 74,
+              "bestPractices": 96,
+              "seo": 85
+            },
+            "scoreStatus": {
+              "performance": "needs-improvement",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "needs-improvement"
+            },
+            "lab": {
+              "fcpMs": 1551.2321739219822,
+              "lcpMs": 5258.247361357407,
+              "cls": 0.12495900000000001,
+              "tbtMs": 217,
+              "speedIndexMs": 1743.6687845740169
+            },
+            "labDisplay": {
+              "fcpMs": "1.6 s",
+              "lcpMs": "5.3 s",
+              "cls": "0.125",
+              "tbtMs": "220 ms",
+              "speedIndexMs": "1.7 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        }
+      }
+    },
+    {
+      "id": "16-cascade-vacation-rentals",
+      "category": "External Verified - Live Main Site",
+      "company": "Cascade Vacation Rentals",
+      "mainWebsite": "cascadevacationrentals.com",
+      "trackTenantSlug": "cascadevacationrentals",
+      "state": "MN",
+      "marketOrTown": "Lutsen / Lake Superior North Shore",
+      "propertyCount": "175",
+      "verificationNotes": "cdn.trackhs.com + track-pm.s3 on live site; ~175 stated",
+      "normalizedUrl": "https://cascadevacationrentals.com/",
+      "origin": "https://cascadevacationrentals.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://www.cascadevacationrentals.com/",
+            "timestamp": "2026-05-26T15:55:21.667Z",
+            "scores": {
+              "performance": 21,
+              "accessibility": 78,
+              "bestPractices": 92,
+              "seo": 100
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 7144.018873463065,
+              "lcpMs": 9940.02930353476,
+              "cls": 0.21636899999999998,
+              "tbtMs": 1244,
+              "speedIndexMs": 11919.366121853476
+            },
+            "labDisplay": {
+              "fcpMs": "7.1 s",
+              "lcpMs": "9.9 s",
+              "cls": "0.216",
+              "tbtMs": "1,240 ms",
+              "speedIndexMs": "11.9 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        },
+        "desktop": {
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          },
+          "psi": {
+            "finalUrl": "https://www.cascadevacationrentals.com/",
+            "timestamp": "2026-05-26T16:12:33.482Z",
+            "scores": {
+              "performance": 17,
+              "accessibility": 78,
+              "bestPractices": 92,
+              "seo": 100
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 1711.015944479596,
+              "lcpMs": 3866.2983410697507,
+              "cls": 0.421813,
+              "tbtMs": 1102.4999999999995,
+              "speedIndexMs": 3886.1079759762624
+            },
+            "labDisplay": {
+              "fcpMs": "1.7 s",
+              "lcpMs": "3.9 s",
+              "cls": "0.422",
+              "tbtMs": "1,100 ms",
+              "speedIndexMs": "3.9 s"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "17-moving-mountains",
+      "category": "External Verified - Live Main Site",
+      "company": "Moving Mountains",
+      "mainWebsite": "movingmountains.com",
+      "trackTenantSlug": "movingmountains",
+      "state": "CO",
+      "marketOrTown": "Steamboat, Vail, Breckenridge, Beaver Creek",
+      "propertyCount": "unknown",
+      "verificationNotes": "Owner portal link on live site",
+      "normalizedUrl": "https://movingmountains.com/",
+      "origin": "https://movingmountains.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://www.movingmountains.com/",
+            "timestamp": "2026-05-26T15:55:29.580Z",
+            "scores": {
+              "performance": 32,
+              "accessibility": 100,
+              "bestPractices": 96,
+              "seo": 100
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "good",
+              "bestPractices": "good",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 2964.5181698791457,
+              "lcpMs": 6407.5389882376785,
+              "cls": 0.057851,
+              "tbtMs": 3300.5,
+              "speedIndexMs": 16289.359592289087
+            },
+            "labDisplay": {
+              "fcpMs": "3.0 s",
+              "lcpMs": "6.4 s",
+              "cls": "0.058",
+              "tbtMs": "3,300 ms",
+              "speedIndexMs": "16.3 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        },
+        "desktop": {
+          "psi": {
+            "finalUrl": "https://www.movingmountains.com/",
+            "timestamp": "2026-05-26T15:55:35.008Z",
+            "scores": {
+              "performance": 59,
+              "accessibility": 97,
+              "bestPractices": 96,
+              "seo": 100
+            },
+            "scoreStatus": {
+              "performance": "needs-improvement",
+              "accessibility": "good",
+              "bestPractices": "good",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 808.7698558392501,
+              "lcpMs": 1567.5137167412709,
+              "cls": 0.046337,
+              "tbtMs": 830.5000000000002,
+              "speedIndexMs": 3025.9510458697596
+            },
+            "labDisplay": {
+              "fcpMs": "0.8 s",
+              "lcpMs": "1.6 s",
+              "cls": "0.046",
+              "tbtMs": "830 ms",
+              "speedIndexMs": "3.0 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        }
+      }
+    },
+    {
+      "id": "18-moose-management-vacation-rentals",
+      "category": "External Verified - Live Main Site",
+      "company": "Moose Management Vacation Rentals",
+      "mainWebsite": "vacationrentalsparkcity.com",
+      "trackTenantSlug": "moosemanagement",
+      "state": "UT",
+      "marketOrTown": "Park City",
+      "propertyCount": "unknown",
+      "verificationNotes": "cdn.trackhs.com + portal links on live site; Track case study",
+      "normalizedUrl": "https://vacationrentalsparkcity.com/",
+      "origin": "https://vacationrentalsparkcity.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://www.vacationrentalsparkcity.com/",
+            "timestamp": "2026-05-26T15:55:42.194Z",
+            "scores": {
+              "performance": 29,
+              "accessibility": 73,
+              "bestPractices": 69,
+              "seo": 92
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "needs-improvement",
+              "bestPractices": "needs-improvement",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 5643.031181211145,
+              "lcpMs": 6853.758223927277,
+              "cls": 0.042038,
+              "tbtMs": 2453.9999999999964,
+              "speedIndexMs": 14293.586731750278
+            },
+            "labDisplay": {
+              "fcpMs": "5.6 s",
+              "lcpMs": "6.9 s",
+              "cls": "0.042",
+              "tbtMs": "2,450 ms",
+              "speedIndexMs": "14.3 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        },
+        "desktop": {
+          "psi": {
+            "finalUrl": "https://www.vacationrentalsparkcity.com/",
+            "timestamp": "2026-05-26T15:56:08.839Z",
+            "scores": {
+              "performance": 45,
+              "accessibility": 73,
+              "bestPractices": 73,
+              "seo": 92
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "needs-improvement",
+              "bestPractices": "needs-improvement",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 1348.5203807083246,
+              "lcpMs": 1864.3020591554077,
+              "cls": 0.124802,
+              "tbtMs": 1721.499999999999,
+              "speedIndexMs": 4248.672184605254
+            },
+            "labDisplay": {
+              "fcpMs": "1.3 s",
+              "lcpMs": "1.9 s",
+              "cls": "0.125",
+              "tbtMs": "1,720 ms",
+              "speedIndexMs": "4.2 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        }
+      }
+    },
+    {
+      "id": "19-tahoe-luxury-properties-tluxp",
+      "category": "External Verified - Live Main Site",
+      "company": "Tahoe Luxury Properties (TLUXP)",
+      "mainWebsite": "tluxp.com",
+      "trackTenantSlug": "tluxp",
+      "state": "CA / NV",
+      "marketOrTown": "Lake Tahoe / Truckee (Tahoe City + Incline Village)",
+      "propertyCount": "unknown",
+      "verificationNotes": "Owner portal link on live site",
+      "normalizedUrl": "https://tluxp.com/",
+      "origin": "https://tluxp.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://www.tluxp.com/",
+            "timestamp": "2026-05-26T15:56:19.577Z",
+            "scores": {
+              "performance": 51,
+              "accessibility": 84,
+              "bestPractices": 96,
+              "seo": 100
+            },
+            "scoreStatus": {
+              "performance": "needs-improvement",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 4306.71874738688,
+              "lcpMs": 11065.367551435578,
+              "cls": 0.054076,
+              "tbtMs": 409,
+              "speedIndexMs": 5775.576649835764
+            },
+            "labDisplay": {
+              "fcpMs": "4.3 s",
+              "lcpMs": "11.1 s",
+              "cls": "0.054",
+              "tbtMs": "410 ms",
+              "speedIndexMs": "5.8 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        },
+        "desktop": {
+          "psi": {
+            "finalUrl": "https://www.tluxp.com/",
+            "timestamp": "2026-05-26T15:56:30.433Z",
+            "scores": {
+              "performance": 56,
+              "accessibility": 82,
+              "bestPractices": 96,
+              "seo": 92
+            },
+            "scoreStatus": {
+              "performance": "needs-improvement",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 1146.122715273649,
+              "lcpMs": 2331.394516656758,
+              "cls": 0.007002,
+              "tbtMs": 793.5000000000005,
+              "speedIndexMs": 1712.75423575993
+            },
+            "labDisplay": {
+              "fcpMs": "1.1 s",
+              "lcpMs": "2.3 s",
+              "cls": "0.007",
+              "tbtMs": "790 ms",
+              "speedIndexMs": "1.7 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        }
+      }
+    },
+    {
+      "id": "20-red-rock-vacation-rentals",
+      "category": "External Verified - Live Main Site",
+      "company": "Red Rock Vacation Rentals",
+      "mainWebsite": "stgeorgeutahvacationrentals.com",
+      "trackTenantSlug": "redrockcompanies",
+      "state": "UT",
+      "marketOrTown": "St. George (Zion area / Southern Utah)",
+      "propertyCount": "300-500+",
+      "verificationNotes": "Owner portal on live site; site copy",
+      "normalizedUrl": "https://stgeorgeutahvacationrentals.com/",
+      "origin": "https://stgeorgeutahvacationrentals.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://stgeorgeutahvacationrentals.com/",
+            "timestamp": "2026-05-26T15:56:32.248Z",
+            "scores": {
+              "performance": 96,
+              "accessibility": 90,
+              "bestPractices": 96,
+              "seo": 40
+            },
+            "scoreStatus": {
+              "performance": "good",
+              "accessibility": "good",
+              "bestPractices": "good",
+              "seo": "poor"
+            },
+            "lab": {
+              "fcpMs": 762.690576549388,
+              "lcpMs": 2286.381153098776,
+              "cls": 0.001703,
+              "tbtMs": 168.5,
+              "speedIndexMs": 846.0883706197263
+            },
+            "labDisplay": {
+              "fcpMs": "0.8 s",
+              "lcpMs": "2.3 s",
+              "cls": "0.002",
+              "tbtMs": "170 ms",
+              "speedIndexMs": "0.8 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        },
+        "desktop": {
+          "psi": {
+            "finalUrl": "https://stgeorgeutahvacationrentals.com/",
+            "timestamp": "2026-05-26T16:13:19.543Z",
+            "scores": {
+              "performance": 93,
+              "accessibility": 90,
+              "bestPractices": null,
+              "seo": 40
+            },
+            "scoreStatus": {
+              "performance": "good",
+              "accessibility": "good",
+              "bestPractices": "missing",
+              "seo": "poor"
+            },
+            "lab": {
+              "fcpMs": 216.6874353990007,
+              "lcpMs": 711.4790589983345,
+              "cls": 0.001139,
+              "tbtMs": 205,
+              "speedIndexMs": 475.5767628830496
+            },
+            "labDisplay": {
+              "fcpMs": "0.2 s",
+              "lcpMs": "0.7 s",
+              "cls": "0.001",
+              "tbtMs": "210 ms",
+              "speedIndexMs": "0.5 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        }
+      }
+    },
+    {
+      "id": "21-luxury-coastal-vacations",
+      "category": "External Verified - Live Main Site",
+      "company": "Luxury Coastal Vacations",
+      "mainWebsite": "luxurycoastalvacations.com",
+      "trackTenantSlug": "luxurycoastalvacations",
+      "state": "AL / FL",
+      "marketOrTown": "Gulf Shores / Orange Beach / Fort Morgan / Perdido Key",
+      "propertyCount": "480",
+      "verificationNotes": "Owner + guest portal links on live site; ~480 stated",
+      "normalizedUrl": "https://luxurycoastalvacations.com/",
+      "origin": "https://luxurycoastalvacations.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://luxurycoastalvacations.com/",
+            "timestamp": "2026-05-26T15:56:48.075Z",
+            "scores": {
+              "performance": 73,
+              "accessibility": 90,
+              "bestPractices": 96,
+              "seo": 40
+            },
+            "scoreStatus": {
+              "performance": "needs-improvement",
+              "accessibility": "good",
+              "bestPractices": "good",
+              "seo": "poor"
+            },
+            "lab": {
+              "fcpMs": 767.6842849723353,
+              "lcpMs": 2345.3685699446705,
+              "cls": 0.006106,
+              "tbtMs": 1370.4999999999998,
+              "speedIndexMs": 1330.217497988767
+            },
+            "labDisplay": {
+              "fcpMs": "0.8 s",
+              "lcpMs": "2.3 s",
+              "cls": "0.006",
+              "tbtMs": "1,370 ms",
+              "speedIndexMs": "1.3 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        },
+        "desktop": {
+          "psi": {
+            "finalUrl": "https://luxurycoastalvacations.com/",
+            "timestamp": "2026-05-26T15:56:58.159Z",
+            "scores": {
+              "performance": 81,
+              "accessibility": 90,
+              "bestPractices": 96,
+              "seo": 40
+            },
+            "scoreStatus": {
+              "performance": "needs-improvement",
+              "accessibility": "good",
+              "bestPractices": "good",
+              "seo": "poor"
+            },
+            "lab": {
+              "fcpMs": 215.68585648094387,
+              "lcpMs": 633.4764274682398,
+              "cls": 0.000968,
+              "tbtMs": 426,
+              "speedIndexMs": 499.14780260258476
+            },
+            "labDisplay": {
+              "fcpMs": "0.2 s",
+              "lcpMs": "0.6 s",
+              "cls": "0.001",
+              "tbtMs": "430 ms",
+              "speedIndexMs": "0.5 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        }
+      }
+    },
+    {
+      "id": "22-cape-coast-premier-properties",
+      "category": "External Verified - Live Main Site",
+      "company": "Cape & Coast Premier Properties",
+      "mainWebsite": "capeandcoast.com",
+      "trackTenantSlug": "capeandcoast",
+      "state": "FL",
+      "marketOrTown": "Cape San Blas / St. George Island / Indian Pass (Forgotten Coast)",
+      "propertyCount": "unknown",
+      "verificationNotes": "Owner portal link in footer; Track case study",
+      "normalizedUrl": "https://capeandcoast.com/",
+      "origin": "https://capeandcoast.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://www.capeandcoast.com/",
+            "timestamp": "2026-05-26T15:57:08.696Z",
+            "scores": {
+              "performance": 46,
+              "accessibility": 90,
+              "bestPractices": 92,
+              "seo": 100
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "good",
+              "bestPractices": "good",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 3031.8100712332653,
+              "lcpMs": 5057.651299052426,
+              "cls": 0.041114,
+              "tbtMs": 932.6899287667347,
+              "speedIndexMs": 11266.7187229993
+            },
+            "labDisplay": {
+              "fcpMs": "3.0 s",
+              "lcpMs": "5.1 s",
+              "cls": "0.041",
+              "tbtMs": "930 ms",
+              "speedIndexMs": "11.3 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        },
+        "desktop": {
+          "psi": {
+            "finalUrl": "https://www.capeandcoast.com/",
+            "timestamp": "2026-05-26T15:57:16.554Z",
+            "scores": {
+              "performance": 67,
+              "accessibility": 90,
+              "bestPractices": 92,
+              "seo": 100
+            },
+            "scoreStatus": {
+              "performance": "needs-improvement",
+              "accessibility": "good",
+              "bestPractices": "good",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 764.0145854501916,
+              "lcpMs": 2567.023005134036,
+              "cls": 0.016316999999999998,
+              "tbtMs": 256.4931594959682,
+              "speedIndexMs": 4794.027812983213
+            },
+            "labDisplay": {
+              "fcpMs": "0.8 s",
+              "lcpMs": "2.6 s",
+              "cls": "0.016",
+              "tbtMs": "260 ms",
+              "speedIndexMs": "4.8 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        }
+      }
+    },
+    {
+      "id": "23-young-s-suncoast-realty-vacation-rentals",
+      "category": "External Verified - Live Main Site",
+      "company": "Young's Suncoast Realty & Vacation Rentals",
+      "mainWebsite": "youngssuncoast.com",
+      "trackTenantSlug": "youngssuncoast",
+      "state": "AL",
+      "marketOrTown": "Gulf Shores / Orange Beach / Fort Morgan",
+      "propertyCount": "250",
+      "verificationNotes": "Owner + guest portal links on live site; 250 stated",
+      "normalizedUrl": "https://youngssuncoast.com/",
+      "origin": "https://youngssuncoast.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://www.youngssuncoast.com/",
+            "timestamp": "2026-05-26T15:57:28.510Z",
+            "scores": {
+              "performance": 35,
+              "accessibility": 93,
+              "bestPractices": 77,
+              "seo": 85
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "good",
+              "bestPractices": "needs-improvement",
+              "seo": "needs-improvement"
+            },
+            "lab": {
+              "fcpMs": 15296.006504396544,
+              "lcpMs": 18020.21903634761,
+              "cls": 0.01004,
+              "tbtMs": 895.5000000000036,
+              "speedIndexMs": 15296.006504396544
+            },
+            "labDisplay": {
+              "fcpMs": "15.3 s",
+              "lcpMs": "18.0 s",
+              "cls": "0.01",
+              "tbtMs": "900 ms",
+              "speedIndexMs": "15.3 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        },
+        "desktop": {
+          "psi": {
+            "finalUrl": "https://www.youngssuncoast.com/",
+            "timestamp": "2026-05-26T15:57:46.569Z",
+            "scores": {
+              "performance": 40,
+              "accessibility": 94,
+              "bestPractices": 77,
+              "seo": 77
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "good",
+              "bestPractices": "needs-improvement",
+              "seo": "needs-improvement"
+            },
+            "lab": {
+              "fcpMs": 2725.0729840911395,
+              "lcpMs": 3102.41222650719,
+              "cls": 0.011255000000000001,
+              "tbtMs": 660.5000000000009,
+              "speedIndexMs": 3761.714440978245
+            },
+            "labDisplay": {
+              "fcpMs": "2.7 s",
+              "lcpMs": "3.1 s",
+              "cls": "0.011",
+              "tbtMs": "660 ms",
+              "speedIndexMs": "3.8 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        }
+      }
+    },
+    {
+      "id": "24-charleston-coast-vacations-dunes-properties",
+      "category": "External Verified - Live Main Site",
+      "company": "Charleston Coast Vacations (Dunes Properties)",
+      "mainWebsite": "charlestoncoastvacations.com / dunesproperties.com",
+      "trackTenantSlug": "dunesproperties",
+      "state": "SC",
+      "marketOrTown": "Folly Beach + Isle of Palms / Wild Dunes",
+      "propertyCount": "unknown",
+      "verificationNotes": "Portal links + S3 image references on live site",
+      "normalizedUrl": "https://charlestoncoastvacations.com/",
+      "origin": "https://charlestoncoastvacations.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://www.charlestoncoastvacations.com/",
+            "timestamp": "2026-05-26T15:57:47.606Z",
+            "scores": {
+              "performance": 10,
+              "accessibility": 82,
+              "bestPractices": 100,
+              "seo": 85
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "needs-improvement"
+            },
+            "lab": {
+              "fcpMs": 5231.02596250546,
+              "lcpMs": 22287.713468786413,
+              "cls": 0.854648,
+              "tbtMs": 1210.4999999999964,
+              "speedIndexMs": 8491.009498806194
+            },
+            "labDisplay": {
+              "fcpMs": "5.2 s",
+              "lcpMs": "22.3 s",
+              "cls": "0.855",
+              "tbtMs": "1,210 ms",
+              "speedIndexMs": "8.5 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        },
+        "desktop": {
+          "psiError": {
+            "message": "This operation was aborted"
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        }
+      }
+    },
+    {
+      "id": "25-i-go-maui-vacation-rentals-realty",
+      "category": "External Verified - Live Main Site",
+      "company": "I Go Maui Vacation Rentals & Realty",
+      "mainWebsite": "igomaui.com",
+      "trackTenantSlug": "igomauivacationrentals",
+      "state": "HI",
+      "marketOrTown": "Maui (Maalaea / Wailuku)",
+      "propertyCount": "unknown",
+      "verificationNotes": "Owner portal link on live site; portal branded I Go Maui",
+      "normalizedUrl": "https://igomaui.com/",
+      "origin": "https://igomaui.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://www.igomaui.com/",
+            "timestamp": "2026-05-26T15:57:57.696Z",
+            "scores": {
+              "performance": 33,
+              "accessibility": 74,
+              "bestPractices": 73,
+              "seo": 85
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "needs-improvement",
+              "bestPractices": "needs-improvement",
+              "seo": "needs-improvement"
+            },
+            "lab": {
+              "fcpMs": 6483.966139511031,
+              "lcpMs": 12991.034172859656,
+              "cls": 0.006637,
+              "tbtMs": 1084.5,
+              "speedIndexMs": 10072.379517511145
+            },
+            "labDisplay": {
+              "fcpMs": "6.5 s",
+              "lcpMs": "13.0 s",
+              "cls": "0.007",
+              "tbtMs": "1,080 ms",
+              "speedIndexMs": "10.1 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        },
+        "desktop": {
+          "psi": {
+            "finalUrl": "https://www.igomaui.com/",
+            "timestamp": "2026-05-26T15:58:03.485Z",
+            "scores": {
+              "performance": 50,
+              "accessibility": 72,
+              "bestPractices": 73,
+              "seo": 85
+            },
+            "scoreStatus": {
+              "performance": "needs-improvement",
+              "accessibility": "needs-improvement",
+              "bestPractices": "needs-improvement",
+              "seo": "needs-improvement"
+            },
+            "lab": {
+              "fcpMs": 1113.9003262752826,
+              "lcpMs": 2351.4568522809013,
+              "cls": 0.000932,
+              "tbtMs": 1047,
+              "speedIndexMs": 2707.726377119459
+            },
+            "labDisplay": {
+              "fcpMs": "1.1 s",
+              "lcpMs": "2.4 s",
+              "cls": "0.001",
+              "tbtMs": "1,050 ms",
+              "speedIndexMs": "2.7 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        }
+      }
+    },
+    {
+      "id": "26-buzz-vacation-rentals",
+      "category": "External Verified - Portal Only",
+      "company": "Buzz Vacation Rentals",
+      "mainWebsite": "buzzvacationrentals.com",
+      "trackTenantSlug": "buzzvr",
+      "state": "TX",
+      "marketOrTown": "Houston / Galveston",
+      "propertyCount": "unknown",
+      "verificationNotes": "Track guest portal branded Buzz Vacation Rentals; main-site fingerprint not pulled",
+      "normalizedUrl": "https://buzzvacationrentals.com/",
+      "origin": "https://buzzvacationrentals.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://buzzvacationrentals.com/",
+            "timestamp": "2026-05-26T15:58:25.826Z",
+            "scores": {
+              "performance": 93,
+              "accessibility": 75,
+              "bestPractices": 100,
+              "seo": 100
+            },
+            "scoreStatus": {
+              "performance": "good",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 2615.641961662299,
+              "lcpMs": 2615.641961662299,
+              "cls": 0.015762,
+              "tbtMs": 0,
+              "speedIndexMs": 2754.4371046948936
+            },
+            "labDisplay": {
+              "fcpMs": "2.6 s",
+              "lcpMs": "2.6 s",
+              "cls": "0.016",
+              "tbtMs": "0 ms",
+              "speedIndexMs": "2.8 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        },
+        "desktop": {
+          "psi": {
+            "finalUrl": "https://buzzvacationrentals.com/",
+            "timestamp": "2026-05-26T15:58:28.912Z",
+            "scores": {
+              "performance": 99,
+              "accessibility": 75,
+              "bestPractices": 100,
+              "seo": 100
+            },
+            "scoreStatus": {
+              "performance": "good",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 713.7938333173145,
+              "lcpMs": 713.7938333173145,
+              "cls": 0.001949,
+              "tbtMs": 0,
+              "speedIndexMs": 982.4286077143413
+            },
+            "labDisplay": {
+              "fcpMs": "0.7 s",
+              "lcpMs": "0.7 s",
+              "cls": "0.002",
+              "tbtMs": "0 ms",
+              "speedIndexMs": "1.0 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        }
+      }
+    },
+    {
+      "id": "27-tybee-vacation-rentals",
+      "category": "External Verified - Portal Only",
+      "company": "Tybee Vacation Rentals",
+      "mainWebsite": "tybeevacationrentals.com",
+      "trackTenantSlug": "tybeevacationrentals",
+      "state": "GA",
+      "marketOrTown": "Tybee Island / Savannah",
+      "propertyCount": "unknown",
+      "verificationNotes": "Track portal branded Tybee Vacation Rentals",
+      "normalizedUrl": "https://tybeevacationrentals.com/",
+      "origin": "https://tybeevacationrentals.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://tybeevacationrentals.com/",
+            "timestamp": "2026-05-26T15:58:29.982Z",
+            "scores": {
+              "performance": 56,
+              "accessibility": 88,
+              "bestPractices": 100,
+              "seo": 85
+            },
+            "scoreStatus": {
+              "performance": "needs-improvement",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "needs-improvement"
+            },
+            "lab": {
+              "fcpMs": 3301.0422379105567,
+              "lcpMs": 3751.04857359714,
+              "cls": 0.031568000000000006,
+              "tbtMs": 1095.999999999999,
+              "speedIndexMs": 5281.361487398095
+            },
+            "labDisplay": {
+              "fcpMs": "3.3 s",
+              "lcpMs": "3.8 s",
+              "cls": "0.032",
+              "tbtMs": "1,100 ms",
+              "speedIndexMs": "5.3 s"
+            }
+          },
+          "crux": {
+            "source": "origin",
+            "key": {
+              "formFactor": "PHONE",
+              "origin": "https://tybeevacationrentals.com"
+            },
+            "collectionPeriod": "2026-04-27 to 2026-05-24",
+            "field": {
+              "lcpMs": 1723,
+              "cls": 0.01,
+              "inpMs": 222,
+              "fcpMs": 858,
+              "ttfbMs": 561
+            },
+            "status": {
+              "lcp": "good",
+              "cls": "good",
+              "inp": "needs-improvement",
+              "coreWebVitals": "fail"
+            }
+          }
+        },
+        "desktop": {
+          "psi": {
+            "finalUrl": "https://tybeevacationrentals.com/",
+            "timestamp": "2026-05-26T15:58:41.664Z",
+            "scores": {
+              "performance": 70,
+              "accessibility": 95,
+              "bestPractices": 100,
+              "seo": 77
+            },
+            "scoreStatus": {
+              "performance": "needs-improvement",
+              "accessibility": "good",
+              "bestPractices": "good",
+              "seo": "needs-improvement"
+            },
+            "lab": {
+              "fcpMs": 733.022053117496,
+              "lcpMs": 846.0516798803937,
+              "cls": 0.000818,
+              "tbtMs": 805.9999999999997,
+              "speedIndexMs": 1618.1554267465617
+            },
+            "labDisplay": {
+              "fcpMs": "0.7 s",
+              "lcpMs": "0.8 s",
+              "cls": "0.001",
+              "tbtMs": "810 ms",
+              "speedIndexMs": "1.6 s"
+            }
+          },
+          "crux": {
+            "source": "origin",
+            "key": {
+              "formFactor": "DESKTOP",
+              "origin": "https://tybeevacationrentals.com"
+            },
+            "collectionPeriod": "2026-04-27 to 2026-05-24",
+            "field": {
+              "lcpMs": 1973,
+              "cls": 0,
+              "inpMs": 215,
+              "fcpMs": 785,
+              "ttfbMs": 422
+            },
+            "status": {
+              "lcp": "good",
+              "cls": "good",
+              "inp": "needs-improvement",
+              "coreWebVitals": "fail"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "28-southern-vacation-rentals",
+      "category": "External Verified - Portal Only",
+      "company": "Southern Vacation Rentals",
+      "mainWebsite": "unconfirmed",
+      "trackTenantSlug": "svr",
+      "state": "FL",
+      "marketOrTown": "Panhandle (30A / Destin / Panama City Beach)",
+      "propertyCount": "unknown",
+      "verificationNotes": "Portal branded SVR; main consumer domain could not be confirmed; Track case study",
+      "normalizedUrl": null,
+      "origin": null,
+      "skippedReason": "No confirmed consumer website URL in source sheet",
+      "results": {
+        "mobile": {},
+        "desktop": {}
+      }
+    },
+    {
+      "id": "29-railey-vacations",
+      "category": "External Verified - Portal Only",
+      "company": "Railey Vacations",
+      "mainWebsite": "deepcreek.com / railey.com",
+      "trackTenantSlug": "deepcreek",
+      "state": "MD",
+      "marketOrTown": "Deep Creek Lake",
+      "propertyCount": "unknown",
+      "verificationNotes": "Owner portal account branded Railey Vacations",
+      "normalizedUrl": "https://deepcreek.com/",
+      "origin": "https://deepcreek.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://www.deepcreek.com/",
+            "timestamp": "2026-05-26T15:58:42.652Z",
+            "scores": {
+              "performance": 32,
+              "accessibility": 77,
+              "bestPractices": 96,
+              "seo": 77
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "needs-improvement"
+            },
+            "lab": {
+              "fcpMs": 3181.0615427161365,
+              "lcpMs": 6512.1582526986385,
+              "cls": 0.04326,
+              "tbtMs": 3452.4999999999964,
+              "speedIndexMs": 13916.83675137561
+            },
+            "labDisplay": {
+              "fcpMs": "3.2 s",
+              "lcpMs": "6.5 s",
+              "cls": "0.043",
+              "tbtMs": "3,450 ms",
+              "speedIndexMs": "13.9 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        },
+        "desktop": {
+          "psi": {
+            "finalUrl": "https://www.deepcreek.com/",
+            "timestamp": "2026-05-26T15:58:44.479Z",
+            "scores": {
+              "performance": 16,
+              "accessibility": 82,
+              "bestPractices": 92,
+              "seo": 77
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "needs-improvement"
+            },
+            "lab": {
+              "fcpMs": 751.0441341547081,
+              "lcpMs": 7160.674048908285,
+              "cls": 0.47438,
+              "tbtMs": 1616.0000000000016,
+              "speedIndexMs": 3793.9829566954513
+            },
+            "labDisplay": {
+              "fcpMs": "0.8 s",
+              "lcpMs": "7.2 s",
+              "cls": "0.474",
+              "tbtMs": "1,620 ms",
+              "speedIndexMs": "3.8 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        }
+      }
+    },
+    {
+      "id": "30-bluefish-vacation-rentals",
+      "category": "External Verified - Portal Only",
+      "company": "Bluefish Vacation Rentals",
+      "mainWebsite": "bluefishvacations.com",
+      "trackTenantSlug": "bluefishvacations",
+      "state": "MI",
+      "marketOrTown": "New Buffalo / Lake Michigan (Harbor Country)",
+      "propertyCount": "unknown",
+      "verificationNotes": "Track portal branded Bluefish Vacation Rentals",
+      "normalizedUrl": "https://bluefishvacations.com/",
+      "origin": "https://bluefishvacations.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://bluefishvacations.com/",
+            "timestamp": "2026-05-26T15:59:09.188Z",
+            "scores": {
+              "performance": 28,
+              "accessibility": 77,
+              "bestPractices": 96,
+              "seo": 92
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 5149.086570102857,
+              "lcpMs": 54537.04316973944,
+              "cls": 0.036386,
+              "tbtMs": 2377,
+              "speedIndexMs": 11903.25858556278
+            },
+            "labDisplay": {
+              "fcpMs": "5.1 s",
+              "lcpMs": "54.5 s",
+              "cls": "0.036",
+              "tbtMs": "2,380 ms",
+              "speedIndexMs": "11.9 s"
+            }
+          },
+          "crux": {
+            "source": "origin",
+            "key": {
+              "formFactor": "PHONE",
+              "origin": "https://bluefishvacations.com"
+            },
+            "collectionPeriod": "2026-04-27 to 2026-05-24",
+            "field": {
+              "lcpMs": 2985,
+              "cls": 0.06,
+              "inpMs": 103,
+              "fcpMs": 2634,
+              "ttfbMs": 1990
+            },
+            "status": {
+              "lcp": "needs-improvement",
+              "cls": "good",
+              "inp": "good",
+              "coreWebVitals": "fail"
+            }
+          }
+        },
+        "desktop": {
+          "psi": {
+            "finalUrl": "https://bluefishvacations.com/",
+            "timestamp": "2026-05-26T15:59:10.126Z",
+            "scores": {
+              "performance": 34,
+              "accessibility": 79,
+              "bestPractices": 96,
+              "seo": 92
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 1257.044562424183,
+              "lcpMs": 8791.421405533036,
+              "cls": 0.007002,
+              "tbtMs": 1259.0000000000005,
+              "speedIndexMs": 4084.9597256274164
+            },
+            "labDisplay": {
+              "fcpMs": "1.3 s",
+              "lcpMs": "8.8 s",
+              "cls": "0.007",
+              "tbtMs": "1,260 ms",
+              "speedIndexMs": "4.1 s"
+            }
+          },
+          "crux": {
+            "source": "origin",
+            "key": {
+              "formFactor": "DESKTOP",
+              "origin": "https://bluefishvacations.com"
+            },
+            "collectionPeriod": "2026-04-27 to 2026-05-24",
+            "field": {
+              "lcpMs": 2676,
+              "cls": 0.05,
+              "inpMs": 65,
+              "fcpMs": 2363,
+              "ttfbMs": 1856
+            },
+            "status": {
+              "lcp": "needs-improvement",
+              "cls": "good",
+              "inp": "good",
+              "coreWebVitals": "fail"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "31-wild-dunes-vacation-rentals",
+      "category": "External Verified - Portal Only",
+      "company": "Wild Dunes Vacation Rentals",
+      "mainWebsite": "wilddunesresort.com",
+      "trackTenantSlug": "wilddunesvacations",
+      "state": "SC",
+      "marketOrTown": "Isle of Palms",
+      "propertyCount": "unknown",
+      "verificationNotes": "Owner portal linked from owner-portal-instructions page",
+      "normalizedUrl": "https://wilddunesresort.com/",
+      "origin": "https://wilddunesresort.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://www.wilddunesresort.com/",
+            "timestamp": "2026-05-26T15:59:21.021Z",
+            "scores": {
+              "performance": 30,
+              "accessibility": 84,
+              "bestPractices": 96,
+              "seo": 100
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 5379.999592579553,
+              "lcpMs": 7028.356005791875,
+              "cls": 0.08001599999999999,
+              "tbtMs": 1557.5,
+              "speedIndexMs": 11314.094882244532
+            },
+            "labDisplay": {
+              "fcpMs": "5.4 s",
+              "lcpMs": "7.0 s",
+              "cls": "0.08",
+              "tbtMs": "1,560 ms",
+              "speedIndexMs": "11.3 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        },
+        "desktop": {
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          },
+          "psi": {
+            "finalUrl": "https://www.wilddunesresort.com/",
+            "timestamp": "2026-05-26T16:16:49.534Z",
+            "scores": {
+              "performance": 70,
+              "accessibility": 84,
+              "bestPractices": 96,
+              "seo": 100
+            },
+            "scoreStatus": {
+              "performance": "needs-improvement",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 1354.8612588030505,
+              "lcpMs": 1678.279545908288,
+              "cls": 0.088266,
+              "tbtMs": 283.99999999999955,
+              "speedIndexMs": 2894.5012942547946
+            },
+            "labDisplay": {
+              "fcpMs": "1.4 s",
+              "lcpMs": "1.7 s",
+              "cls": "0.088",
+              "tbtMs": "280 ms",
+              "speedIndexMs": "2.9 s"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "32-meredith-lodging",
+      "category": "External Verified - Portal Only",
+      "company": "Meredith Lodging",
+      "mainWebsite": "meredithlodging.com",
+      "trackTenantSlug": "meredith",
+      "state": "OR",
+      "marketOrTown": "Oregon Coast (Lincoln City HQ) + Central OR",
+      "propertyCount": "unknown",
+      "verificationNotes": "Guest portal referenced from main site; homepage shows no Track resource",
+      "normalizedUrl": "https://meredithlodging.com/",
+      "origin": "https://meredithlodging.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://www.meredithlodging.com/",
+            "timestamp": "2026-05-26T15:59:48.388Z",
+            "scores": {
+              "performance": 66,
+              "accessibility": 88,
+              "bestPractices": 96,
+              "seo": 100
+            },
+            "scoreStatus": {
+              "performance": "needs-improvement",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 2487.750016162265,
+              "lcpMs": 7582.100450742406,
+              "cls": 0,
+              "tbtMs": 274,
+              "speedIndexMs": 3357.9876022222516
+            },
+            "labDisplay": {
+              "fcpMs": "2.5 s",
+              "lcpMs": "7.6 s",
+              "cls": "0",
+              "tbtMs": "270 ms",
+              "speedIndexMs": "3.4 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        },
+        "desktop": {
+          "psi": {
+            "finalUrl": "https://www.meredithlodging.com/",
+            "timestamp": "2026-05-26T15:59:54.289Z",
+            "scores": {
+              "performance": 62,
+              "accessibility": 89,
+              "bestPractices": 96,
+              "seo": 100
+            },
+            "scoreStatus": {
+              "performance": "needs-improvement",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 594.0158485668949,
+              "lcpMs": 2064.0861667515883,
+              "cls": 0,
+              "tbtMs": 839.4920494890494,
+              "speedIndexMs": 1232.2535011244354
+            },
+            "labDisplay": {
+              "fcpMs": "0.6 s",
+              "lcpMs": "2.1 s",
+              "cls": "0",
+              "tbtMs": "840 ms",
+              "speedIndexMs": "1.2 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        }
+      }
+    },
+    {
+      "id": "33-beachfront-only-vacation-rentals",
+      "category": "External Verified - Portal Only",
+      "company": "Beachfront Only Vacation Rentals",
+      "mainWebsite": "beachfrontonly.com (verify)",
+      "trackTenantSlug": "bovr",
+      "state": "FL",
+      "marketOrTown": "Fort Myers Beach",
+      "propertyCount": "unknown",
+      "verificationNotes": "Track guest portal branded Beachfront Only",
+      "normalizedUrl": "https://beachfrontonly.com/",
+      "origin": "https://beachfrontonly.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://www.beachfrontonly.com/",
+            "timestamp": "2026-05-26T15:59:53.905Z",
+            "scores": {
+              "performance": 38,
+              "accessibility": 80,
+              "bestPractices": 69,
+              "seo": 100
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "needs-improvement",
+              "bestPractices": "needs-improvement",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 2516.3644287743286,
+              "lcpMs": 10191.019559064893,
+              "cls": 0.07350999999999999,
+              "tbtMs": 1862,
+              "speedIndexMs": 5846.649169056585
+            },
+            "labDisplay": {
+              "fcpMs": "2.5 s",
+              "lcpMs": "10.2 s",
+              "cls": "0.074",
+              "tbtMs": "1,860 ms",
+              "speedIndexMs": "5.8 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        },
+        "desktop": {
+          "psi": {
+            "finalUrl": "https://www.beachfrontonly.com/",
+            "timestamp": "2026-05-26T16:00:08.212Z",
+            "scores": {
+              "performance": 59,
+              "accessibility": 81,
+              "bestPractices": 73,
+              "seo": 100
+            },
+            "scoreStatus": {
+              "performance": "needs-improvement",
+              "accessibility": "needs-improvement",
+              "bestPractices": "needs-improvement",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 698.8687820043727,
+              "lcpMs": 1894.0145254018826,
+              "cls": 0.09095299999999999,
+              "tbtMs": 1196.9935718442234,
+              "speedIndexMs": 1347.4117101222114
+            },
+            "labDisplay": {
+              "fcpMs": "0.7 s",
+              "lcpMs": "1.9 s",
+              "cls": "0.091",
+              "tbtMs": "1,200 ms",
+              "speedIndexMs": "1.3 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        }
+      }
+    },
+    {
+      "id": "34-jetty-east",
+      "category": "External Verified - Portal Only",
+      "company": "Jetty East",
+      "mainWebsite": "jettyeast.com",
+      "trackTenantSlug": "jettyeast",
+      "state": "FL",
+      "marketOrTown": "Destin (Holiday Isle - single condominium resort)",
+      "propertyCount": "n/a single resort",
+      "verificationNotes": "Track guest portal branded Jetty East",
+      "normalizedUrl": "https://jettyeast.com/",
+      "origin": "https://jettyeast.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "http://www.jettyeast.com/",
+            "timestamp": "2026-05-26T16:00:10.983Z",
+            "scores": {
+              "performance": 32,
+              "accessibility": 82,
+              "bestPractices": 54,
+              "seo": 92
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "needs-improvement",
+              "bestPractices": "needs-improvement",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 4861.070907986016,
+              "lcpMs": 11635.490130223485,
+              "cls": 0.075202,
+              "tbtMs": 1190,
+              "speedIndexMs": 11892.422903222683
+            },
+            "labDisplay": {
+              "fcpMs": "4.9 s",
+              "lcpMs": "11.6 s",
+              "cls": "0.075",
+              "tbtMs": "1,190 ms",
+              "speedIndexMs": "11.9 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        },
+        "desktop": {
+          "psi": {
+            "finalUrl": "http://www.jettyeast.com/",
+            "timestamp": "2026-05-26T16:00:24.556Z",
+            "scores": {
+              "performance": 52,
+              "accessibility": 83,
+              "bestPractices": 54,
+              "seo": 92
+            },
+            "scoreStatus": {
+              "performance": "needs-improvement",
+              "accessibility": "needs-improvement",
+              "bestPractices": "needs-improvement",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 1279.0449273312943,
+              "lcpMs": 2165.2404740896627,
+              "cls": 0.025951000000000002,
+              "tbtMs": 942.9999999999991,
+              "speedIndexMs": 2717.839549690089
+            },
+            "labDisplay": {
+              "fcpMs": "1.3 s",
+              "lcpMs": "2.2 s",
+              "cls": "0.026",
+              "tbtMs": "940 ms",
+              "speedIndexMs": "2.7 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        }
+      }
+    },
+    {
+      "id": "35-skyrun-vacation-rentals",
+      "category": "Lead - Unconfirmed",
+      "company": "SkyRun Vacation Rentals",
+      "mainWebsite": "skyrun.com",
+      "trackTenantSlug": "",
+      "state": "CO + national franchise",
+      "marketOrTown": "Breckenridge, Vail, Frisco, Summit + national",
+      "propertyCount": "unknown",
+      "verificationNotes": "Named Track case study; main franchise site showed no Track resource",
+      "normalizedUrl": "https://skyrun.com/",
+      "origin": "https://skyrun.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://skyrun.com/",
+            "timestamp": "2026-05-26T16:00:26.698Z",
+            "scores": {
+              "performance": 32,
+              "accessibility": 78,
+              "bestPractices": 100,
+              "seo": 75
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "needs-improvement"
+            },
+            "lab": {
+              "fcpMs": 7642.511982443141,
+              "lcpMs": 10336.049808404216,
+              "cls": 0.0035080000000000007,
+              "tbtMs": 1287,
+              "speedIndexMs": 8483.906691730634
+            },
+            "labDisplay": {
+              "fcpMs": "7.6 s",
+              "lcpMs": "10.3 s",
+              "cls": "0.004",
+              "tbtMs": "1,290 ms",
+              "speedIndexMs": "8.5 s"
+            }
+          },
+          "crux": {
+            "source": "origin",
+            "key": {
+              "formFactor": "PHONE",
+              "origin": "https://skyrun.com"
+            },
+            "collectionPeriod": "2026-04-27 to 2026-05-24",
+            "field": {
+              "lcpMs": 3913,
+              "cls": 0.14,
+              "inpMs": 160,
+              "fcpMs": 3582,
+              "ttfbMs": 2651
+            },
+            "status": {
+              "lcp": "needs-improvement",
+              "cls": "needs-improvement",
+              "inp": "good",
+              "coreWebVitals": "fail"
+            }
+          }
+        },
+        "desktop": {
+          "psi": {
+            "finalUrl": "https://skyrun.com/",
+            "timestamp": "2026-05-26T16:00:34.831Z",
+            "scores": {
+              "performance": 39,
+              "accessibility": 75,
+              "bestPractices": 77,
+              "seo": 75
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "needs-improvement",
+              "bestPractices": "needs-improvement",
+              "seo": "needs-improvement"
+            },
+            "lab": {
+              "fcpMs": 1752.544090671943,
+              "lcpMs": 2112.544090671943,
+              "cls": 0.18792699999999998,
+              "tbtMs": 959.2195016686269,
+              "speedIndexMs": 3386.537778975663
+            },
+            "labDisplay": {
+              "fcpMs": "1.8 s",
+              "lcpMs": "2.1 s",
+              "cls": "0.188",
+              "tbtMs": "960 ms",
+              "speedIndexMs": "3.4 s"
+            }
+          },
+          "crux": {
+            "source": "origin",
+            "key": {
+              "formFactor": "DESKTOP",
+              "origin": "https://skyrun.com"
+            },
+            "collectionPeriod": "2026-04-27 to 2026-05-24",
+            "field": {
+              "lcpMs": 3606,
+              "cls": 0.07,
+              "inpMs": 120,
+              "fcpMs": 3254,
+              "ttfbMs": 2543
+            },
+            "status": {
+              "lcp": "needs-improvement",
+              "cls": "good",
+              "inp": "good",
+              "coreWebVitals": "fail"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "36-carolina-mornings",
+      "category": "Lead - Unconfirmed",
+      "company": "Carolina Mornings",
+      "mainWebsite": "carolinamornings.com",
+      "trackTenantSlug": "",
+      "state": "NC",
+      "marketOrTown": "Asheville / Blue Ridge",
+      "propertyCount": "unknown",
+      "verificationNotes": "Named Track case study; not independently fingerprinted",
+      "normalizedUrl": "https://carolinamornings.com/",
+      "origin": "https://carolinamornings.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://www.carolinamornings.com/",
+            "timestamp": "2026-05-26T16:00:49.991Z",
+            "scores": {
+              "performance": 56,
+              "accessibility": 93,
+              "bestPractices": 100,
+              "seo": 100
+            },
+            "scoreStatus": {
+              "performance": "needs-improvement",
+              "accessibility": "good",
+              "bestPractices": "good",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 3745.0138155980285,
+              "lcpMs": 5528.297419746328,
+              "cls": 0.000194,
+              "tbtMs": 443,
+              "speedIndexMs": 5669.805080519129
+            },
+            "labDisplay": {
+              "fcpMs": "3.7 s",
+              "lcpMs": "5.5 s",
+              "cls": "0",
+              "tbtMs": "440 ms",
+              "speedIndexMs": "5.7 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        },
+        "desktop": {
+          "psi": {
+            "finalUrl": "https://www.carolinamornings.com/",
+            "timestamp": "2026-05-26T16:01:09.908Z",
+            "scores": {
+              "performance": 58,
+              "accessibility": 93,
+              "bestPractices": 100,
+              "seo": 100
+            },
+            "scoreStatus": {
+              "performance": "needs-improvement",
+              "accessibility": "good",
+              "bestPractices": "good",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 551.5196857939728,
+              "lcpMs": 4151.976386407983,
+              "cls": 0.018733,
+              "tbtMs": 363.0000000000007,
+              "speedIndexMs": 2266.0495170985555
+            },
+            "labDisplay": {
+              "fcpMs": "0.6 s",
+              "lcpMs": "4.2 s",
+              "cls": "0.019",
+              "tbtMs": "360 ms",
+              "speedIndexMs": "2.3 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        }
+      }
+    },
+    {
+      "id": "37-vacation-your-way",
+      "category": "Lead - Unconfirmed",
+      "company": "Vacation Your Way",
+      "mainWebsite": "vacationyourway.co",
+      "trackTenantSlug": "",
+      "state": "TX + FL/AZ/NH/OK",
+      "marketOrTown": "Multi-market",
+      "propertyCount": "unknown",
+      "verificationNotes": "Named Track case study; not fingerprinted",
+      "normalizedUrl": "https://vacationyourway.co/",
+      "origin": "https://vacationyourway.co",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://vacationyourway.co/",
+            "timestamp": "2026-05-26T16:01:16.505Z",
+            "scores": {
+              "performance": 13,
+              "accessibility": 70,
+              "bestPractices": 96,
+              "seo": 85
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "needs-improvement"
+            },
+            "lab": {
+              "fcpMs": 4233.056576487088,
+              "lcpMs": 26167.405464824118,
+              "cls": 0.596787,
+              "tbtMs": 1126,
+              "speedIndexMs": 9871.71695757682
+            },
+            "labDisplay": {
+              "fcpMs": "4.2 s",
+              "lcpMs": "26.2 s",
+              "cls": "0.597",
+              "tbtMs": "1,130 ms",
+              "speedIndexMs": "9.9 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        },
+        "desktop": {
+          "psi": {
+            "finalUrl": "https://vacationyourway.co/",
+            "timestamp": "2026-05-26T16:01:28.476Z",
+            "scores": {
+              "performance": 22,
+              "accessibility": 70,
+              "bestPractices": 96,
+              "seo": 85
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "needs-improvement"
+            },
+            "lab": {
+              "fcpMs": 1130.0736411063704,
+              "lcpMs": 4798.321471752808,
+              "cls": 0.3111,
+              "tbtMs": 1007,
+              "speedIndexMs": 3965.420541486545
+            },
+            "labDisplay": {
+              "fcpMs": "1.1 s",
+              "lcpMs": "4.8 s",
+              "cls": "0.311",
+              "tbtMs": "1,010 ms",
+              "speedIndexMs": "4.0 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        }
+      }
+    },
+    {
+      "id": "38-third-coast-vacations",
+      "category": "Lead - Unconfirmed",
+      "company": "Third Coast Vacations",
+      "mainWebsite": "thirdcoastrentalstx.com (possible mismatch)",
+      "trackTenantSlug": "",
+      "state": "TX",
+      "marketOrTown": "Aransas Pass / Port Aransas",
+      "propertyCount": "unknown",
+      "verificationNotes": "Track case study name; TX site found showed no fingerprint - possible name mismatch",
+      "normalizedUrl": "https://thirdcoastrentalstx.com/",
+      "origin": "https://thirdcoastrentalstx.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://www.thirdcoastrentalstx.com/",
+            "timestamp": "2026-05-26T16:01:27.750Z",
+            "scores": {
+              "performance": 68,
+              "accessibility": 96,
+              "bestPractices": 73,
+              "seo": 100
+            },
+            "scoreStatus": {
+              "performance": "needs-improvement",
+              "accessibility": "good",
+              "bestPractices": "needs-improvement",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 4241.493521858305,
+              "lcpMs": 4618.741468869104,
+              "cls": 0.067969,
+              "tbtMs": 163,
+              "speedIndexMs": 5353.683913226438
+            },
+            "labDisplay": {
+              "fcpMs": "4.2 s",
+              "lcpMs": "4.6 s",
+              "cls": "0.068",
+              "tbtMs": "160 ms",
+              "speedIndexMs": "5.4 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        },
+        "desktop": {
+          "psi": {
+            "finalUrl": "https://www.thirdcoastrentalstx.com/",
+            "timestamp": "2026-05-26T16:01:42.733Z",
+            "scores": {
+              "performance": 89,
+              "accessibility": 97,
+              "bestPractices": 73,
+              "seo": 100
+            },
+            "scoreStatus": {
+              "performance": "needs-improvement",
+              "accessibility": "good",
+              "bestPractices": "needs-improvement",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 1043.0917701721608,
+              "lcpMs": 1942.87165281522,
+              "cls": 0.014401,
+              "tbtMs": 64.50000000000045,
+              "speedIndexMs": 1160.8601949896354
+            },
+            "labDisplay": {
+              "fcpMs": "1.0 s",
+              "lcpMs": "1.9 s",
+              "cls": "0.014",
+              "tbtMs": "60 ms",
+              "speedIndexMs": "1.2 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        }
+      }
+    },
+    {
+      "id": "39-newman-dailey-resort-properties",
+      "category": "Lead - Unconfirmed",
+      "company": "Newman-Dailey Resort Properties",
+      "mainWebsite": "destinvacation.com",
+      "trackTenantSlug": "",
+      "state": "FL",
+      "marketOrTown": "Destin",
+      "propertyCount": "unknown",
+      "verificationNotes": "Main site + guests page showed no Track fingerprint; likely not currently Track",
+      "normalizedUrl": "https://destinvacation.com/",
+      "origin": "https://destinvacation.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://www.destinvacation.com/",
+            "timestamp": "2026-05-26T16:01:49.762Z",
+            "scores": {
+              "performance": 47,
+              "accessibility": 76,
+              "bestPractices": 54,
+              "seo": 100
+            },
+            "scoreStatus": {
+              "performance": "poor",
+              "accessibility": "needs-improvement",
+              "bestPractices": "needs-improvement",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 2283.0131003307606,
+              "lcpMs": 4410.178740352826,
+              "cls": 0.120955,
+              "tbtMs": 974,
+              "speedIndexMs": 10775.515872531916
+            },
+            "labDisplay": {
+              "fcpMs": "2.3 s",
+              "lcpMs": "4.4 s",
+              "cls": "0.121",
+              "tbtMs": "970 ms",
+              "speedIndexMs": "10.8 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        },
+        "desktop": {
+          "psi": {
+            "finalUrl": "https://www.destinvacation.com/",
+            "timestamp": "2026-05-26T16:02:03.934Z",
+            "scores": {
+              "performance": 58,
+              "accessibility": 76,
+              "bestPractices": 54,
+              "seo": 100
+            },
+            "scoreStatus": {
+              "performance": "needs-improvement",
+              "accessibility": "needs-improvement",
+              "bestPractices": "needs-improvement",
+              "seo": "good"
+            },
+            "lab": {
+              "fcpMs": 631.0086117238636,
+              "lcpMs": 1661.0355233609373,
+              "cls": 0.09467,
+              "tbtMs": 597.5000000000009,
+              "speedIndexMs": 4210.647506213219
+            },
+            "labDisplay": {
+              "fcpMs": "0.6 s",
+              "lcpMs": "1.7 s",
+              "cls": "0.095",
+              "tbtMs": "600 ms",
+              "speedIndexMs": "4.2 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        }
+      }
+    },
+    {
+      "id": "40-resort-group-moose-management-parent",
+      "category": "Lead - Unconfirmed",
+      "company": "Resort Group / Moose Management (parent)",
+      "mainWebsite": "unconfirmed",
+      "trackTenantSlug": "",
+      "state": "CO / UT",
+      "marketOrTown": "Resort markets",
+      "propertyCount": "unknown",
+      "verificationNotes": "Track case study names only; unresolved",
+      "normalizedUrl": null,
+      "origin": null,
+      "skippedReason": "No confirmed consumer website URL in source sheet",
+      "results": {
+        "mobile": {},
+        "desktop": {}
+      }
+    },
+    {
+      "id": "41-vacation-perfect",
+      "category": "Lead - Unconfirmed",
+      "company": "Vacation Perfect",
+      "mainWebsite": "unconfirmed",
+      "trackTenantSlug": "vacationperfect",
+      "state": "unknown",
+      "marketOrTown": "unknown",
+      "propertyCount": "unknown",
+      "verificationNotes": "vacationperfect.trackhs.com portal exists but vacationperfect.com is a different (Paris/London) company",
+      "normalizedUrl": null,
+      "origin": null,
+      "skippedReason": "No confirmed consumer website URL in source sheet",
+      "results": {
+        "mobile": {},
+        "desktop": {}
+      }
+    },
+    {
+      "id": "42-soco-vacation-rentals",
+      "category": "Lead - Unconfirmed",
+      "company": "SoCo Vacation Rentals",
+      "mainWebsite": "socovacationrentals.com",
+      "trackTenantSlug": "soco",
+      "state": "CA",
+      "marketOrTown": "Guerneville / Russian River",
+      "propertyCount": "unknown",
+      "verificationNotes": "Public site currently shows OwnerRez; likely migrated off Track",
+      "normalizedUrl": "https://socovacationrentals.com/",
+      "origin": "https://socovacationrentals.com",
+      "skippedReason": null,
+      "results": {
+        "mobile": {
+          "psi": {
+            "finalUrl": "https://www.socovacationrentals.com/",
+            "timestamp": "2026-05-26T16:02:11.559Z",
+            "scores": {
+              "performance": 62,
+              "accessibility": 83,
+              "bestPractices": 100,
+              "seo": 85
+            },
+            "scoreStatus": {
+              "performance": "needs-improvement",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "needs-improvement"
+            },
+            "lab": {
+              "fcpMs": 3949.70285050789,
+              "lcpMs": 47611.00061631034,
+              "cls": 0.000076,
+              "tbtMs": 10,
+              "speedIndexMs": 6041.6082311725895
+            },
+            "labDisplay": {
+              "fcpMs": "3.9 s",
+              "lcpMs": "47.6 s",
+              "cls": "0",
+              "tbtMs": "10 ms",
+              "speedIndexMs": "6.0 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        },
+        "desktop": {
+          "psi": {
+            "finalUrl": "https://www.socovacationrentals.com/",
+            "timestamp": "2026-05-26T16:02:11.443Z",
+            "scores": {
+              "performance": 70,
+              "accessibility": 79,
+              "bestPractices": 100,
+              "seo": 85
+            },
+            "scoreStatus": {
+              "performance": "needs-improvement",
+              "accessibility": "needs-improvement",
+              "bestPractices": "good",
+              "seo": "needs-improvement"
+            },
+            "lab": {
+              "fcpMs": 1201.7042573294482,
+              "lcpMs": 8221.50307617592,
+              "cls": 0.0051790000000000004,
+              "tbtMs": 0,
+              "speedIndexMs": 1775.0844682911952
+            },
+            "labDisplay": {
+              "fcpMs": "1.2 s",
+              "lcpMs": "8.2 s",
+              "cls": "0.005",
+              "tbtMs": "0 ms",
+              "speedIndexMs": "1.8 s"
+            }
+          },
+          "cruxError": {
+            "message": "404: chrome ux report data not found"
+          }
+        }
+      }
+    }
+  ]
+}

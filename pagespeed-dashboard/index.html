@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Track PMS PageSpeed Dashboard</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <main class="dashboard-shell">
+      <header class="dashboard-header">
+        <div>
+          <p class="eyebrow">Track PMS Vacation Rental Sites</p>
+          <h1>PageSpeed + Core Web Vitals</h1>
+          <p class="meta" id="data-meta">Loading readings...</p>
+        </div>
+        <div class="device-toggle" role="group" aria-label="Device">
+          <button class="device-button is-active" type="button" data-device="mobile">Mobile</button>
+          <button class="device-button" type="button" data-device="desktop">Desktop</button>
+        </div>
+      </header>
+
+      <section class="status-banner is-hidden" id="status-banner"></section>
+
+      <section class="summary-grid" id="summary-grid" aria-label="Summary"></section>
+
+      <section class="toolbar" aria-label="Table controls">
+        <label class="search-field">
+          <span>Search</span>
+          <input id="site-search" type="search" autocomplete="off" placeholder="Company, market, state, URL">
+        </label>
+        <div class="toolbar-stat" id="row-count"></div>
+      </section>
+
+      <section class="table-wrap" aria-label="Site readings">
+        <table>
+          <thead>
+            <tr>
+              <th><button type="button" data-sort="company">Company</button></th>
+              <th><button type="button" data-sort="market">Market</button></th>
+              <th><button type="button" data-sort="propertyCount">Props</button></th>
+              <th><button type="button" data-sort="performance">Perf</button></th>
+              <th><button type="button" data-sort="accessibility">A11y</button></th>
+              <th><button type="button" data-sort="bestPractices">BP</button></th>
+              <th><button type="button" data-sort="seo">SEO</button></th>
+              <th><button type="button" data-sort="fieldLcpMs">Field LCP</button></th>
+              <th><button type="button" data-sort="fieldInpMs">Field INP</button></th>
+              <th><button type="button" data-sort="fieldCls">Field CLS</button></th>
+              <th><button type="button" data-sort="coreWebVitals">CWV</button></th>
+              <th><button type="button" data-sort="labLcpMs">Lab LCP</button></th>
+              <th><button type="button" data-sort="tbtMs">TBT</button></th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody id="site-table-body"></tbody>
+        </table>
+      </section>
+    </main>
+
+    <script type="module" src="./dashboard.js"></script>
+  </body>
+</html>

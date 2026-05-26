@@ -4,3 +4,6 @@ tmp/
 artifacts/
 share-build/
 node_modules/
+.env
+.env.*
+!.env.example
