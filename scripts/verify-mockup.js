@@ -248,6 +248,15 @@ Object.entries(expectedQuickCardImages).forEach(([label, image]) => {
   assert(fs.existsSync(image.replace(/^\.\//, "")), `${label} quick card asset should exist: ${image}`);
 });
 assert(mockup.quickLinks.length === 5, "Popular Topsail Searches should have five quick cards including Specials.");
+const quickLinksBlock = styleBlock(".quick-links.section-pad");
+const quickGridBlock = styleBlock(".quick-grid");
+const quickCardBlock = styleBlock(".quick-card");
+assert(quickLinksBlock.includes("width: min(1480px, calc(100% - 40px));"), "Popular Topsail Searches should use a wider fluid section width on large screens.");
+assert(quickGridBlock.includes("grid-template-columns: repeat(5, minmax(0, 1fr));"), "Popular Topsail Searches should fit all five quick cards on one desktop row.");
+assert(quickGridBlock.includes("gap: clamp(10px, 1.1vw, 16px);"), "Popular Topsail Searches should contract spacing fluidly with viewport width.");
+assert(quickCardBlock.includes("min-height: clamp(190px, 15vw, 235px);"), "Popular Topsail quick cards should scale their height fluidly instead of keeping a fixed desktop size.");
+assert(styles.includes("  .quick-grid {\n    grid-template-columns: repeat(2, minmax(0, 1fr));\n  }"), "Popular Topsail Searches should use a compact two-column tablet layout.");
+assert(styles.includes("  .quick-grid {\n    grid-template-columns: 1fr;\n  }"), "Popular Topsail Searches should keep a simple one-card mobile layout.");
 const specialsQuickCard = mockup.quickLinks.find((entry) => entry.label === "Specials");
 assert(specialsQuickCard.view === "content", "Specials quick card should route to the existing Specials page.");
 assert(specialsQuickCard.page === "specials", "Specials quick card should target the specials page id.");

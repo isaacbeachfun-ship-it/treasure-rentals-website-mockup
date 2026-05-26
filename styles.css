@@ -515,6 +515,10 @@ p {
   padding: 76px 0;
 }
 
+.quick-links.section-pad {
+  width: min(1480px, calc(100% - 40px));
+}
+
 .section-heading {
   max-width: 700px;
   margin-bottom: 26px;
@@ -530,12 +534,12 @@ p {
 
 .quick-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(10px, 1.1vw, 16px);
 }
 
 .quick-card {
-  min-height: 235px;
+  min-height: clamp(190px, 15vw, 235px);
   display: flex;
   flex-direction: column;
   justify-content: end;
@@ -3917,6 +3921,10 @@ p {
     grid-template-columns: 1fr 1fr;
   }
 
+  .quick-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .local-feature-gallery .feature-photo-large {
     grid-column: 1 / -1;
     grid-row: span 1;
@@ -4193,6 +4201,10 @@ p {
 
   .content-shell {
     padding: 48px 0;
+  }
+
+  .quick-grid {
+    grid-template-columns: 1fr;
   }
 
   .quick-card {
