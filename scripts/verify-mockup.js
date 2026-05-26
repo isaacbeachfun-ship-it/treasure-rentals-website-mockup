@@ -274,12 +274,17 @@ assert(script.includes("quickLinkRouteAttributes"), "Quick-card renderer should 
 const teamPage = mockup.demoPages.find((entry) => entry.id === "team");
 assert(teamPage, "About Us > Our Team needs a dedicated team page.");
 assert(teamPage.image === "./assets/team/treasure-booty-back-team.png", "Our Team page should use the provided humorous team photo asset.");
+assert(teamPage.video === "./assets/team/treasure-booty-back-team.mp4", "Our Team page should use the provided team video asset.");
 assert(fs.existsSync("assets/team/treasure-booty-back-team.png"), "Our Team photo asset should be copied into the project.");
+assert(fs.existsSync("assets/team/treasure-booty-back-team.mp4"), "Our Team video asset should be copied into the project.");
 assert(mockup.nav.some((item) => item.label === "About Us" && item.children.some((child) => child.label === "Our Team" && child.page === "team")), "About Us > Our Team should route to the team page, not the generic about page.");
 assert(script.includes("team-page-body") && script.includes("team-photo-card"), "Generic page renderer should give the team page a custom photo-forward layout.");
+assert(script.includes("team-video-card") && script.includes("data-team-video") && script.includes("data-team-poster"), "Team page should render a poster-first video card.");
+assert(script.includes("window.setTimeout(playTeamVideo, 3000)") && script.includes("teamVideoHasPlayed") && script.includes('addEventListener("ended"'), "Team video should wait 3 seconds, play once, then return to the photo.");
 assert(script.includes("Local, A Little Playful, But Serious About Your Investment"), "Team page headline should balance playful tone with owner-investment seriousness.");
 assert(!script.includes("Local, A Little Playful, And Very Much Human"), "Team page should not use the older softer headline.");
 assert(styles.includes(".team-photo-card"), "Team page needs dedicated photo styling.");
+assert(styles.includes(".team-video-card") && styles.includes(".team-poster-frame") && styles.includes(".team-video-frame"), "Team page needs dedicated poster/video styling.");
 function styleBlock(selector) {
   const start = styles.indexOf(selector);
   assert(start >= 0, `Missing style block: ${selector}`);

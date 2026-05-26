@@ -1028,8 +1028,9 @@
     ` : "";
     const teamMarkup = page.isTeamPage ? `
       <div class="team-feature-grid">
-        <figure class="team-photo-card">
-          <img src="${page.image}" alt="Treasure Vacation Rentals team on the beach">
+        <figure class="team-photo-card team-video-card">
+          <img class="team-poster-frame" data-team-poster src="${page.image}" alt="Treasure Vacation Rentals team on the beach">
+          <video class="team-video-frame" data-team-video src="${page.video}" poster="${page.image}" muted playsinline preload="metadata" aria-label="Treasure Vacation Rentals team video"></video>
         </figure>
         <article class="content-card team-copy-card">
           <span class="eyebrow">${page.section}</span>
@@ -1087,6 +1088,31 @@
         ` : ""}
       </section>
     `;
+    setupTeamVideoCard();
+  }
+
+  function setupTeamVideoCard() {
+    const card = document.querySelector(".team-video-card");
+    const video = document.querySelector("[data-team-video]");
+    if (!card || !video) return;
+
+    let teamVideoHasPlayed = false;
+
+    const showPoster = () => {
+      card.classList.remove("is-playing");
+      card.classList.add("has-played");
+    };
+
+    const playTeamVideo = () => {
+      if (teamVideoHasPlayed || !document.body.contains(card)) return;
+      teamVideoHasPlayed = true;
+      card.classList.add("is-playing");
+      video.currentTime = 0;
+      video.play().catch(showPoster);
+    };
+
+    video.addEventListener("ended", showPoster, { once: true });
+    window.setTimeout(playTeamVideo, 3000);
   }
 
   function renderPropertyDetail() {
