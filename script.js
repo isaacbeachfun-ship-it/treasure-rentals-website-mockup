@@ -39,7 +39,7 @@
   const collectionTypes = ["High-End Top 20", "Scotch Bonnet", "Hampton Colony", "Chris Playford", "10+ Bedrooms", "Topsail Beach"];
   const TOPSAIL_PRESENTATION_BEARING = 55;
   const FEATURED_PROPERTY_COUNT = 11;
-  const FEATURED_SCROLL_SPEED = 0.025;
+  const FEATURED_SCROLL_SPEED = 0.075;
   const FEATURED_SCROLL_MANUAL_PAUSE_MS = 5000;
   let resultsMap = null;
   let resultMarkers = [];

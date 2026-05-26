@@ -339,8 +339,8 @@ assert((html.match(/class="featured-property-track"/g) || []).length >= 2, "Both
 assert((html.match(/data-featured-scroll/g) || []).length >= 4, "Featured Properties should include previous and next scroll controls on both homepages.");
 assert(!html.includes('class="property-grid" data-featured-properties'), "Featured Properties should no longer use the three-column static grid.");
 assert(html.includes("./styles.css?v=20260526-featured-scroll"), "Featured carousel style change should bump the stylesheet cache key.");
-assert(html.includes("./script.js?v=20260526-featured-scroll"), "Featured carousel behavior change should bump the script cache key.");
-assert(script.includes("const FEATURED_SCROLL_SPEED = 0.025"), "Featured Properties should auto-scroll at a slow, calm pace.");
+assert(html.includes("./script.js?v=20260526-featured-scroll-3x"), "Featured carousel behavior change should bump the script cache key.");
+assert(script.includes("const FEATURED_SCROLL_SPEED = 0.075"), "Featured Properties should auto-scroll at the requested 3x preview pace.");
 assert(script.includes("function scrollFeaturedProperties(timestamp)"), "Featured Properties should have a dedicated auto-scroll loop.");
 assert(script.includes("window.requestAnimationFrame(scrollFeaturedProperties)"), "Featured Properties auto-scroll should use requestAnimationFrame.");
 assert(script.includes('window.matchMedia("(prefers-reduced-motion: reduce)")'), "Featured Properties auto-scroll should respect reduced-motion preferences.");
