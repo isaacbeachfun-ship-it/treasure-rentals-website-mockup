@@ -4087,6 +4087,7 @@ window.TREASURE_MOCKUP = {
       title: "Our Team",
       summary: "A photo-forward team page that lets Treasure feel human, local, and willing to have a little fun. The page can get more formal bios later, but this mockup leads with personality first.",
       image: "./assets/team/treasure-booty-back-team.png",
+      heroImage: downloadedTopsailPhotos.southEndTowerSunset,
       video: "./assets/team/treasure-booty-back-team.mp4",
       bullets: ["Local people, not a faceless booking engine", "Humorous brand moment for the vision mockup", "Room for real bios, roles, and contact paths later"],
       isTeamPage: true

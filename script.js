@@ -1045,7 +1045,7 @@
     ` : "";
 
     genericPage.innerHTML = `
-      <section class="generic-hero ${page.isTeamPage ? "team-hero" : ""}" style="background-image:url('${page.image}')">
+      <section class="generic-hero ${page.isTeamPage ? "team-hero" : ""}" style="background-image:url('${page.heroImage || page.image}')">
         <div>
           <span class="eyebrow">${page.section}</span>
           <h1>${page.title}</h1>

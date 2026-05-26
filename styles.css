@@ -1768,7 +1768,7 @@ p {
 
 .team-hero {
   min-height: 520px;
-  background-position: center 36%;
+  background-position: center 52%;
 }
 
 .team-hero::before {
@@ -4178,8 +4178,13 @@ p {
   }
 
   .page-hero,
-  .town-hero {
+  .town-hero,
+  .team-hero {
     min-height: 430px;
+  }
+
+  .team-hero {
+    background-position: 58% center;
   }
 
   .town-hero-content {
