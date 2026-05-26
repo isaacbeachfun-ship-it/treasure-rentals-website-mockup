@@ -338,6 +338,17 @@ assert((html.match(/class="featured-carousel"/g) || []).length >= 2, "Both Featu
 assert((html.match(/class="featured-property-track"/g) || []).length >= 2, "Both Featured Properties sections should render cards into a horizontal track.");
 assert((html.match(/data-featured-scroll/g) || []).length >= 4, "Featured Properties should include previous and next scroll controls on both homepages.");
 assert(!html.includes('class="property-grid" data-featured-properties'), "Featured Properties should no longer use the three-column static grid.");
+assert(html.includes("./styles.css?v=20260526-featured-scroll"), "Featured carousel style change should bump the stylesheet cache key.");
+assert(html.includes("./script.js?v=20260526-featured-scroll"), "Featured carousel behavior change should bump the script cache key.");
+assert(script.includes("const FEATURED_SCROLL_SPEED = 0.025"), "Featured Properties should auto-scroll at a slow, calm pace.");
+assert(script.includes("function scrollFeaturedProperties(timestamp)"), "Featured Properties should have a dedicated auto-scroll loop.");
+assert(script.includes("window.requestAnimationFrame(scrollFeaturedProperties)"), "Featured Properties auto-scroll should use requestAnimationFrame.");
+assert(script.includes('window.matchMedia("(prefers-reduced-motion: reduce)")'), "Featured Properties auto-scroll should respect reduced-motion preferences.");
+assert(script.includes('track.matches(":hover")') && script.includes("track.contains(document.activeElement)"), "Featured Properties auto-scroll should pause during hover or keyboard focus.");
+assert(script.includes('track.classList.add("is-auto-scrolling")'), "Featured Properties auto-scroll should disable snap while it is actively moving.");
+assert(script.includes("track.dataset.featuredScrollLeft"), "Featured Properties auto-scroll should retain sub-pixel scroll progress between frames.");
+assert(styleBlock(".featured-property-track.is-auto-scrolling").includes("scroll-snap-type: none;"), "Featured Properties auto-scroll should not be pinned by scroll snapping.");
+assert(script.includes("pauseFeaturedAutoScroll(track"), "Featured Properties manual controls should briefly pause auto-scroll.");
 assert(!html.includes("Property Management Should Feel As Cared For As The Home"), "Homepages should not show the old owner CTA band.");
 assert((html.match(/class="section-pad reviews-band"/g) || []).length >= 2, "Both homepages should replace the owner CTA with a guest reviews band.");
 assert((html.match(/data-review-carousel/g) || []).length >= 2, "Guest reviews need carousel containers on both homepages.");

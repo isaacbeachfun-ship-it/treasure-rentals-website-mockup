@@ -732,6 +732,10 @@ p {
   padding: 0 4px 18px;
 }
 
+.featured-property-track.is-auto-scrolling {
+  scroll-snap-type: none;
+}
+
 .featured-property-track::-webkit-scrollbar {
   display: none;
 }

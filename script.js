@@ -39,8 +39,11 @@
   const collectionTypes = ["High-End Top 20", "Scotch Bonnet", "Hampton Colony", "Chris Playford", "10+ Bedrooms", "Topsail Beach"];
   const TOPSAIL_PRESENTATION_BEARING = 55;
   const FEATURED_PROPERTY_COUNT = 11;
+  const FEATURED_SCROLL_SPEED = 0.025;
+  const FEATURED_SCROLL_MANUAL_PAUSE_MS = 5000;
   let resultsMap = null;
   let resultMarkers = [];
+  let featuredScrollLastTime = 0;
 
   const money = (value) => new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -1669,6 +1672,52 @@
     });
   }
 
+  function featuredAutoScrollIsPaused(track) {
+    const carousel = track.closest(".featured-carousel");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const manualPauseUntil = Number(track.dataset.featuredPauseUntil || 0);
+    return reducedMotion
+      || Date.now() < manualPauseUntil
+      || track.matches(":hover")
+      || track.contains(document.activeElement)
+      || (carousel && (carousel.matches(":hover") || carousel.contains(document.activeElement)));
+  }
+
+  function pauseFeaturedAutoScroll(track, duration = FEATURED_SCROLL_MANUAL_PAUSE_MS) {
+    track.dataset.featuredPauseUntil = String(Date.now() + duration);
+  }
+
+  function scrollFeaturedProperties(timestamp) {
+    if (!featuredScrollLastTime) featuredScrollLastTime = timestamp;
+    const elapsed = Math.min(64, timestamp - featuredScrollLastTime);
+    featuredScrollLastTime = timestamp;
+
+    document.querySelectorAll("[data-featured-properties]").forEach((track) => {
+      const maxLeft = track.scrollWidth - track.clientWidth;
+      if (maxLeft <= 0 || track.clientWidth <= 0 || featuredAutoScrollIsPaused(track)) {
+        track.classList.remove("is-auto-scrolling");
+        track.dataset.featuredScrollLeft = String(track.scrollLeft);
+        return;
+      }
+
+      track.classList.add("is-auto-scrolling");
+      const currentLeft = Number(track.dataset.featuredScrollLeft || track.scrollLeft);
+      const nextLeft = currentLeft + (elapsed * FEATURED_SCROLL_SPEED);
+      if (nextLeft >= maxLeft - 1) {
+        track.classList.remove("is-auto-scrolling");
+        track.dataset.featuredScrollLeft = "0";
+        track.scrollTo({ left: 0, behavior: "auto" });
+        pauseFeaturedAutoScroll(track, 900);
+        return;
+      }
+
+      track.dataset.featuredScrollLeft = String(nextLeft);
+      track.scrollLeft = nextLeft;
+    });
+
+    window.requestAnimationFrame(scrollFeaturedProperties);
+  }
+
   function bindEvents() {
     document.addEventListener("click", (event) => {
       const homeVersion = event.target.closest("[data-home-version]");
@@ -1704,6 +1753,8 @@
           left: nextLeft,
           behavior: "smooth"
         });
+        track.dataset.featuredScrollLeft = String(nextLeft);
+        pauseFeaturedAutoScroll(track);
         return;
       }
 
@@ -1901,6 +1952,7 @@
     window.setInterval(rotateHero, 5000);
     window.setInterval(rotateTownCarousel, 4500);
     window.setInterval(rotateReviewCarousels, 6500);
+    window.requestAnimationFrame(scrollFeaturedProperties);
   }
 
   init();
