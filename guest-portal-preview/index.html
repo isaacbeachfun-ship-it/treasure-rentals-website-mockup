@@ -1,0 +1,1463 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Treasure Guest Guide Preview</title>
+  <style>
+    :root {
+      --ink: #172326;
+      --muted: #587071;
+      --deep: #245963;
+      --teal: #2f7a7b;
+      --water: #9ac4bf;
+      --sand: #f2e7d1;
+      --shell: #fbf8ef;
+      --linen: #fffdf7;
+      --gold: #d5a646;
+      --coral: #c45f4a;
+      --mint: #e5f1ed;
+      --line: #d7dfdc;
+      --shadow: 0 18px 50px rgba(23, 35, 38, 0.16);
+      --small-shadow: 0 10px 26px rgba(23, 35, 38, 0.11);
+      color-scheme: light;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-width: 320px;
+      background: var(--shell);
+      color: var(--ink);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        linear-gradient(180deg, rgba(251, 248, 239, 0.92), rgba(251, 248, 239, 1) 34rem),
+        var(--shell);
+      font-size: 16px;
+      line-height: 1.45;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+      color: inherit;
+      letter-spacing: 0;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .app-shell {
+      min-height: 100vh;
+      padding-bottom: 5.75rem;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      min-height: 4.25rem;
+      padding: 0.75rem clamp(1rem, 4vw, 2.5rem);
+      border-bottom: 1px solid rgba(215, 223, 220, 0.78);
+      background: rgba(255, 253, 247, 0.93);
+      backdrop-filter: blur(12px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      min-width: 0;
+    }
+
+    .brand-logo {
+      width: 8.75rem;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .brand-copy {
+      display: none;
+      min-width: 0;
+    }
+
+    .brand-copy strong {
+      display: block;
+      font-size: 0.95rem;
+      line-height: 1.1;
+    }
+
+    .brand-copy span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.8rem;
+      line-height: 1.1;
+    }
+
+    .preview-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 2.25rem;
+      padding: 0.35rem 0.7rem;
+      border: 1px solid rgba(196, 95, 74, 0.35);
+      border-radius: 999px;
+      background: #fff0ea;
+      color: #8b392c;
+      font-size: 0.78rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 27rem;
+      padding: clamp(1.25rem, 4vw, 3rem) clamp(1rem, 4vw, 2.5rem) 2.25rem;
+      overflow: hidden;
+      background-image: url("../assets/topsail-downloads/wide-topsail-beach.jpg");
+      background-position: center;
+      background-size: cover;
+      color: #ffffff;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(12, 39, 44, 0.58);
+    }
+
+    .hero-inner {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 1.5rem;
+      width: min(1180px, 100%);
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0 0 0.9rem;
+      padding: 0.35rem 0.65rem;
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      color: rgba(255, 255, 255, 0.95);
+      font-size: 0.82rem;
+      font-weight: 750;
+    }
+
+    .hero h1 {
+      margin: 0;
+      max-width: 12ch;
+      color: #ffffff;
+      font-size: 3rem;
+      line-height: 0.93;
+      font-weight: 850;
+      letter-spacing: 0;
+    }
+
+    .hero-lede {
+      max-width: 42rem;
+      margin: 1rem 0 0;
+      color: rgba(255, 255, 255, 0.91);
+      font-size: 1.05rem;
+    }
+
+    .trip-panel {
+      width: 100%;
+      max-width: 25rem;
+      align-self: end;
+      padding: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 8px;
+      background: rgba(255, 253, 247, 0.94);
+      box-shadow: var(--shadow);
+      color: var(--ink);
+    }
+
+    .trip-panel h2 {
+      margin: 0 0 0.85rem;
+      font-size: 1.05rem;
+      line-height: 1.2;
+    }
+
+    .trip-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .trip-stat {
+      min-height: 4.8rem;
+      padding: 0.75rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+    }
+
+    .trip-stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .trip-stat strong {
+      display: block;
+      margin-top: 0.35rem;
+      font-size: 1rem;
+      line-height: 1.15;
+      overflow-wrap: anywhere;
+    }
+
+    .main {
+      width: min(1180px, calc(100% - 2rem));
+      margin: -2.75rem auto 0;
+      position: relative;
+      z-index: 3;
+    }
+
+    .action-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .action-card {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 0.75rem;
+      align-items: center;
+      min-height: 5.4rem;
+      padding: 0.85rem;
+      border: 1px solid rgba(36, 89, 99, 0.15);
+      border-radius: 8px;
+      background: #ffffff;
+      box-shadow: var(--small-shadow);
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .action-card:hover,
+    .action-card:focus-visible {
+      border-color: rgba(213, 166, 70, 0.8);
+      outline: 0;
+      transform: translateY(-1px);
+    }
+
+    .action-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.45rem;
+      height: 2.45rem;
+      border-radius: 8px;
+      background: var(--deep);
+      color: #ffffff;
+      font-weight: 900;
+    }
+
+    .action-card:nth-child(2) .action-icon {
+      background: var(--gold);
+      color: #31240b;
+    }
+
+    .action-card:nth-child(3) .action-icon {
+      background: var(--teal);
+    }
+
+    .action-card:nth-child(4) .action-icon {
+      background: var(--coral);
+    }
+
+    .action-card strong {
+      display: block;
+      font-size: 0.98rem;
+      line-height: 1.1;
+    }
+
+    .action-card span {
+      display: block;
+      margin-top: 0.25rem;
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.25;
+    }
+
+    .tabs {
+      display: none;
+      gap: 0.4rem;
+      align-items: center;
+      min-height: 3rem;
+      padding: 0.35rem;
+      margin: 0 0 1.25rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 253, 247, 0.88);
+    }
+
+    .tab-button {
+      min-height: 2.35rem;
+      padding: 0.45rem 0.85rem;
+      border: 0;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .tab-button[aria-selected="true"] {
+      background: var(--deep);
+      color: #ffffff;
+    }
+
+    .section {
+      display: none;
+      padding: 1.25rem 0 1rem;
+      scroll-margin-top: 5.25rem;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .section-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-header h2 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 2rem;
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .section-header p {
+      width: min(42rem, 100%);
+      margin: 0.35rem 0 0;
+      color: var(--muted);
+    }
+
+    .status-strip {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .status-item {
+      min-height: 5rem;
+      padding: 1rem;
+      border-radius: 8px;
+      background: var(--linen);
+      border: 1px solid var(--line);
+    }
+
+    .status-item strong {
+      display: block;
+      font-size: 1rem;
+    }
+
+    .status-item span {
+      display: block;
+      margin-top: 0.25rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .content-card,
+    .place-card,
+    .request-card,
+    .payment-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+      box-shadow: var(--small-shadow);
+    }
+
+    .content-card {
+      padding: 1rem;
+    }
+
+    .content-card h3,
+    .request-card h3,
+    .payment-card h3 {
+      margin: 0 0 0.6rem;
+      font-size: 1.15rem;
+      line-height: 1.2;
+    }
+
+    .content-card p {
+      margin: 0;
+      color: #31494b;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 0.65rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .checklist button {
+      display: grid;
+      grid-template-columns: 1.55rem minmax(0, 1fr);
+      gap: 0.65rem;
+      align-items: start;
+      width: 100%;
+      min-height: 3rem;
+      padding: 0.8rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .check-dot {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.3rem;
+      height: 1.3rem;
+      margin-top: 0.05rem;
+      border: 2px solid var(--teal);
+      border-radius: 999px;
+      color: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .checklist button.done .check-dot {
+      background: var(--teal);
+    }
+
+    .checklist button.done .check-text {
+      color: var(--muted);
+      text-decoration: line-through;
+    }
+
+    .feature-image {
+      position: relative;
+      min-height: 17rem;
+      overflow: hidden;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--deep);
+      box-shadow: var(--small-shadow);
+    }
+
+    .feature-image img {
+      width: 100%;
+      height: 100%;
+      min-height: 17rem;
+      object-fit: cover;
+    }
+
+    .feature-caption {
+      position: absolute;
+      left: 1rem;
+      right: 1rem;
+      bottom: 1rem;
+      padding: 0.85rem;
+      border-radius: 8px;
+      background: rgba(255, 253, 247, 0.94);
+      color: var(--ink);
+    }
+
+    .feature-caption strong {
+      display: block;
+      font-size: 1rem;
+    }
+
+    .feature-caption span {
+      display: block;
+      margin-top: 0.25rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .guide-grid,
+    .places-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.9rem;
+    }
+
+    .guide-nav {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding: 0 0 0.25rem;
+      margin-bottom: 1rem;
+      scrollbar-width: thin;
+    }
+
+    .chip {
+      min-height: 2.4rem;
+      padding: 0.45rem 0.75rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #ffffff;
+      color: var(--muted);
+      cursor: pointer;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .chip.active {
+      border-color: var(--deep);
+      background: var(--deep);
+      color: #ffffff;
+    }
+
+    .guide-detail {
+      padding: 1rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+      box-shadow: var(--small-shadow);
+    }
+
+    .guide-detail h3 {
+      margin: 0 0 0.75rem;
+      font-size: 1.35rem;
+    }
+
+    .guide-list {
+      display: grid;
+      gap: 0.65rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .guide-list li {
+      display: grid;
+      grid-template-columns: 1.55rem minmax(0, 1fr);
+      gap: 0.65rem;
+      align-items: start;
+      color: #31494b;
+    }
+
+    .guide-list li::before {
+      content: "";
+      width: 0.55rem;
+      height: 0.55rem;
+      margin: 0.55rem auto 0;
+      border-radius: 999px;
+      background: var(--gold);
+    }
+
+    .search-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .search-input {
+      width: 100%;
+      min-height: 2.8rem;
+      padding: 0.65rem 0.85rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+    }
+
+    .category-row {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding-bottom: 0.2rem;
+      scrollbar-width: thin;
+    }
+
+    .place-card {
+      display: grid;
+      gap: 0.8rem;
+      padding: 1rem;
+    }
+
+    .place-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      align-items: center;
+      margin-bottom: 0.45rem;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 1.7rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      background: var(--mint);
+      color: var(--deep);
+      font-size: 0.76rem;
+      font-weight: 850;
+    }
+
+    .place-card h3 {
+      margin: 0;
+      font-size: 1.15rem;
+      line-height: 1.2;
+    }
+
+    .place-card p {
+      margin: 0;
+      color: #31494b;
+    }
+
+    .address {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      min-height: 2.5rem;
+      padding: 0.55rem 0.8rem;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      background: var(--deep);
+      color: #ffffff;
+      cursor: pointer;
+      font-weight: 850;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .btn.secondary {
+      border-color: var(--line);
+      background: #ffffff;
+      color: var(--deep);
+    }
+
+    .btn.warning {
+      background: var(--coral);
+    }
+
+    .btn:focus-visible,
+    .chip:focus-visible,
+    .checklist button:focus-visible {
+      outline: 3px solid rgba(213, 166, 70, 0.5);
+      outline-offset: 2px;
+    }
+
+    .payment-card,
+    .request-card {
+      padding: 1rem;
+    }
+
+    .payment-total {
+      display: grid;
+      gap: 0.75rem;
+      margin: 0.9rem 0;
+      padding: 1rem;
+      border: 1px solid rgba(36, 89, 99, 0.2);
+      border-radius: 8px;
+      background: var(--mint);
+    }
+
+    .payment-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      color: #31494b;
+    }
+
+    .payment-line.total {
+      padding-top: 0.75rem;
+      border-top: 1px solid rgba(36, 89, 99, 0.18);
+      color: var(--ink);
+      font-size: 1.2rem;
+      font-weight: 900;
+    }
+
+    .field-grid {
+      display: grid;
+      gap: 0.8rem;
+      margin: 0.85rem 0;
+    }
+
+    label {
+      display: grid;
+      gap: 0.35rem;
+      color: var(--muted);
+      font-size: 0.86rem;
+      font-weight: 800;
+    }
+
+    select,
+    textarea,
+    input {
+      width: 100%;
+      min-height: 2.8rem;
+      padding: 0.65rem 0.75rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+    }
+
+    textarea {
+      min-height: 7.5rem;
+      resize: vertical;
+    }
+
+    .notice {
+      padding: 0.85rem;
+      border: 1px solid rgba(213, 166, 70, 0.42);
+      border-radius: 8px;
+      background: #fff8df;
+      color: #5b4313;
+      font-size: 0.92rem;
+    }
+
+    .urgent-box {
+      display: grid;
+      gap: 0.65rem;
+      padding: 1rem;
+      border-radius: 8px;
+      background: #fff0ea;
+      border: 1px solid rgba(196, 95, 74, 0.26);
+      color: #6e2f25;
+    }
+
+    .urgent-box strong {
+      font-size: 1.05rem;
+    }
+
+    .form-status {
+      min-height: 1.35rem;
+      margin-top: 0.65rem;
+      color: var(--deep);
+      font-weight: 850;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 30;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 0;
+      min-height: 4.75rem;
+      border-top: 1px solid var(--line);
+      background: rgba(255, 253, 247, 0.95);
+      backdrop-filter: blur(14px);
+    }
+
+    .nav-button {
+      display: grid;
+      align-content: center;
+      justify-items: center;
+      gap: 0.22rem;
+      min-width: 0;
+      padding: 0.4rem 0.2rem 0.55rem;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+    .nav-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.75rem;
+      height: 1.75rem;
+      border-radius: 8px;
+      background: #eef3ef;
+      color: var(--deep);
+      font-size: 0.82rem;
+      font-weight: 950;
+    }
+
+    .nav-button[aria-selected="true"] {
+      color: var(--deep);
+    }
+
+    .nav-button[aria-selected="true"] .nav-icon {
+      background: var(--deep);
+      color: #ffffff;
+    }
+
+    .empty-state {
+      display: none;
+      padding: 1rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .empty-state.visible {
+      display: block;
+    }
+
+    @media (min-width: 620px) {
+      .brand-copy {
+        display: block;
+      }
+
+      .hero h1 {
+        font-size: 4rem;
+      }
+
+      .section-header h2 {
+        font-size: 2.35rem;
+      }
+
+      .status-strip {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .search-row {
+        grid-template-columns: minmax(14rem, 0.55fr) minmax(0, 1fr);
+        align-items: center;
+      }
+
+      .guide-grid,
+      .places-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 860px) {
+      .app-shell {
+        padding-bottom: 2.5rem;
+      }
+
+      .hero {
+        min-height: 31rem;
+      }
+
+      .hero h1 {
+        font-size: 4.75rem;
+      }
+
+      .section-header h2 {
+        font-size: 2.6rem;
+      }
+
+      .hero-inner {
+        grid-template-columns: minmax(0, 1fr) 24rem;
+        align-items: end;
+      }
+
+      .main {
+        margin-top: -3.5rem;
+      }
+
+      .action-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .tabs {
+        display: flex;
+      }
+
+      .bottom-nav {
+        display: none;
+      }
+
+      .two-col {
+        grid-template-columns: minmax(0, 1.1fr) minmax(18rem, 0.9fr);
+        align-items: start;
+      }
+
+      .guide-grid {
+        grid-template-columns: 17rem minmax(0, 1fr);
+      }
+
+      .guide-nav {
+        display: grid;
+        gap: 0.55rem;
+        overflow: visible;
+        padding: 0;
+        margin: 0;
+      }
+
+      .chip {
+        width: 100%;
+        justify-content: flex-start;
+        border-radius: 8px;
+      }
+
+      .places-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 1120px) {
+      .places-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#overview" data-target="overview" aria-label="Treasure Guest Guide home">
+        <img class="brand-logo" src="https://treasurevacprd.wpenginepowered.com/wp-content/uploads/2026/03/Treasure-rentals-final-logo-.png" alt="Treasure Vacation Rentals">
+        <span class="brand-copy">
+          <strong>Treasure Guest Guide</strong>
+          <span>BOOKINGTEST BOOKINGTEST</span>
+        </span>
+      </a>
+      <span class="preview-pill">Preview only</span>
+    </header>
+
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-inner">
+        <div>
+          <p class="eyebrow">[TEST]Marina Way 304 | July 5-12, 2026</p>
+          <h1 id="hero-title">Your Topsail Stay Starts Here</h1>
+      <p class="hero-lede">Payment, arrival details, house basics, local help, and a fast way to reach Treasure when something needs attention.</p>
+        </div>
+        <aside class="trip-panel" aria-label="Reservation summary">
+          <h2>Reservation snapshot</h2>
+          <div class="trip-grid">
+            <div class="trip-stat">
+              <span>Arrives</span>
+              <strong>Sun, Jul 5</strong>
+            </div>
+            <div class="trip-stat">
+              <span>Departs</span>
+              <strong>Sun, Jul 12</strong>
+            </div>
+            <div class="trip-stat">
+              <span>Countdown</span>
+              <strong id="countdown">39 days</strong>
+            </div>
+            <div class="trip-stat">
+              <span>Status</span>
+              <strong>Ready guide</strong>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <main class="main">
+      <div class="action-grid" aria-label="Quick actions">
+        <button class="action-card" type="button" data-target="payment">
+          <span class="action-icon">$</span>
+          <span><strong>Make a Payment</strong><span>Review the balance and secure payment step.</span></span>
+        </button>
+        <button class="action-card" type="button" data-target="guide">
+          <span class="action-icon">A</span>
+          <span><strong>Arrival Essentials</strong><span>What to know before you leave home.</span></span>
+        </button>
+        <button class="action-card" type="button" data-target="help">
+          <span class="action-icon">?</span>
+          <span><strong>Need Help?</strong><span>Send the right request to the right place.</span></span>
+        </button>
+        <button class="action-card" type="button" data-target="local">
+          <span class="action-icon">M</span>
+          <span><strong>Local Guide</strong><span>Food, groceries, medical, and rainy-day options.</span></span>
+        </button>
+      </div>
+
+      <nav class="tabs" aria-label="Guest portal sections">
+        <button class="tab-button" type="button" data-target="overview" aria-selected="true">Overview</button>
+        <button class="tab-button" type="button" data-target="payment" aria-selected="false">Payment</button>
+        <button class="tab-button" type="button" data-target="guide" aria-selected="false">Guide</button>
+        <button class="tab-button" type="button" data-target="local" aria-selected="false">Local</button>
+        <button class="tab-button" type="button" data-target="help" aria-selected="false">Need Help?</button>
+      </nav>
+
+      <section class="section active" id="overview" aria-labelledby="overview-title">
+        <div class="section-header">
+          <div>
+            <h2 id="overview-title">Your stay details, all in one place.</h2>
+            <p>Check the essentials before arrival, keep the house notes handy, and contact Treasure from the same guide if something needs attention.</p>
+          </div>
+        </div>
+
+        <div class="status-strip">
+          <div class="status-item">
+            <strong>Balance check</strong>
+            <span>See whether anything is still due before arrival.</span>
+          </div>
+          <div class="status-item">
+            <strong>Arrival readiness</strong>
+            <span>Review parking, access expectations, and what to report.</span>
+          </div>
+          <div class="status-item">
+            <strong>Local support</strong>
+            <span>Find nearby food, groceries, activities, and urgent care.</span>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="content-card">
+            <h3>Before arrival</h3>
+            <ul class="checklist" aria-label="Arrival checklist">
+              <li><button type="button"><span class="check-dot"></span><span class="check-text">Save this Guest Guide on your phone.</span></button></li>
+              <li><button type="button"><span class="check-dot"></span><span class="check-text">Pay any remaining balance before the due date.</span></button></li>
+              <li><button type="button"><span class="check-dot"></span><span class="check-text">Review parking limits, pet rules, linens, and supplied items.</span></button></li>
+              <li><button type="button"><span class="check-dot"></span><span class="check-text">Use Need Help? for access, water, power, cleaning, or safety issues.</span></button></li>
+            </ul>
+          </div>
+
+          <div class="feature-image">
+            <img src="../assets/topsail-beach/island-overview.jpg" alt="Topsail beach view">
+            <div class="feature-caption">
+              <strong>Built for the moment guests actually need it.</strong>
+              <span>Fast answers on a phone, with office support still close by.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="payment" aria-labelledby="payment-title">
+        <div class="section-header">
+          <div>
+            <h2 id="payment-title">Make a Payment</h2>
+            <p>Review the remaining balance and use the secure payment path when payment is due.</p>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <article class="payment-card">
+            <h3>Reservation balance</h3>
+            <p class="address">[TEST]Marina Way 304 | July 5-12, 2026</p>
+            <div class="payment-total" aria-label="Payment summary">
+              <div class="payment-line"><span>Rent and fees</span><strong>$4,280.00</strong></div>
+              <div class="payment-line"><span>Payments received</span><strong>-$2,140.00</strong></div>
+              <div class="payment-line total"><span>Balance due</span><strong>$2,140.00</strong></div>
+            </div>
+            <div class="button-row">
+              <button class="btn" type="button" id="fake-pay-button">$ Secure Payment</button>
+              <button class="btn secondary" type="button" data-target="help">Ask a Question</button>
+            </div>
+            <p class="notice" id="payment-status">Preview only. This button does not process a real payment.</p>
+          </article>
+
+          <article class="content-card">
+            <h3>Payment questions</h3>
+            <p>If the amount looks wrong, if a payment is missing, or if you need help with the secure payment page, send Treasure a billing question before submitting another payment.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="guide" aria-labelledby="guide-title">
+        <div class="section-header">
+          <div>
+            <h2 id="guide-title">Stay Guide</h2>
+            <p>Common house notes and departure steps stay here so you can check them anytime during the trip.</p>
+          </div>
+        </div>
+
+        <div class="guide-grid">
+          <div class="guide-nav" id="guide-nav" aria-label="Guide topics"></div>
+          <article class="guide-detail" id="guide-detail"></article>
+        </div>
+      </section>
+
+      <section class="section" id="local" aria-labelledby="local-title">
+        <div class="section-header">
+          <div>
+            <h2 id="local-title">Local Guide</h2>
+            <p>Groceries, coffee, family activities, beach stops, and medical help near Surf City.</p>
+          </div>
+        </div>
+
+        <div class="search-row">
+          <input class="search-input" id="place-search" type="search" placeholder="Search places, categories, or addresses" aria-label="Search local guide">
+          <div class="category-row" id="category-row" aria-label="Place categories"></div>
+        </div>
+        <div class="places-grid" id="places-grid"></div>
+        <p class="empty-state" id="places-empty">No matching places in this preview.</p>
+      </section>
+
+      <section class="section" id="help" aria-labelledby="help-title">
+        <div class="section-header">
+          <div>
+            <h2 id="help-title">Need Help?</h2>
+            <p>Send a quick request to Treasure, or call right away for urgent access, water, power, cleaning, or safety issues.</p>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <article class="request-card">
+            <h3>Send a request</h3>
+            <div class="field-grid">
+              <label>
+                Request type
+                <select id="request-type">
+                  <option>Arrival or access</option>
+                  <option>Maintenance issue</option>
+                  <option>Housekeeping concern</option>
+                  <option>Parking or passes</option>
+                  <option>Billing question</option>
+                  <option>Local recommendation</option>
+                </select>
+              </label>
+              <label>
+                Message
+                <textarea id="request-message">We just arrived and have a quick question about parking.</textarea>
+              </label>
+            </div>
+            <div class="button-row">
+              <button class="btn" type="button" id="request-submit">Send Preview Request</button>
+              <a class="btn secondary" href="mailto:stay@treasurerentals.com">Email stay@treasurerentals.com</a>
+            </div>
+            <p class="form-status" id="request-status" aria-live="polite"></p>
+          </article>
+
+          <aside class="urgent-box">
+            <strong>Urgent while in house?</strong>
+            <span>For access, water, power, cleaning, or safety issues, contact Treasure right away. If there is immediate danger, call 911 first.</span>
+            <a class="btn warning" href="tel:9103284444">Call 910-328-4444</a>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Mobile guest portal sections">
+      <button class="nav-button" type="button" data-target="overview" aria-selected="true"><span class="nav-icon">H</span><span>Home</span></button>
+      <button class="nav-button" type="button" data-target="payment" aria-selected="false"><span class="nav-icon">$</span><span>Pay</span></button>
+      <button class="nav-button" type="button" data-target="guide" aria-selected="false"><span class="nav-icon">A</span><span>Guide</span></button>
+      <button class="nav-button" type="button" data-target="local" aria-selected="false"><span class="nav-icon">M</span><span>Local</span></button>
+      <button class="nav-button" type="button" data-target="help" aria-selected="false"><span class="nav-icon">?</span><span>Help</span></button>
+    </nav>
+  </div>
+
+  <script>
+    const guideTopics = [
+      {
+        id: "arrival",
+        title: "Arrival Essentials",
+        items: [
+          "Save this Guest Guide on your phone.",
+          "Pay any remaining balance before you leave home.",
+          "Review parking limits, pet rules, linens, and what is supplied at your home.",
+          "Watch this portal for access details when the home is ready.",
+          "When you arrive, check the home before unpacking.",
+          "For access, water, power, cleaning, or safety issues, use Need Help? and call 910-328-4444 if urgent."
+        ]
+      },
+      {
+        id: "house",
+        title: "House Basics",
+        items: [
+          "Keep doors and windows closed when AC is running.",
+          "Rinse sand outside before showers, tubs, or laundry.",
+          "Report leaks, active damage, or missing essentials right away.",
+          "Follow property-specific notes posted in the home.",
+          "Use Need Help? so Treasure has the request in one place."
+        ]
+      },
+      {
+        id: "parking",
+        title: "Parking & Passes",
+        items: [
+          "Park only in approved spaces.",
+          "Do not block driveways, neighboring homes, beach accesses, trash pickup, or emergency routes.",
+          "If passes are included, keep them visible and return them before departure.",
+          "Lost passes or tickets are usually the guest's responsibility.",
+          "Ask Treasure before moving extra vehicles."
+        ]
+      },
+      {
+        id: "trash",
+        title: "Trash & Recycling",
+        items: [
+          "Bag household trash before putting it in outdoor cans.",
+          "Keep lids closed.",
+          "Follow pickup notes for your property.",
+          "If cans are full on arrival, missing, damaged, or not picked up, send Need Help? with a photo."
+        ]
+      },
+      {
+        id: "checkout",
+        title: "Checkout Checklist",
+        items: [
+          "Remove food and personal items.",
+          "Start the dishwasher and bag trash.",
+          "Return furniture, remotes, games, and beach items.",
+          "Close and lock doors and windows.",
+          "Return keys, passes, and access items.",
+          "Report breakage before departure."
+        ]
+      }
+    ];
+
+    const places = [
+      {
+        name: "Food Lion - Surf City",
+        category: "Groceries",
+        address: "13601 NC Hwy 50, Surf City, NC 28445",
+        phone: "910-329-1163",
+        url: "https://stores.foodlion.com/nc/surf-city/13601-nc-hwy-50",
+        description: "Full grocery stop for arrival day staples, drinks, beach snacks, and easy restocks during the week."
+      },
+      {
+        name: "CVS Pharmacy - Surf City",
+        category: "Groceries",
+        address: "13461 NC Hwy 50, Surf City, NC 28445",
+        phone: "910-329-0484",
+        url: "https://www.cvs.com/store-locator/surf-city-nc-pharmacies/13461-nc-hwy-50-surf-city-nc-28445/storeid%3D2548",
+        description: "Pharmacy stop for prescriptions, sunscreen, toiletries, medicine, and small travel items."
+      },
+      {
+        name: "The Daily Grind",
+        category: "Food & Coffee",
+        address: "114 N Topsail Drive, Surf City, NC 28445",
+        phone: "910-541-0471",
+        url: "https://dailygrindsurfcity.com/",
+        description: "Easy local coffee, breakfast bites, and a reliable first stop before a beach day."
+      },
+      {
+        name: "Shaka Taco",
+        category: "Food & Coffee",
+        address: "107 N Shore Drive, Surf City, NC 28445",
+        phone: "910-616-3118",
+        url: "https://www.shakataconc.com/findus",
+        description: "Casual Surf City tacos with a laid-back beach feel and quick group-friendly options."
+      },
+      {
+        name: "Daddy Mac's Beach Grille",
+        category: "Food & Coffee",
+        address: "108 N Shore Drive, Surf City, NC 28445",
+        phone: "910-328-5577",
+        url: "https://daddymacsbeachgrille.com/",
+        description: "Oceanfront restaurant option for guests who want the beach view without cooking."
+      },
+      {
+        name: "Surf City Ocean Pier",
+        category: "Beach & Water",
+        address: "112 South Shore Drive, Surf City, NC 28445",
+        phone: "910-328-3521",
+        url: "https://www.surfcityoceanpier.com/location--directions.html",
+        description: "Classic Topsail pier stop for a walk, fishing, views, and easy beach-town photos."
+      },
+      {
+        name: "Sea Turtle Hospital",
+        category: "Family & Rainy Day",
+        address: "302 Tortuga Lane, Surf City, NC 28445",
+        phone: "910-329-0222",
+        url: "https://www.seaturtlehospital.org/contact.html",
+        description: "Karen Beasley Sea Turtle Rescue and Rehabilitation Center, a strong family and rainy-day pick."
+      },
+      {
+        name: "Topsail Aquarium",
+        category: "Family & Rainy Day",
+        address: "106 N Topsail Drive, Surf City, NC 28445",
+        phone: "910-515-9751",
+        url: "https://www.topsailaquarium.com/contact",
+        description: "Small aquarium stop near Surf City for kids, families, and slower weather days."
+      },
+      {
+        name: "Sandy Shores Urgent Care",
+        category: "Medical Help",
+        address: "13741 NC Hwy 50, Surf City, NC 28445",
+        phone: "910-777-2732",
+        url: "https://www.ssmcuc.net/contact",
+        description: "Urgent care option for non-emergency medical needs during a stay."
+      },
+      {
+        name: "Surf City Police",
+        category: "Medical Help",
+        address: "214 W Florence Way, Hampstead, NC 28443",
+        phone: "910-328-7711",
+        url: "https://www.surfcitync.gov/2199/Police-Department",
+        description: "Non-emergency police contact. For immediate danger or medical emergency, call 911."
+      }
+    ];
+
+    const sections = Array.from(document.querySelectorAll(".section"));
+    const tabButtons = Array.from(document.querySelectorAll(".tab-button"));
+    const navButtons = Array.from(document.querySelectorAll(".nav-button"));
+    const targetButtons = Array.from(document.querySelectorAll("[data-target]"));
+    const guideNav = document.getElementById("guide-nav");
+    const guideDetail = document.getElementById("guide-detail");
+    const categoryRow = document.getElementById("category-row");
+    const placesGrid = document.getElementById("places-grid");
+    const placesEmpty = document.getElementById("places-empty");
+    const placeSearch = document.getElementById("place-search");
+    let activeCategory = "All";
+
+    function showSection(id) {
+      sections.forEach((section) => {
+        section.classList.toggle("active", section.id === id);
+      });
+      [...tabButtons, ...navButtons].forEach((button) => {
+        button.setAttribute("aria-selected", button.dataset.target === id ? "true" : "false");
+      });
+      const heading = document.querySelector("#" + id + " h2");
+      if (heading) {
+        heading.setAttribute("tabindex", "-1");
+        heading.focus({ preventScroll: true });
+      }
+      document.getElementById(id).scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function renderGuide(activeId = guideTopics[0].id) {
+      guideNav.innerHTML = "";
+      guideTopics.forEach((topic) => {
+        const button = document.createElement("button");
+        button.className = "chip" + (topic.id === activeId ? " active" : "");
+        button.type = "button";
+        button.textContent = topic.title;
+        button.addEventListener("click", () => renderGuide(topic.id));
+        guideNav.appendChild(button);
+      });
+
+      const active = guideTopics.find((topic) => topic.id === activeId) || guideTopics[0];
+      const items = active.items.map((item) => "<li>" + item + "</li>").join("");
+      guideDetail.innerHTML = "<h3>" + active.title + "</h3><ul class=\"guide-list\">" + items + "</ul>";
+    }
+
+    function placeMatches(place, query) {
+      const haystack = [place.name, place.category, place.address, place.phone, place.description].join(" ").toLowerCase();
+      return haystack.includes(query.toLowerCase());
+    }
+
+    function renderCategories() {
+      const categories = ["All", ...Array.from(new Set(places.map((place) => place.category)))];
+      categoryRow.innerHTML = "";
+      categories.forEach((category) => {
+        const button = document.createElement("button");
+        button.className = "chip" + (category === activeCategory ? " active" : "");
+        button.type = "button";
+        button.textContent = category;
+        button.addEventListener("click", () => {
+          activeCategory = category;
+          renderCategories();
+          renderPlaces();
+        });
+        categoryRow.appendChild(button);
+      });
+    }
+
+    function renderPlaces() {
+      const query = placeSearch.value.trim();
+      const filtered = places.filter((place) => {
+        const categoryOk = activeCategory === "All" || place.category === activeCategory;
+        const searchOk = !query || placeMatches(place, query);
+        return categoryOk && searchOk;
+      });
+
+      placesGrid.innerHTML = "";
+      filtered.forEach((place) => {
+        const article = document.createElement("article");
+        article.className = "place-card";
+        article.innerHTML = [
+          "<div>",
+          "<div class=\"place-meta\"><span class=\"tag\">" + place.category + "</span></div>",
+          "<h3>" + place.name + "</h3>",
+          "<p class=\"address\">" + place.address + "</p>",
+          "</div>",
+          "<p>" + place.description + "</p>",
+          "<div class=\"button-row\">",
+          "<a class=\"btn secondary\" href=\"tel:" + place.phone.replaceAll("-", "") + "\">Call " + place.phone + "</a>",
+          "<a class=\"btn\" target=\"_blank\" rel=\"noreferrer\" href=\"" + place.url + "\">Website</a>",
+          "</div>"
+        ].join("");
+        placesGrid.appendChild(article);
+      });
+
+      placesEmpty.classList.toggle("visible", filtered.length === 0);
+    }
+
+    targetButtons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        const target = event.currentTarget.dataset.target;
+        if (target) showSection(target);
+      });
+    });
+
+    document.querySelectorAll(".checklist button").forEach((button) => {
+      button.addEventListener("click", () => {
+        button.classList.toggle("done");
+        button.querySelector(".check-dot").textContent = button.classList.contains("done") ? "OK" : "";
+      });
+    });
+
+    document.getElementById("fake-pay-button").addEventListener("click", () => {
+      document.getElementById("payment-status").textContent = "Preview action only. In Track, this would route to the real secure payment flow.";
+    });
+
+    document.getElementById("request-submit").addEventListener("click", () => {
+      const type = document.getElementById("request-type").value;
+      document.getElementById("request-status").textContent = "Preview request drafted for: " + type + ". Nothing was sent.";
+    });
+
+    placeSearch.addEventListener("input", renderPlaces);
+
+    renderGuide();
+    renderCategories();
+    renderPlaces();
+  </script>
+</body>
+</html>
