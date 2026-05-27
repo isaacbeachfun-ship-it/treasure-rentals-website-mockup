@@ -1994,6 +1994,7 @@ p {
   grid-template-columns: minmax(0, .42fr) minmax(0, .58fr);
   gap: 28px;
   padding: 28px;
+  scroll-margin-top: 140px;
 }
 
 .owner-guide-section-copy p {

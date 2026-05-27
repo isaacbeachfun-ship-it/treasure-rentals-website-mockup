@@ -136,6 +136,9 @@ assert(Array.isArray(stockingPage.article?.sections) && stockingPage.article.sec
 assert(!dataSource.includes("Extinguister"), "Stocking article should fix the source document's fire-extinguisher typo.");
 assert(mockup.nav.some((item) => item.label === "Owner Info" && item.children.some((child) => child.page === "what-to-stock-vacation-rental")), "Owner Info navigation should link to the stocking article.");
 assert(script.includes("page.article") && script.includes("owner-guide-article"), "Generic page renderer should support a polished long-form owner guide article.");
+assert(script.includes("data-owner-guide-jump"), "Owner guide section links should use dedicated in-page jump handling.");
+assert(script.includes('event.target.closest("[data-owner-guide-jump]")'), "Owner guide section links should not fall through to the app hash router.");
+assert(script.includes('scrollIntoView({ behavior: "smooth", block: "start" })'), "Owner guide section links should scroll to the target section.");
 [
   ".owner-guide-article",
   ".owner-guide-intro",
@@ -145,6 +148,7 @@ assert(script.includes("page.article") && script.includes("owner-guide-article")
 ].forEach((selector) => {
   assert(styles.includes(selector), `Stocking article needs styling for ${selector}.`);
 });
+assert(styles.includes("scroll-margin-top: 140px;"), "Owner guide jump targets should account for the sticky header.");
 assert(!styles.includes("var(--muted)") && !styles.includes("var(--gold)"), "Owner guide styles should use defined Treasure palette variables.");
 assert(script.includes("data-page"), "Original demo pages need data-page routing.");
 assert(script.includes("state.selectedPage"), "Original demo page routing needs selected page state.");
@@ -372,8 +376,8 @@ assert((html.match(/class="featured-carousel"/g) || []).length >= 2, "Both Featu
 assert((html.match(/class="featured-property-track"/g) || []).length >= 2, "Both Featured Properties sections should render cards into a horizontal track.");
 assert((html.match(/data-featured-scroll/g) || []).length >= 4, "Featured Properties should include previous and next scroll controls on both homepages.");
 assert(!html.includes('class="property-grid" data-featured-properties'), "Featured Properties should no longer use the three-column static grid.");
-assert(html.includes("./styles.css?v=20260527-owner-stock-guide"), "Owner guide styles should bump the stylesheet cache key.");
-assert(html.includes("./script.js?v=20260527-owner-stock-guide"), "Owner guide renderer should bump the script cache key.");
+assert(html.includes("./styles.css?v=20260527-owner-guide-jumps"), "Owner guide jump-target styling should bump the stylesheet cache key.");
+assert(html.includes("./script.js?v=20260527-owner-guide-jumps"), "Owner guide jump-link behavior should bump the script cache key.");
 assert(html.includes("./mockup-data.js?v=20260527-owner-stock-guide"), "Owner guide content should bump the mockup data cache key.");
 assert(script.includes("const FEATURED_SCROLL_SPEED = 0.075"), "Featured Properties should auto-scroll at the requested 3x preview pace.");
 assert(script.includes("function scrollFeaturedProperties(timestamp)"), "Featured Properties should have a dedicated auto-scroll loop.");

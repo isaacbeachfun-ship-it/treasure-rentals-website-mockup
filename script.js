@@ -975,12 +975,15 @@
   function ownerGuideArticle(page) {
     if (!page.article) return "";
     const article = page.article;
-    const sectionLinks = article.sections.map((section, index) => `
-      <a href="#owner-guide-section-${index + 1}">
-        <span>${String(index + 1).padStart(2, "0")}</span>
-        ${section.eyebrow}
-      </a>
-    `).join("");
+    const sectionLinks = article.sections.map((section, index) => {
+      const sectionId = `owner-guide-section-${index + 1}`;
+      return `
+        <a href="#${sectionId}" data-owner-guide-jump="${sectionId}">
+          <span>${String(index + 1).padStart(2, "0")}</span>
+          ${section.eyebrow}
+        </a>
+      `;
+    }).join("");
 
     return `
       <article class="owner-guide-article">
@@ -1836,6 +1839,14 @@
       if (scrollTarget) {
         event.preventDefault();
         const target = document.getElementById(scrollTarget.dataset.scrollTarget);
+        target?.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+
+      const ownerGuideJump = event.target.closest("[data-owner-guide-jump]");
+      if (ownerGuideJump) {
+        event.preventDefault();
+        const target = document.getElementById(ownerGuideJump.dataset.ownerGuideJump);
         target?.scrollIntoView({ behavior: "smooth", block: "start" });
         return;
       }
