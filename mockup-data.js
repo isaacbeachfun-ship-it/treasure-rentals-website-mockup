@@ -4032,21 +4032,21 @@ window.TREASURE_MOCKUP = {
       bullets: ["Vacation rental inventory checklist", "Topsail beach-house owner guidance", "Kitchen, bedroom, bath, safety, and cleaning basics"],
       article: {
         readTime: "7 minute read",
-        heading: "Start With The Guest Experience, Not The Shopping Cart",
+        heading: "Stock A Home Guests Can Settle Into Quickly",
         intro: [
-          "If you are wondering what to stock in a vacation rental, start with the experience guests actually have after a long drive to Topsail Island: they unload groceries, make coffee, cook for a group, rinse off sand, and expect the basics to be where they should be.",
-          "This checklist turns Treasure Vacation Rentals' required furnishings inventory into a readable owner guide. It is not about buying the fanciest version of everything. It is about stocking enough of the right things so a Topsail Island vacation rental feels functional, clean, and guest-ready week after week."
+          "A well-stocked vacation rental does not feel fussy. It feels easy. Guests arrive after a long drive to Topsail Island, unload groceries, make coffee, rinse off sand, cook for a group, and find the basics exactly where they expect them to be.",
+          "For Topsail Island owners, the goal is not to buy the fanciest version of everything. The goal is to stock enough of the right things so the home feels clean, practical, and ready for a full beach week. Treasure Vacation Rentals uses that same guest-first lens when helping owners prepare a home for rental season."
         ],
         quickRules: [
-          "Stock dinnerware, silverware, mugs, and high-use glassware at 2x the number the property can sleep.",
-          "Match dining and living-room seating to the advertised guest experience, not just the minimum furniture you can fit.",
-          "Treat safety, Wi-Fi, cleaning tools, and mattress protection as non-negotiable owner basics."
+          "Plan everyday kitchen counts around 2x the number the property can sleep.",
+          "Match dining and living-room seating to the guest count you advertise.",
+          "Treat safety, Wi-Fi, cleaning tools, and bed protection as baseline owner responsibilities."
         ],
         sections: [
           {
             eyebrow: "Kitchen",
-            title: "Stock the kitchen for the way beach families actually cook.",
-            body: "Topsail guests may eat out, but they still make breakfast, pack beach lunches, reheat leftovers, boil seafood, and cook for a full house. The kitchen is where missing basics become guest frustration fastest.",
+            title: "Prepare the kitchen for real beach-week meals.",
+            body: "Topsail guests may go out for seafood, tacos, and ice cream, but they still make breakfast, pack beach lunches, reheat leftovers, and cook for a full house. The kitchen is where missing basics become guest frustration fastest.",
             items: [
               "Dinnerware - Equal to 2x the number the property can sleep",
               "Silverware - Equal to 2x the number the property can sleep",
@@ -4056,14 +4056,14 @@ window.TREASURE_MOCKUP = {
               "Knife set, measuring cup, 13 inch by 9 inch glass baking dish, cutting boards, and a 3 piece mixing bowl set",
               "Coffee maker, with both Keurig and classic drip coffee makers recommended",
               "Can opener, bottle opener, corkscrew, broiler pan, colander, cookie sheets, vegetable peeler, toaster, microwave, and blender",
-              "Air fryer suggested, but not required",
+              "Air fryer as a helpful extra, but not a requirement",
               "Vinyl wastebasket, dish drainer, broom and dust pan, flyswatter, and Fire Extinguisher per stove"
             ]
           },
           {
             eyebrow: "Dining",
-            title: "Make group meals possible, not awkward.",
-            body: "Beach rentals sell togetherness. If a home sleeps a full family group but cannot seat them in a reasonable way, the house feels underprepared even when the view is great.",
+            title: "Give the whole group a place to gather.",
+            body: "A Topsail Island vacation rental sells time together. If a home sleeps a full family group but cannot seat that group comfortably, dinner, games, and rainy-day meals feel harder than they should.",
             items: [
               "Table and chairs with seating for no less than the advertised seating capacity",
               "Durable surfaces that can handle seafood nights, kids' breakfasts, rainy-day games, and takeout spreads",
@@ -4072,8 +4072,8 @@ window.TREASURE_MOCKUP = {
           },
           {
             eyebrow: "Bedrooms",
-            title: "Protect the beds and make sleep easy.",
-            body: "A guest-ready bedroom does not need to be overdecorated. It needs a good mattress, clean protection, enough pillows, and lighting that makes the room usable after sunset.",
+            title: "Make bedrooms simple, protected, and comfortable.",
+            body: "A guest-ready bedroom does not need to be overdecorated. It needs a good mattress, clean protection, enough pillows, and lighting that works after sunset.",
             items: [
               "All mattresses of acceptable quality",
               "Bed bug mattress cover plus mattress pad",
@@ -4086,8 +4086,8 @@ window.TREASURE_MOCKUP = {
           },
           {
             eyebrow: "Bathrooms and living areas",
-            title: "Cover the small basics guests notice immediately.",
-            body: "Bathrooms and living rooms are simple, but they are high-impact. Missing plungers, trash cans, or enough seating create avoidable calls during a stay.",
+            title: "Do not overlook the everyday basics.",
+            body: "Bathrooms and living rooms are simple, but they are high-impact. A plunger, trash can, clean shower liner, and enough comfortable seating can prevent small annoyances from turning into owner or guest-service calls.",
             items: [
               "Plunger",
               "Toilet bowl brush and container",
@@ -4098,8 +4098,8 @@ window.TREASURE_MOCKUP = {
           },
           {
             eyebrow: "Safety and house readiness",
-            title: "Do not make safety an afterthought.",
-            body: "For a Topsail Island vacation rental, safety and readiness matter before the first booking ever arrives. Homes with elevators, pools, hot tubs, saunas, decks, or special equipment need clear signage and working detectors.",
+            title: "Make safety visible and dependable.",
+            body: "Beach houses often include features guests do not use every day at home: elevators, pools, hot tubs, decks, saunas, and unfamiliar appliances. Clear signage and working detectors help guests use the property confidently.",
             items: [
               "Wireless Internet",
               "Safety signage for elevators, hot tubs, saunas, pool depth, no diving, pool gates, pool rules, and similar home-specific features",
@@ -4109,8 +4109,8 @@ window.TREASURE_MOCKUP = {
           },
           {
             eyebrow: "Cleaning supplies",
-            title: "Keep basic cleanup tools in the home.",
-            body: "Sand, salt air, and back-to-back turnover days are part of the Topsail rhythm. Guests and crews both need basic tools available when small messes happen.",
+            title: "Keep basic cleanup tools within reach.",
+            body: "Sand, salt air, and back-to-back turnover days are part of the Topsail rhythm. Guests and crews both benefit when the home has simple cleanup tools available for small messes.",
             items: [
               "Vacuum",
               "Broom and dustpan",
@@ -4119,8 +4119,8 @@ window.TREASURE_MOCKUP = {
             ]
           }
         ],
-        ctaTitle: "Want a second set of local eyes on your rental?",
-        ctaBody: "Treasure Vacation Rentals can help owners think through more than furniture. We look at guest experience, maintenance realities, owner communication, pricing context, and the little details that make a beach house easier to manage.",
+        ctaTitle: "Getting A Topsail Rental Ready For Guests?",
+        ctaBody: "Treasure Vacation Rentals helps owners think beyond the shopping list. We look at guest experience, maintenance realities, owner communication, local pricing context, and the small details that make a beach house easier to enjoy and easier to manage.",
         ctaButton: "Talk With Treasure About Management"
       }
     },

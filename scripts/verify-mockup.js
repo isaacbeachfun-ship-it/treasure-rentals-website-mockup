@@ -114,11 +114,22 @@ assert(html.includes('data-view="content"'), "Mockup needs a generic content vie
   assert(Array.isArray(mockup.demoPages) && mockup.demoPages.some((page) => page.id === pageId), `Original demo page missing from mockup data: ${pageId}`);
 });
 const stockingPage = mockup.demoPages.find((page) => page.id === "what-to-stock-vacation-rental");
+const stockingArticleText = JSON.stringify(stockingPage.article || {});
+const internalArticlePhrases = ["mockup", "vision page", "placeholder", "source document", "required furnishings inventory", "readable owner guide", "This checklist turns"];
+mockup.demoPages.filter((page) => page.article).forEach((page) => {
+  const articleText = JSON.stringify(page.article);
+  internalArticlePhrases.forEach((phrase) => {
+    assert(!articleText.includes(phrase), `Article page ${page.id} should read like a public page, not internal instructions: ${phrase}`);
+  });
+});
 assert(stockingPage.section === "Owner Info", "Vacation rental stocking article should live under Owner Info.");
 assert(stockingPage.title.includes("What To Stock In A Vacation Rental"), "Stocking article should target the vacation-rental stocking search phrase.");
 assert(stockingPage.image === "./assets/owner-guides/vacation-rental-stocked-kitchen-topsail.png", "Stocking article should use the generated Topsail kitchen image.");
 assert(fs.existsSync("assets/owner-guides/vacation-rental-stocked-kitchen-topsail.png"), "Generated stocking article hero image should exist locally.");
 assert(Array.isArray(stockingPage.article?.sections) && stockingPage.article.sections.length >= 5, "Stocking article should be a real room-by-room owner guide.");
+["A well-stocked vacation rental", "Topsail Island owners", "Treasure Vacation Rentals"].forEach((phrase) => {
+  assert(stockingArticleText.includes(phrase), `Stocking article should include publishable owner-facing copy: ${phrase}`);
+});
 ["2x the number the property can sleep", "Topsail Island vacation rental", "Functional Smoke Detectors", "Functional CO Detectors", "Fire Extinguisher"].forEach((phrase) => {
   assert(dataSource.includes(phrase), `Stocking article should include source-list phrase: ${phrase}`);
 });
