@@ -972,6 +972,69 @@
     `;
   }
 
+  function ownerGuideArticle(page) {
+    if (!page.article) return "";
+    const article = page.article;
+    const sectionLinks = article.sections.map((section, index) => `
+      <a href="#owner-guide-section-${index + 1}">
+        <span>${String(index + 1).padStart(2, "0")}</span>
+        ${section.eyebrow}
+      </a>
+    `).join("");
+
+    return `
+      <article class="owner-guide-article">
+        <header class="owner-guide-header">
+          <div>
+            <span class="eyebrow">${page.section}</span>
+            <h2>${article.heading || page.title}</h2>
+            <p>${page.summary}</p>
+          </div>
+          <aside class="owner-guide-meta">
+            <span>${article.readTime}</span>
+            <b>Topsail owner guide</b>
+          </aside>
+        </header>
+        <section class="owner-guide-intro">
+          <div>
+            ${article.intro.map((paragraph) => `<p>${paragraph}</p>`).join("")}
+          </div>
+          <aside class="owner-guide-rule-card">
+            <h3>Start with these rules</h3>
+            <ul>
+              ${article.quickRules.map((rule) => `<li>${rule}</li>`).join("")}
+            </ul>
+          </aside>
+        </section>
+        <nav class="owner-guide-jump-list" aria-label="Article sections">
+          ${sectionLinks}
+        </nav>
+        <div class="owner-guide-sections">
+          ${article.sections.map((section, index) => `
+            <section class="owner-guide-section" id="owner-guide-section-${index + 1}">
+              <div class="owner-guide-section-copy">
+                <span class="eyebrow">${section.eyebrow}</span>
+                <h3>${section.title}</h3>
+                <p>${section.body}</p>
+              </div>
+              <ul class="owner-guide-checklist">
+                ${section.items.map((item) => `<li>${item}</li>`).join("")}
+              </ul>
+            </section>
+          `).join("")}
+        </div>
+        <section class="owner-guide-cta">
+          <div>
+            <span class="eyebrow">Owner support</span>
+            <h2>${article.ctaTitle}</h2>
+            <p>${article.ctaBody}</p>
+          </div>
+          <button type="button" data-view-link="management">${article.ctaButton}</button>
+        </section>
+      </article>
+    `;
+  }
+
   function renderGenericPage() {
     const genericPage = document.querySelector("[data-generic-page]");
     if (!genericPage) return;
@@ -1046,6 +1109,7 @@
         </article>
       </div>
     ` : "";
+    const articleMarkup = ownerGuideArticle(page);
 
     genericPage.innerHTML = `
       <section class="generic-hero ${page.isTeamPage ? "team-hero" : ""}" style="background-image:url('${page.heroImage || page.image}')">
@@ -1062,7 +1126,8 @@
       </section>
       <section class="content-shell generic-page-body ${page.isTeamPage ? "team-page-body" : ""}">
         ${teamMarkup}
-        <div class="generic-content-grid ${page.isTeamPage ? "sr-only" : ""}">
+        ${articleMarkup}
+        ${articleMarkup ? "" : `<div class="generic-content-grid ${page.isTeamPage ? "sr-only" : ""}">
           <article>
             <span class="eyebrow">${page.section}</span>
             <h2>${venue ? "Why It Belongs In The Guide" : "This Original Demo Page Is Represented"}</h2>
@@ -1075,7 +1140,7 @@
             <h3>Mockup status</h3>
             <p>This is a vision page, not the final production copy. It gives the page a visible home, route, navigation entry, and enough content to show how the final site should be filled out.</p>
           </aside>
-        </div>
+        </div>`}
         ${venueMarkup}
         ${matchingProperties.length ? `
           <div class="section-heading row-heading">

@@ -101,6 +101,7 @@ assert(html.includes('data-view="content"'), "Mockup needs a generic content vie
   "elevator",
   "specials",
   "owner-portal",
+  "what-to-stock-vacation-rental",
   "real-estate",
   "faq",
   "explore-eastern-nc",
@@ -112,6 +113,28 @@ assert(html.includes('data-view="content"'), "Mockup needs a generic content vie
 ].forEach((pageId) => {
   assert(Array.isArray(mockup.demoPages) && mockup.demoPages.some((page) => page.id === pageId), `Original demo page missing from mockup data: ${pageId}`);
 });
+const stockingPage = mockup.demoPages.find((page) => page.id === "what-to-stock-vacation-rental");
+assert(stockingPage.section === "Owner Info", "Vacation rental stocking article should live under Owner Info.");
+assert(stockingPage.title.includes("What To Stock In A Vacation Rental"), "Stocking article should target the vacation-rental stocking search phrase.");
+assert(stockingPage.image === "./assets/owner-guides/vacation-rental-stocked-kitchen-topsail.png", "Stocking article should use the generated Topsail kitchen image.");
+assert(fs.existsSync("assets/owner-guides/vacation-rental-stocked-kitchen-topsail.png"), "Generated stocking article hero image should exist locally.");
+assert(Array.isArray(stockingPage.article?.sections) && stockingPage.article.sections.length >= 5, "Stocking article should be a real room-by-room owner guide.");
+["2x the number the property can sleep", "Topsail Island vacation rental", "Functional Smoke Detectors", "Functional CO Detectors", "Fire Extinguisher"].forEach((phrase) => {
+  assert(dataSource.includes(phrase), `Stocking article should include source-list phrase: ${phrase}`);
+});
+assert(!dataSource.includes("Extinguister"), "Stocking article should fix the source document's fire-extinguisher typo.");
+assert(mockup.nav.some((item) => item.label === "Owner Info" && item.children.some((child) => child.page === "what-to-stock-vacation-rental")), "Owner Info navigation should link to the stocking article.");
+assert(script.includes("page.article") && script.includes("owner-guide-article"), "Generic page renderer should support a polished long-form owner guide article.");
+[
+  ".owner-guide-article",
+  ".owner-guide-intro",
+  ".owner-guide-section",
+  ".owner-guide-checklist",
+  ".owner-guide-cta"
+].forEach((selector) => {
+  assert(styles.includes(selector), `Stocking article needs styling for ${selector}.`);
+});
+assert(!styles.includes("var(--muted)") && !styles.includes("var(--gold)"), "Owner guide styles should use defined Treasure palette variables.");
 assert(script.includes("data-page"), "Original demo pages need data-page routing.");
 assert(script.includes("state.selectedPage"), "Original demo page routing needs selected page state.");
 assert(script.includes("local-feature-gallery"), "Generic area-guide pages should render venue photo galleries.");
@@ -338,8 +361,9 @@ assert((html.match(/class="featured-carousel"/g) || []).length >= 2, "Both Featu
 assert((html.match(/class="featured-property-track"/g) || []).length >= 2, "Both Featured Properties sections should render cards into a horizontal track.");
 assert((html.match(/data-featured-scroll/g) || []).length >= 4, "Featured Properties should include previous and next scroll controls on both homepages.");
 assert(!html.includes('class="property-grid" data-featured-properties'), "Featured Properties should no longer use the three-column static grid.");
-assert(html.includes("./styles.css?v=20260526-featured-scroll"), "Featured carousel style change should bump the stylesheet cache key.");
-assert(html.includes("./script.js?v=20260526-featured-scroll-3x"), "Featured carousel behavior change should bump the script cache key.");
+assert(html.includes("./styles.css?v=20260527-owner-stock-guide"), "Owner guide styles should bump the stylesheet cache key.");
+assert(html.includes("./script.js?v=20260527-owner-stock-guide"), "Owner guide renderer should bump the script cache key.");
+assert(html.includes("./mockup-data.js?v=20260527-owner-stock-guide"), "Owner guide content should bump the mockup data cache key.");
 assert(script.includes("const FEATURED_SCROLL_SPEED = 0.075"), "Featured Properties should auto-scroll at the requested 3x preview pace.");
 assert(script.includes("function scrollFeaturedProperties(timestamp)"), "Featured Properties should have a dedicated auto-scroll loop.");
 assert(script.includes("window.requestAnimationFrame(scrollFeaturedProperties)"), "Featured Properties auto-scroll should use requestAnimationFrame.");
