@@ -524,6 +524,10 @@ p {
   margin-bottom: 26px;
 }
 
+.section-heading .eyebrow {
+  color: var(--teal-dark);
+}
+
 .row-heading {
   max-width: none;
   display: flex;
@@ -911,6 +915,13 @@ p {
   background-size: cover;
   background-position: center;
   scroll-snap-align: start;
+}
+
+.photo-frame[data-lazy-bg],
+.detail-photo-frame[data-lazy-bg] {
+  background:
+    linear-gradient(135deg, rgba(45, 154, 174, .18), rgba(247, 243, 235, .92)),
+    var(--seafoam);
 }
 
 .property-photo::before,
@@ -1843,6 +1854,12 @@ p {
   padding: 34px;
 }
 
+.team-copy-card .eyebrow,
+.owner-guide-header .eyebrow,
+.owner-guide-section .eyebrow {
+  color: var(--teal-dark);
+}
+
 .generic-content-grid {
   display: grid;
   grid-template-columns: minmax(0, .64fr) minmax(280px, .36fr);
@@ -1979,7 +1996,7 @@ p {
 }
 
 .owner-guide-jump-list span {
-  color: var(--sand);
+  color: var(--teal-dark);
   font-family: Georgia, "Times New Roman", serif;
   font-size: 22px;
 }
@@ -3605,7 +3622,7 @@ p {
   box-shadow: 0 12px 28px rgba(29, 49, 53, .09);
 }
 
-.detail-month h4 {
+.detail-month h3 {
   margin: 0;
   padding: 12px;
   text-align: center;
@@ -3634,7 +3651,7 @@ p {
 .detail-calendar-grid .blank {
   min-height: 42px;
   border: 0;
-  color: #8a8f94;
+  color: #4f5f68;
   background: #e8e8e8;
   text-decoration: underline;
 }
@@ -3645,12 +3662,12 @@ p {
 
 .detail-calendar-grid button.selected-stay {
   color: var(--white);
-  background: #9daec0;
+  background: #4c6478;
 }
 
 .detail-calendar-grid button.check-in,
 .detail-calendar-grid button.check-out {
-  background: linear-gradient(135deg, #50687c 0 50%, #9daec0 50%);
+  background: linear-gradient(135deg, #3f5f73 0 50%, #4c6478 50%);
 }
 
 .detail-calendar-grid button.today {
@@ -3659,8 +3676,8 @@ p {
 }
 
 .detail-calendar-grid button.unavailable {
-  color: #a9a9a9;
-  background: #eeeeee;
+  color: #5f6970;
+  background: #f0f0f0;
 }
 
 .bedding-room-grid {
@@ -3680,7 +3697,7 @@ p {
 }
 
 .bedding-room-grid small {
-  color: var(--sand);
+  color: var(--teal-dark);
   font-weight: 900;
   letter-spacing: .07em;
   text-transform: uppercase;

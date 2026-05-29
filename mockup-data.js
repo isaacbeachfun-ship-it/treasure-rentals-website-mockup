@@ -2936,7 +2936,7 @@ const restaurantFeatures = [
     officialUrl: "https://www.restaurantji.com/nc/north-topsail-beach/splash-by-the-sea-/",
     address: "790 New River Inlet Rd, North Topsail Beach, NC 28460",
     phone: "(910) 328-4312",
-    hours: "Seasonal hours; recheck before launch.",
+    hours: "Seasonal hours; confirm current schedule before going.",
     images: [
       "https://cdn6.localdatacdn.com/images/5264461/d_splash_by_the_sea_photo.jpg?q=69f460b7c75cf",
       "https://cdn6.localdatacdn.com/images/5264461/m_splash_by_the_sea_photo.jpg?q=69f460b7c75c6",
@@ -2956,7 +2956,7 @@ const restaurantFeatures = [
     officialUrl: "https://www.restaurantji.com/nc/north-topsail-beach/oceans-edge-restaurant-and-event-center-/",
     address: "2000 New River Inlet Rd, North Topsail Beach, NC 28460",
     phone: "(910) 328-0581",
-    hours: "Seasonal resort hours; recheck before launch.",
+    hours: "Seasonal resort hours; confirm current schedule before going.",
     images: [
       "https://cdn6.localdatacdn.com/images/3613141/d_ocean_s_edge_restaurant_event_center_photo.jpg?q=69fd3cc8bb389",
       "https://cdn6.localdatacdn.com/images/3613141/m_ocean_s_edge_restaurant_event_center_photo.jpg?q=69fd3cc8bb381",
@@ -3040,7 +3040,7 @@ const restaurantFeatures = [
     officialUrl: "https://daddymacsbeachgrille.com/",
     address: "108 N Shore Dr, Surf City, NC 28445",
     phone: "(910) 328-5577",
-    hours: "Lunch and dinner; recheck seasonal hours.",
+    hours: "Lunch and dinner; confirm seasonal hours.",
     images: [
       "https://cdn6.localdatacdn.com/images/3613222/d_daddy_mac_s_beach_grille_photo.jpg?q=6a0232d9e9214",
       "https://cdn6.localdatacdn.com/images/3613222/m_daddy_mac_s_beach_grille_photo.jpg?q=6a0232d9e920e",
@@ -3081,7 +3081,7 @@ const restaurantFeatures = [
     officialUrl: "https://www.restaurantji.com/nc/surf-city/beach-bunny-subs-and-grill-/",
     address: "103 N Shore Dr, Surf City, NC 28445",
     phone: "(910) 328-1900",
-    hours: "Breakfast and lunch; recheck seasonal hours.",
+    hours: "Breakfast and lunch; confirm seasonal hours.",
     images: [
       "https://cdn6.localdatacdn.com/images/3696375/d_beach_bunny_subs_grill_photo.jpg?q=676673f996e86",
       "https://cdn6.localdatacdn.com/images/3696375/m_beach_bunny_subs_grill_photo.jpg?q=676673f996e77",
@@ -3101,7 +3101,7 @@ const restaurantFeatures = [
     officialUrl: "https://www.restaurantji.com/nc/surf-city/maine-lobstah-shack-/",
     address: "Surf City, NC",
     phone: "Check current listing",
-    hours: "Seasonal; recheck before launch.",
+    hours: "Seasonal; confirm current schedule before going.",
     images: [
       "https://cdn6.localdatacdn.com/images/6804542/d_maine_lobstah_shack_photo.jpg?q=6a02370243cb7",
       "https://cdn6.localdatacdn.com/images/6804542/m_maine_lobstah_shack_photo.jpg?q=6a02370243cb3",
@@ -3182,7 +3182,7 @@ const restaurantFeatures = [
     officialUrl: "https://www.restaurantji.com/nc/topsail-beach/breezeway-restaurant-/",
     address: "634 Channel Blvd, Topsail Beach, NC 28445",
     phone: "(910) 328-4302",
-    hours: "Dinner-focused and seasonal; recheck before launch.",
+    hours: "Dinner-focused and seasonal; confirm current schedule before going.",
     images: [
       "https://cdn6.localdatacdn.com/images/3688276/d_breezeway_restaurant_photo.jpg?q=69ef4c2560023",
       "https://cdn6.localdatacdn.com/images/3688276/m_breezeway_restaurant_photo.jpg?q=69ef4c256001c",
@@ -3222,7 +3222,7 @@ const restaurantFeatures = [
     officialUrl: "https://www.restaurantji.com/nc/sneads-ferry/riverview-cafe-/",
     address: "119 Hall Point Rd, Sneads Ferry, NC 28460",
     phone: "(910) 327-2011",
-    hours: "Lunch and dinner; recheck current days.",
+    hours: "Lunch and dinner; confirm current days.",
     images: [
       "https://cdn6.localdatacdn.com/images/3613108/d_riverview_cafe_photo.jpg?q=69f9cbc45682b",
       "https://cdn6.localdatacdn.com/images/3613108/m_riverview_cafe_photo.jpg?q=69f9cbc456823",
@@ -3316,7 +3316,7 @@ const restaurantFeatures = [
   ...restaurant,
   page: restaurant.page || restaurantPageId(restaurant.name),
   googlePlaceUrl: restaurant.googlePlaceUrl || googlePlace(restaurant.name, restaurant.town),
-  sourceNote: restaurant.sourceNote || "Photos and menu references are pulled from the restaurant's own public web presence or restaurant-specific public listing pages for mockup use; re-clear rights before production."
+  sourceNote: restaurant.sourceNote || "Photo and menu references come from the restaurant's public web presence or restaurant-specific public listing pages; guests should confirm current details directly."
 }));
 
 const restaurantFeaturePages = restaurantFeatures
@@ -3334,7 +3334,7 @@ const restaurantFeaturePages = restaurantFeatures
 const nightlifeEntry = (bar) => ({
   priceRange: "$$",
   phone: bar.phone || "Check current listing",
-  hours: bar.hours || "Hours vary by season; recheck before launch.",
+  hours: bar.hours || "Hours vary by season; confirm current schedule before going.",
   menuHighlights: bar.menuHighlights || ["Drinks", "Casual bites", "Local atmosphere"],
   positiveReviews: bar.positiveReviews || [
     "Guests point to the atmosphere first, which is what makes it useful on a vacation guide.",
@@ -3344,7 +3344,7 @@ const nightlifeEntry = (bar) => ({
   ...bar,
   page: bar.page || nightlifePageId(bar.name),
   googlePlaceUrl: bar.googlePlaceUrl || googlePlace(bar.name, bar.town),
-  sourceNote: bar.sourceNote || "Photos and review signals are pulled from venue-specific public listing pages or official web/social sources for mockup use; re-clear rights before production."
+  sourceNote: bar.sourceNote || "Photos and review signals come from venue-specific public listing pages or official web/social sources; guests should confirm current details directly."
 });
 
 const nightlifeFromRestaurant = (name, overrides = {}) => {
@@ -3993,9 +3993,9 @@ window.TREASURE_MOCKUP = {
       id: "event-friendly",
       section: "Vacation Rentals",
       title: "Event Friendly Homes",
-      summary: "A placeholder page for gathering-friendly homes, with room to explain occupancy, parking, event approval, and neighborhood expectations before launch.",
+      summary: "A gathering-friendly homes page for occupancy, parking, event approval, and neighborhood expectations.",
       image: downloadedTopsailPhotos.oceanfrontDeckChairs,
-      bullets: ["Clear event inquiry CTA", "Good fit for reunion and celebration planning", "Needs real policy review before public launch"]
+      bullets: ["Clear event inquiry CTA", "Good fit for reunion and celebration planning", "Event approval guidance and neighborhood expectations"]
     },
     {
       id: "elevator",
@@ -4019,7 +4019,7 @@ window.TREASURE_MOCKUP = {
       id: "owner-portal",
       section: "Owner Info",
       title: "Owner Portal",
-      summary: "A simple owner-login placeholder that shows the page exists without pretending the backend portal is built inside this mockup.",
+      summary: "A simple owner-login entry point for statements, calendars, and support routing.",
       image: downloadedTopsailPhotos.oceanfrontDeckChairs,
       bullets: ["Login entry point", "Owner statements and calendar access", "Support routing for owner questions"]
     },
@@ -4130,7 +4130,7 @@ window.TREASURE_MOCKUP = {
       title: "Buy Or Sell Real Estate",
       summary: "A contact-forward real estate page for coastal buyers and sellers who need local representation, matching the original demo page request.",
       image: downloadedTopsailPhotos.beachFromBalcony,
-      bullets: ["Buyer and seller inquiry form", "Local expertise positioning", "Simple contact banner instead of a fake MLS product"]
+      bullets: ["Buyer and seller inquiry form", "Local expertise positioning", "Direct contact path for real-estate questions"]
     },
     {
       id: "faq",
@@ -4163,7 +4163,7 @@ window.TREASURE_MOCKUP = {
       id: "guest-portal",
       section: "Plan Your Stay",
       title: "Guest Portal",
-      summary: "A guest-login placeholder for arrival details, stay instructions, payments, documents, and support requests.",
+      summary: "A guest-login entry point for arrival details, stay instructions, payments, documents, and support requests.",
       image: "./assets/topsail-beach/coastal-residential-community.jpg",
       bullets: ["Arrival information", "Payments and documents", "Maintenance and guest support routing"]
     },
@@ -4187,11 +4187,11 @@ window.TREASURE_MOCKUP = {
       id: "team",
       section: "About Us",
       title: "Our Team",
-      summary: "A photo-forward team page that lets Treasure feel human, local, and willing to have a little fun. The page can get more formal bios later, but this mockup leads with personality first.",
+      summary: "A photo-forward team page that lets Treasure feel human, local, and willing to have a little fun while still making the owner relationship feel serious.",
       image: "./assets/team/treasure-booty-back-team.png",
       heroImage: downloadedTopsailPhotos.southEndTowerSunset,
       video: "./assets/team/treasure-booty-back-team.mp4",
-      bullets: ["Local people, not a faceless booking engine", "Humorous brand moment for the vision mockup", "Room for real bios, roles, and contact paths later"],
+      bullets: ["Local people, not a faceless booking engine", "A memorable Treasure brand moment", "Clear paths to real people and owner support"],
       isTeamPage: true
     },
     {
@@ -4200,13 +4200,13 @@ window.TREASURE_MOCKUP = {
       title: "Contact Treasure Vacation Rentals",
       summary: "A contact page for guest help, owner inquiries, maintenance routing, and general questions with the correct Treasure contact information.",
       image: downloadedTopsailPhotos.wideBeach,
-      bullets: ["Call 910-328-4444", "Email stay@treasurerentals.com or Owners@treasurerentals.com", "Mailing and street address placeholders from the planning document"]
+      bullets: ["Call 910-328-4444", "Email stay@treasurerentals.com or Owners@treasurerentals.com", "Mailing address and local office details"]
     },
     {
       id: "terms",
       section: "Guest Information",
       title: "Terms And Guest Policies",
-      summary: "A utility page placeholder for rental terms, guest policies, payments, cancellation rules, travel insurance, and other booking conditions.",
+      summary: "A utility page for rental terms, guest policies, payments, cancellation rules, travel insurance, and other booking conditions.",
       image: downloadedTopsailPhotos.beachFromBalcony,
       bullets: ["Booking terms", "Payment and cancellation policy", "House rules and guest responsibilities"]
     }
@@ -4214,7 +4214,7 @@ window.TREASURE_MOCKUP = {
   ownerHighlights: [
     {
       title: "Revenue clarity before promises",
-      text: "Owners need a straight answer on what the home can earn, where the rate strategy comes from, and what would actually move the needle. This mockup positions Treasure as local, practical, and data-aware without sounding like a faceless pricing robot."
+      text: "Owners need a straight answer on what the home can earn, where the rate strategy comes from, and what would actually move the needle. Treasure can lead with local judgment, practical care, and data-aware pricing without sounding like a faceless pricing robot."
     },
     {
       title: "Local care that protects the house",

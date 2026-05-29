@@ -333,6 +333,42 @@ assert(script.includes("team-video-card") && script.includes("data-team-video") 
 assert(script.includes("window.setTimeout(playTeamVideo, 3000)") && script.includes("teamVideoHasPlayed") && script.includes('addEventListener("ended"'), "Team video should wait 3 seconds, play once, then return to the photo.");
 assert(script.includes("Local, A Little Playful, But Serious About Your Investment"), "Team page headline should balance playful tone with owner-investment seriousness.");
 assert(!script.includes("Local, A Little Playful, And Very Much Human"), "Team page should not use the older softer headline.");
+[
+  "This is the right kind of humorous for a mockup",
+  "The page can get more formal bios later",
+  "This Original Demo Page Is Represented",
+  "This is a vision page, not the final production copy",
+  "mock inventory",
+  "Before a real launch",
+  "before public launch",
+  "fake MLS product",
+  "recheck seasonal hours",
+  "recheck current days"
+].forEach((phrase) => {
+  assert(!script.includes(phrase) && !html.includes(phrase) && !dataSource.includes(phrase), `Public-facing pages should not expose internal mockup language: ${phrase}`);
+});
+assert(html.includes('<nav class="demo-home-toggle" aria-label="Homepage demo version">'), "Homepage version toggle should be contained in a navigation landmark.");
+assert(html.includes('class="review-stars" role="img" aria-label="5 out of 5 stars"'), "Review stars should use an image role before exposing an aria-label.");
+assert(script.includes('role="group" tabindex="0" aria-label="Photos for ${property.name}"'), "Property photo tracks should have an explicit group role before using aria-label.");
+assert(script.includes('role="group" tabindex="0" aria-label="Photos for ${restaurant.name}"'), "Restaurant photo tracks should have an explicit group role before using aria-label.");
+assert(script.includes('class="detail-photo-track" role="group" tabindex="0"'), "Property detail photo track should have an explicit group role before using aria-label.");
+assert(script.includes("function lazyBackgroundFrame("), "Remote carousel photos should render through a lazy background helper.");
+assert(script.includes("data-lazy-bg"), "Offscreen carousel photos should defer background-image requests until needed.");
+const lazyFrameHelper = script.slice(script.indexOf("function lazyBackgroundFrame("), script.indexOf("function hydrateLazyBackgrounds("));
+assert(!lazyFrameHelper.includes("style="), "Lazy carousel frames should not eagerly style first remote images in inactive views.");
+assert(script.includes("function hydrateLazyBackgrounds("), "Lazy carousel photos should hydrate when carousels move or render.");
+assert(script.includes("hydrateLazyBackgrounds(track, nextIndex)"), "Carousel controls should load the requested photo before scrolling.");
+assert(script.includes("hydrateVisibleLazyBackgrounds"), "Rendered pages should hydrate only initially visible carousel backgrounds.");
+assert(script.includes("const preload = 500;") && script.includes("rect.top > window.innerHeight + preload"), "Lazy carousel hydration should skip offscreen tracks until they approach the viewport.");
+assert(script.includes("if (!rect.width || !rect.height) return;"), "Lazy carousel hydration should skip hidden inactive-view tracks with zero-size rectangles.");
+assert(script.includes('window.addEventListener("scroll", hydrateActiveViewBackgrounds'), "Lazy carousel backgrounds should hydrate as the active page scrolls.");
+assert(!script.includes('<aside class="owner-guide-meta"'), "Owner guide metadata card should not create a nested complementary landmark.");
+assert(!script.includes('<aside class="owner-guide-rule-card"'), "Owner guide rule card should not create a nested complementary landmark.");
+assert(!script.includes('<aside class="content-card"'), "Generic content cards should not create nested complementary landmarks.");
+assert(!script.includes('<aside class="detail-booking-sidebar"'), "Property booking sidebar should not create a nested complementary landmark.");
+assert(styles.includes(".section-heading .eyebrow") && styles.includes("color: var(--teal-dark);"), "Section eyebrow labels on light backgrounds should use accessible contrast.");
+assert(styles.includes("background: #4c6478;"), "Selected calendar dates should use a dark enough background for white text.");
+assert(styleBlock(".bedding-room-grid small").includes("color: var(--teal-dark);"), "Bedding room labels should use accessible contrast on white cards.");
 assert(styles.includes(".team-photo-card"), "Team page needs dedicated photo styling.");
 assert(styles.includes(".team-video-card") && styles.includes(".team-poster-frame") && styles.includes(".team-video-frame"), "Team page needs dedicated poster/video styling.");
 function styleBlock(selector) {
@@ -376,8 +412,8 @@ assert((html.match(/class="featured-carousel"/g) || []).length >= 2, "Both Featu
 assert((html.match(/class="featured-property-track"/g) || []).length >= 2, "Both Featured Properties sections should render cards into a horizontal track.");
 assert((html.match(/data-featured-scroll/g) || []).length >= 4, "Featured Properties should include previous and next scroll controls on both homepages.");
 assert(!html.includes('class="property-grid" data-featured-properties'), "Featured Properties should no longer use the three-column static grid.");
-assert(html.includes("./styles.css?v=20260527-owner-guide-jumps"), "Owner guide jump-target styling should bump the stylesheet cache key.");
-assert(html.includes("./script.js?v=20260527-owner-guide-jumps"), "Owner guide jump-link behavior should bump the script cache key.");
+assert(html.includes("./styles.css?v=20260529-eval-fixes"), "Accessibility and asset-loading fixes should bump the stylesheet cache key.");
+assert(html.includes("./script.js?v=20260529-eval-fixes"), "Accessibility and asset-loading fixes should bump the script cache key.");
 assert(html.includes("./mockup-data.js?v=20260527-owner-stock-guide"), "Owner guide content should bump the mockup data cache key.");
 assert(script.includes("const FEATURED_SCROLL_SPEED = 0.075"), "Featured Properties should auto-scroll at the requested 3x preview pace.");
 assert(script.includes("function scrollFeaturedProperties(timestamp)"), "Featured Properties should have a dedicated auto-scroll loop.");

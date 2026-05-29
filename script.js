@@ -176,6 +176,38 @@
     `;
   }
 
+  function lazyBackgroundFrame(image, className, index, label) {
+    return `<div class="${className}" data-lazy-bg="${image}" role="img" aria-label="${label}"></div>`;
+  }
+
+  function hydrateLazyBackgrounds(track, activeIndex = 0) {
+    if (!track) return;
+    Array.from(track.children).forEach((frame, index) => {
+      if (index !== 0 && Math.abs(index - activeIndex) > 1) return;
+      const image = frame.dataset.lazyBg;
+      if (!image) return;
+      frame.style.backgroundImage = `url('${image}')`;
+      frame.removeAttribute("data-lazy-bg");
+    });
+  }
+
+  function hydrateVisibleLazyBackgrounds(scope = document) {
+    scope.querySelectorAll(".photo-track, .detail-photo-track").forEach((track) => {
+      const preload = 500;
+      const rect = track.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+      if (rect.bottom < -preload || rect.top > window.innerHeight + preload) return;
+      const frameWidth = track.clientWidth || rect.width || 1;
+      const activeIndex = Math.round(track.scrollLeft / frameWidth);
+      hydrateLazyBackgrounds(track, activeIndex);
+    });
+  }
+
+  function hydrateActiveViewBackgrounds() {
+    const activeView = document.querySelector(`[data-view="${state.view}"]`);
+    hydrateVisibleLazyBackgrounds(activeView || document);
+  }
+
   function restaurantPhotoCarousel(restaurant) {
     const images = Array.isArray(restaurant.images) && restaurant.images.length
       ? restaurant.images.filter(Boolean).slice(0, 6)
@@ -185,8 +217,8 @@
 
     return `
       <div class="restaurant-photo-carousel">
-        <div class="photo-track restaurant-photo-track" tabindex="0" aria-label="Photos for ${restaurant.name}">
-          ${images.map((image) => `<div class="photo-frame restaurant-photo-frame" style="background-image:url('${image}')"></div>`).join("")}
+        <div class="photo-track restaurant-photo-track" role="group" tabindex="0" aria-label="Photos for ${restaurant.name}">
+          ${images.map((image, index) => lazyBackgroundFrame(image, "photo-frame restaurant-photo-frame", index, `${restaurant.name} photo ${index + 1}`)).join("")}
         </div>
         <button class="carousel-button carousel-button-prev" type="button" data-carousel-direction="-1" aria-label="Previous photo for ${restaurant.name}"><span aria-hidden="true">&lsaquo;</span></button>
         <button class="carousel-button carousel-button-next" type="button" data-carousel-direction="1" aria-label="Next photo for ${restaurant.name}"><span aria-hidden="true">&rsaquo;</span></button>
@@ -222,8 +254,8 @@
     return `
       <article class="property-card compact">
         <div class="property-photo compact-property-photo">
-          <div class="photo-track" tabindex="0" aria-label="Photos for ${property.name}">
-            ${images.map((image) => `<div class="photo-frame" style="background-image:url('${image}')"></div>`).join("")}
+          <div class="photo-track" role="group" tabindex="0" aria-label="Photos for ${property.name}">
+            ${images.map((image, index) => lazyBackgroundFrame(image, "photo-frame", index, `${property.name} photo ${index + 1}`)).join("")}
           </div>
           <button class="carousel-button carousel-button-prev" type="button" data-carousel-direction="-1" aria-label="Previous photo for ${property.name}"><span aria-hidden="true">&lsaquo;</span></button>
           <button class="carousel-button carousel-button-next" type="button" data-carousel-direction="1" aria-label="Next photo for ${property.name}"><span aria-hidden="true">&rsaquo;</span></button>
@@ -254,8 +286,8 @@
     return `
       <article class="property-card ${mode === "list" ? "wide" : ""} ${mode === "compact" ? "compact" : ""} ${mode === "featured" ? "featured" : ""}">
         <div class="property-photo">
-          <div class="photo-track" tabindex="0" aria-label="Photos for ${property.name}">
-            ${images.map((image) => `<div class="photo-frame" style="background-image:url('${image}')"></div>`).join("")}
+          <div class="photo-track" role="group" tabindex="0" aria-label="Photos for ${property.name}">
+            ${images.map((image, index) => lazyBackgroundFrame(image, "photo-frame", index, `${property.name} photo ${index + 1}`)).join("")}
           </div>
           <button class="carousel-button carousel-button-prev" type="button" data-carousel-direction="-1" aria-label="Previous photo for ${property.name}"><span aria-hidden="true">&lsaquo;</span></button>
           <button class="carousel-button carousel-button-next" type="button" data-carousel-direction="1" aria-label="Next photo for ${property.name}"><span aria-hidden="true">&rsaquo;</span></button>
@@ -561,6 +593,7 @@
     document.querySelector("[data-results-list]").innerHTML = properties.length
       ? properties.map((property) => propertyCard(property, "compact")).join("")
       : `<div class="no-results"><h2>No exact matches</h2><p>Loosen a filter or use this area for a helpful contact form instead of a dead end.</p></div>`;
+    if (state.view === "search") hydrateVisibleLazyBackgrounds(document.querySelector("[data-results-list]"));
     renderIslandMap(properties);
   }
 
@@ -627,7 +660,7 @@
           `).join("")}
         </div>
         <div class="owner-proof-band">
-          <span><b>${data.properties.length}</b> selected inventory examples in this mockup</span>
+          <span><b>${data.properties.length}</b> selected inventory examples</span>
           <span><b>${data.properties.filter((property) => property.tags.includes("Oceanfront")).length}</b> oceanfront homes represented</span>
           <span><b>${data.properties.filter((property) => property.bedrooms >= 8).length}</b> large-home examples</span>
         </div>
@@ -711,7 +744,7 @@
         <section class="management-testimonial-hold">
           <span class="eyebrow">Owner reviews/testimonials</span>
           <h2>Table this until we have some new.</h2>
-          <p>The original implementation used fake John Doe reviews. That is worse than leaving the section out. This mockup keeps the space ready for real owner quotes without pretending we already have them.</p>
+          <p>Approved owner quotes can live here when Treasure is ready to publish them. Until then, the page should stay focused on specific service promises and clear contact paths.</p>
         </section>
       </section>
     `;
@@ -777,8 +810,8 @@
       ? rentals.slice(0, 3).map((property) => propertyCard(property)).join("")
       : `
         <div class="no-results town-empty">
-          <h3>No selected ${town.label} inventory is in this mockup yet</h3>
-          <p>The page still belongs here. Before a real launch, this section should either pull live Topsail Beach inventory or become a guide-first page with nearby Surf City homes suggested below.</p>
+          <h3>No selected ${town.label} inventory is highlighted yet</h3>
+          <p>Browse all selected rentals to compare nearby homes across Topsail Island, or contact Treasure for help finding the right fit in ${town.label}.</p>
           <button type="button" class="secondary-button" data-view-link="search">Browse all selected rentals</button>
         </div>
       `;
@@ -895,7 +928,7 @@
         <div>
           <span class="eyebrow">Restaurants</span>
           <h1>Where To Eat Around Topsail Island</h1>
-          <p>A temporary but useful restaurant guide for guests: north-end views, Surf City staples, south-end seafood, easy takeout, and places that feel like part of the beach week.</p>
+          <p>A practical restaurant guide for guests: north-end views, Surf City staples, south-end seafood, easy takeout, and places that feel like part of the beach week.</p>
         </div>
       </section>
       <section class="content-shell">
@@ -922,9 +955,10 @@
             </article>
           `).join("")}
         </div>
-        <p class="source-note">Mockup note: restaurant hours and menus change fast on Topsail, especially seasonally. Before launch, each listing should link to the restaurant's current site or profile and be rechecked.</p>
+        <p class="source-note">Seasonal note: restaurant hours and menus change fast on Topsail. Each listing points guests toward current restaurant information before they head out.</p>
       </section>
     `;
+    if (state.view === "restaurants") hydrateVisibleLazyBackgrounds(restaurantsPage);
   }
 
   function renderNightlifePage() {
@@ -967,7 +1001,7 @@
             </article>
           `).join("")}
         </div>
-        <p class="source-note">Mockup note: nightlife changes even faster than restaurants. Before launch, hours, age rules, entertainment calendars, and photo permissions should be rechecked directly with each business.</p>
+        <p class="source-note">Seasonal note: nightlife changes quickly around Topsail. Guests should confirm hours, age rules, entertainment calendars, and cover details directly before they go.</p>
       </section>
     `;
   }
@@ -993,21 +1027,21 @@
             <h2>${article.heading || page.title}</h2>
             <p>${page.summary}</p>
           </div>
-          <aside class="owner-guide-meta">
+          <div class="owner-guide-meta">
             <span>${article.readTime}</span>
             <b>Topsail owner guide</b>
-          </aside>
+          </div>
         </header>
         <section class="owner-guide-intro">
           <div>
             ${article.intro.map((paragraph) => `<p>${paragraph}</p>`).join("")}
           </div>
-          <aside class="owner-guide-rule-card">
+          <div class="owner-guide-rule-card">
             <h3>Start with these rules</h3>
             <ul>
               ${article.quickRules.map((rule) => `<li>${rule}</li>`).join("")}
             </ul>
-          </aside>
+          </div>
         </section>
         <nav class="owner-guide-jump-list" aria-label="Article sections">
           ${sectionLinks}
@@ -1105,7 +1139,7 @@
           <span class="eyebrow">${page.section}</span>
           <h2>Local, A Little Playful, But Serious About Your Investment</h2>
           <p>${page.summary}</p>
-          <p>This is the right kind of humorous for a mockup: it makes the page memorable, keeps the brand from feeling corporate, and still says there are real people behind the homes.</p>
+          <p>Expect people who know the island, answer questions directly, and understand that an owner's home is both an investment and a place guests remember.</p>
           <div class="guide-chip-row large">
             ${page.bullets.map((item) => `<span>${item}</span>`).join("")}
           </div>
@@ -1133,16 +1167,16 @@
         ${articleMarkup ? "" : `<div class="generic-content-grid ${page.isTeamPage ? "sr-only" : ""}">
           <article>
             <span class="eyebrow">${page.section}</span>
-            <h2>${venue ? "Why It Belongs In The Guide" : "This Original Demo Page Is Represented"}</h2>
+            <h2>${venue ? "Why It Belongs In The Guide" : "What Guests Or Owners Need Here"}</h2>
             <p>${page.summary}</p>
             <div class="guide-chip-row large">
               ${page.bullets.map((item) => `<span>${item}</span>`).join("")}
             </div>
           </article>
-          <aside class="content-card">
-            <h3>Mockup status</h3>
-            <p>This is a vision page, not the final production copy. It gives the page a visible home, route, navigation entry, and enough content to show how the final site should be filled out.</p>
-          </aside>
+          <div class="content-card">
+            <h3>Page focus</h3>
+            <p>This page gives guests and owners a clear place to find the basics, then points them toward the right Treasure team next step.</p>
+          </div>
         </div>`}
         ${venueMarkup}
         ${matchingProperties.length ? `
@@ -1245,7 +1279,7 @@
 
       return `
         <div class="detail-month">
-          <h4>${monthName}</h4>
+          <h3>${monthName}</h3>
           <div class="weekday-row"><span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span></div>
           <div class="detail-calendar-grid">${blanks}${days}</div>
         </div>
@@ -1292,8 +1326,8 @@
       </nav>
       <section id="detail-photos" class="detail-photo-mosaic" aria-label="Photos for ${property.name}">
         <div class="mosaic-main detail-carousel">
-          <div class="detail-photo-track" tabindex="0" aria-label="Photos for ${property.name}">
-            ${extraImages.map((image) => `<div class="detail-photo-frame" style="background-image:url('${image}')"></div>`).join("")}
+          <div class="detail-photo-track" role="group" tabindex="0" aria-label="Photos for ${property.name}">
+            ${extraImages.map((image, index) => lazyBackgroundFrame(image, "detail-photo-frame", index, `${property.name} photo ${index + 1}`)).join("")}
           </div>
           <button class="mosaic-save" type="button" aria-label="Save ${property.name}"><span aria-hidden="true">&#9825;</span></button>
           ${galleryDots(extraImages)}
@@ -1449,7 +1483,7 @@
             <button class="outline-button" type="button">See all reviews</button>
           </section>
         </article>
-        <aside class="detail-booking-sidebar">
+        <div class="detail-booking-sidebar">
           <h2>Choose your dates</h2>
           <div class="popular-callout"><b>${consideredCount}</b> People have considered this property in the last 24 hours <button type="button" aria-label="Dismiss">x</button></div>
           <div class="sidebar-date-row">
@@ -1469,13 +1503,14 @@
           <div class="rent-line"><span>Rent:</span><strong>${money(property.weeklyRate)}</strong></div>
           <label>Guests <input type="number" min="1" value="${guestCount}"></label>
           <button type="button">Submit Request</button>
-        </aside>
+        </div>
       </div>
       <div class="mobile-availability-bar" data-mobile-availability-bar>
         <a href="#availability">Check Availability</a>
         <a href="#description">See More</a>
       </div>
     `;
+    if (state.view === "property") hydrateVisibleLazyBackgrounds(document.querySelector("[data-property-detail]"));
     updateMobileAvailabilityBar();
   }
 
@@ -1491,6 +1526,7 @@
     document.querySelectorAll("[data-view]").forEach((section) => {
       section.classList.toggle("active", section.dataset.view === view);
     });
+    hydrateActiveViewBackgrounds();
     syncHomeVersionToggle();
     window.scrollTo({ top: 0, behavior: "auto" });
     updateMobileAvailabilityBar();
@@ -1729,6 +1765,7 @@
     const currentIndex = Math.round(track.scrollLeft / frameWidth);
     const nextIndex = Math.max(0, Math.min(maxIndex, currentIndex + direction));
 
+    hydrateLazyBackgrounds(track, nextIndex);
     track.scrollTo({
       left: nextIndex * frameWidth,
       behavior: "smooth"
@@ -2023,7 +2060,9 @@
       navigateToRoute(routeFromUrl(), { history: "none" });
     });
     window.addEventListener("scroll", updateMobileAvailabilityBar, { passive: true });
+    window.addEventListener("scroll", hydrateActiveViewBackgrounds, { passive: true });
     window.addEventListener("resize", updateMobileAvailabilityBar);
+    window.addEventListener("resize", hydrateActiveViewBackgrounds);
     document.querySelectorAll("[data-review-carousel]").forEach((carousel) => setReviewSlide(carousel, Number(carousel.dataset.reviewIndex) || 0));
     window.setInterval(rotateHero, 5000);
     window.setInterval(rotateTownCarousel, 4500);
