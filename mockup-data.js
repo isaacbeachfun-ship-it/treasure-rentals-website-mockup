@@ -3908,7 +3908,7 @@ window.TREASURE_MOCKUP = {
         { label: "Nightlife", view: "nightlife" },
         { label: "High Tides & Good Vibes", view: "content", page: "high-tides-good-vibes" },
         { label: "Things To Do", view: "area" },
-        { label: "Beach Accesses", view: "area" }
+        { label: "Topsail Beach Access Finder", view: "beach-access" }
       ]
     },
     {

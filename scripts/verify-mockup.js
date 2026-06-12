@@ -83,6 +83,14 @@ assert(styles.includes(".town-picture-card:hover") && styles.includes("filter: b
   assert(html.includes(`data-view="${view}"`), `Missing ${view} content view.`);
 });
 assert(html.includes('data-view="content"'), "Mockup needs a generic content view for original demo pages.");
+assert(html.includes('data-view="beach-access"'), "Mockup needs a dedicated Topsail Beach Access Finder view.");
+assert(mockup.nav.some((item) => item.children.some((child) => child.label === "Topsail Beach Access Finder" && child.view === "beach-access")), "Navigation should expose the Topsail Beach Access Finder.");
+assert(fs.existsSync("assets/beach-access/accesses.json"), "Beach access inventory JSON should be copied into static assets.");
+assert(fs.existsSync("assets/beach-access/propertyAddresses.json"), "Main-island property address JSON should be copied into static assets.");
+assert(script.includes("function renderBeachAccessPage()"), "Beach access page needs a dedicated renderer.");
+assert(script.includes("function findClosestBeachAccess"), "Beach access finder should calculate closest access client-side.");
+assert(script.includes("Free beach parking"), "Beach access page should include practical free-parking guidance.");
+assert(styles.includes(".beach-access-finder"), "Beach access finder needs dedicated Treasure styling.");
 [
   "renderOwnerPages",
   "renderAreaPage",

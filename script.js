@@ -41,9 +41,57 @@
   const FEATURED_PROPERTY_COUNT = 11;
   const FEATURED_SCROLL_SPEED = 0.075;
   const FEATURED_SCROLL_MANUAL_PAUSE_MS = 5000;
+  const BEACH_ACCESS_DATA_URL = "assets/beach-access/accesses.json";
+  const BEACH_PROPERTY_DATA_URL = "assets/beach-access/propertyAddresses.json";
+  const BEACH_AERIAL_VIDEO_DATA_URL = "assets/beach-access/aerialViewVideos.json";
+  const BEACH_STREET_VIEW_DATA_URL = "assets/beach-access/streetViewStills.json";
+  const BEACH_WALK_FEET_PER_MINUTE = 275;
+  const BEACH_SAMPLE_PROPERTY_IDS = [
+    "surf-city-305-s-shore-dr",
+    "north-topsail-beach-2950-island-dr",
+    "topsail-beach-915-n-anderson-blvd"
+  ];
+  const BEACH_STREET_SUFFIXES = {
+    avenue: "ave",
+    ave: "ave",
+    boulevard: "blvd",
+    blvd: "blvd",
+    circle: "cir",
+    cir: "cir",
+    court: "ct",
+    ct: "ct",
+    drive: "dr",
+    dr: "dr",
+    highway: "hwy",
+    hwy: "hwy",
+    lane: "ln",
+    ln: "ln",
+    place: "pl",
+    pl: "pl",
+    road: "rd",
+    rd: "rd",
+    street: "st",
+    st: "st",
+    terrace: "ter",
+    ter: "ter",
+    way: "way"
+  };
   let resultsMap = null;
   let resultMarkers = [];
   let featuredScrollLastTime = 0;
+  const beachAccessState = {
+    query: "",
+    selectedPropertyId: "",
+    message: "",
+    loaded: false,
+    loading: false,
+    error: "",
+    dataPromise: null,
+    accesses: [],
+    properties: [],
+    aerialVideos: {},
+    streetViewStills: {}
+  };
 
   const money = (value) => new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -787,6 +835,486 @@
         </div>
       </section>
     `;
+  }
+
+  function escapeHtml(value) {
+    return String(value ?? "").replace(/[&<>"']/g, (character) => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    }[character]));
+  }
+
+  function normalizeBeachQuery(value) {
+    return String(value || "")
+      .toLowerCase()
+      .replace(/\b(nc|north carolina|28445|28460)\b/g, " ")
+      .replace(/\b(north topsail beach|topsail beach|surf city|topsail island)\b/g, " ")
+      .replace(/&/g, " and ")
+      .replace(/[^a-z0-9]+/g, " ")
+      .split(/\s+/)
+      .filter(Boolean)
+      .map((token) => BEACH_STREET_SUFFIXES[token] || token)
+      .join(" ")
+      .trim();
+  }
+
+  function formatBeachPropertyLabel(property) {
+    return `${property.address}, ${property.town}, NC`;
+  }
+
+  function formatBeachAccessAddress(access) {
+    const address = String(access.address || "").replace(/\s*,+\s*$/, "").trim();
+    return address || access.town;
+  }
+
+  function toBeachRadians(value) {
+    return (value * Math.PI) / 180;
+  }
+
+  function beachDistanceFeet(first, second) {
+    const radiusMeters = 6371000;
+    const firstLat = toBeachRadians(first.latitude);
+    const secondLat = toBeachRadians(second.latitude);
+    const deltaLat = toBeachRadians(second.latitude - first.latitude);
+    const deltaLon = toBeachRadians(second.longitude - first.longitude);
+    const a =
+      Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) +
+      Math.cos(firstLat) *
+        Math.cos(secondLat) *
+        Math.sin(deltaLon / 2) *
+        Math.sin(deltaLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return Math.round(radiusMeters * c * 3.28084);
+  }
+
+  function formatBeachDistance(distance) {
+    if (!Number.isFinite(distance)) return "Unknown";
+    if (distance >= 5280) return `${(distance / 5280).toFixed(1)} mi`;
+    return `${Math.round(distance).toLocaleString()} ft`;
+  }
+
+  function estimateBeachWalkMinutes(distance) {
+    return Math.max(1, Math.round(distance / BEACH_WALK_FEET_PER_MINUTE));
+  }
+
+  function beachDirectionsUrl(property, access) {
+    const params = new URLSearchParams({
+      api: "1",
+      origin: `${property.latitude},${property.longitude}`,
+      destination: `${access.latitude},${access.longitude}`,
+      travelmode: "walking"
+    });
+    return `https://www.google.com/maps/dir/?${params.toString()}`;
+  }
+
+  function scoreBeachAccess(access) {
+    return (
+      Number(access.parkingSpots || 0) +
+      (access.restroom ? 30 : 0) +
+      (access.shower ? 20 : 0) +
+      (access.handicapAccessible ? 18 : 0) +
+      (access.beachMat ? 12 : 0) +
+      (access.mobiMat ? 12 : 0) +
+      (access.beachWheelchair ? 8 : 0) +
+      (access.lifeguards ? 8 : 0)
+    );
+  }
+
+  function isMajorBeachAccess(access) {
+    return Number(access.parkingSpots || 0) > 0 && Boolean(access.restroom) && Boolean(access.shower);
+  }
+
+  function beachAccessFeatures(access) {
+    const features = [];
+    const parking = Number(access.parkingSpots || 0);
+    if (parking > 0) features.push({ icon: "P", label: `${parking.toLocaleString()} spaces` });
+    if (access.restroom) features.push({ icon: "R", label: "Restroom" });
+    if (access.shower) features.push({ icon: "S", label: "Shower" });
+    if (access.handicapAccessible) features.push({ icon: "ADA", label: "Accessible route listed" });
+    if (access.beachMat || access.mobiMat) features.push({ icon: "Mat", label: "Beach mat" });
+    if (access.beachWheelchair) features.push({ icon: "WC", label: "Beach wheelchair program" });
+    if (access.lifeguards) features.push({ icon: "LG", label: "Lifeguard listed" });
+    if (access.vehicleAccess) features.push({ icon: "ORV", label: "Vehicle access" });
+    if (access.parkingFee === false && parking > 0) features.push({ icon: "Free", label: "Free parking data" });
+    if (access.parkingFee === true && parking > 0) features.push({ icon: "$", label: "Paid parking" });
+    if (beachAccessState.aerialVideos[access.id]?.state === "ACTIVE") features.push({ icon: "Fly", label: "Google flyover available" });
+    if (beachAccessState.streetViewStills[access.id]?.state === "AVAILABLE") features.push({ icon: "SV", label: "Street View still available" });
+    return features;
+  }
+
+  function beachFeatureBadges(access, limit = 8) {
+    return beachAccessFeatures(access)
+      .slice(0, limit)
+      .map((feature) => `
+        <span class="beach-feature-badge">
+          <span class="beach-feature-icon">${escapeHtml(feature.icon)}</span>
+          ${escapeHtml(feature.label)}
+        </span>
+      `)
+      .join("");
+  }
+
+  function loadBeachAccessData() {
+    if (beachAccessState.dataPromise) return beachAccessState.dataPromise;
+
+    beachAccessState.loading = true;
+    beachAccessState.error = "";
+    beachAccessState.dataPromise = Promise.all([
+      fetch(BEACH_ACCESS_DATA_URL).then((response) => {
+        if (!response.ok) throw new Error("Beach access inventory could not load.");
+        return response.json();
+      }),
+      fetch(BEACH_PROPERTY_DATA_URL).then((response) => {
+        if (!response.ok) throw new Error("Property address index could not load.");
+        return response.json();
+      }),
+      fetch(BEACH_AERIAL_VIDEO_DATA_URL).then((response) => response.ok ? response.json() : {}),
+      fetch(BEACH_STREET_VIEW_DATA_URL).then((response) => response.ok ? response.json() : {})
+    ]).then(([accesses, properties, aerialVideos, streetViewStills]) => {
+      beachAccessState.accesses = Array.isArray(accesses) ? accesses : [];
+      beachAccessState.properties = Array.isArray(properties) ? properties : [];
+      beachAccessState.aerialVideos = aerialVideos || {};
+      beachAccessState.streetViewStills = streetViewStills || {};
+      beachAccessState.loaded = true;
+      beachAccessState.loading = false;
+      renderBeachAccessPage();
+    }).catch((error) => {
+      beachAccessState.loaded = false;
+      beachAccessState.loading = false;
+      beachAccessState.error = error instanceof Error ? error.message : "Beach access data could not load.";
+      renderBeachAccessDynamic();
+    });
+
+    return beachAccessState.dataPromise;
+  }
+
+  function searchBeachPropertyAddresses(query, limit = 8) {
+    const normalizedQuery = normalizeBeachQuery(query);
+    if (!normalizedQuery) return [];
+    const queryTerms = normalizedQuery.split(" ");
+
+    return beachAccessState.properties
+      .map((property) => {
+        const normalizedAddress = normalizeBeachQuery(property.address);
+        const normalizedTown = normalizeBeachQuery(property.town);
+        const searchText = `${normalizedAddress} ${normalizedTown}`;
+        const addressNumber = normalizedAddress.match(/^\d+/)?.[0] || "";
+        const allTermsMatch = queryTerms.every((term) => searchText.includes(term));
+
+        if (!allTermsMatch && !normalizedAddress.startsWith(normalizedQuery)) return null;
+
+        let score = 3;
+        if (normalizedAddress === normalizedQuery) score = 0;
+        else if (normalizedAddress.startsWith(normalizedQuery)) score = 1;
+        else if (addressNumber.startsWith(normalizedQuery)) score = 2;
+
+        return { property, normalizedAddress, addressNumber, score };
+      })
+      .filter(Boolean)
+      .sort((a, b) => {
+        if (a.score !== b.score) return a.score - b.score;
+        const numberDelta = Number.parseInt(a.addressNumber || "0", 10) - Number.parseInt(b.addressNumber || "0", 10);
+        if (numberDelta !== 0) return numberDelta;
+        return a.normalizedAddress.localeCompare(b.normalizedAddress);
+      })
+      .slice(0, limit)
+      .map((match) => match.property);
+  }
+
+  function findBeachPropertyByQuery(query) {
+    const normalizedQuery = normalizeBeachQuery(query);
+    if (!normalizedQuery) return null;
+    return beachAccessState.properties.find((property) => normalizeBeachQuery(property.address) === normalizedQuery) || null;
+  }
+
+  function findClosestBeachAccess(property, accesses = beachAccessState.accesses) {
+    if (!property || !accesses.length) return null;
+    return accesses
+      .map((access) => ({
+        access,
+        distanceFeet: beachDistanceFeet(property, access),
+        walkMinutes: estimateBeachWalkMinutes(beachDistanceFeet(property, access))
+      }))
+      .sort((a, b) => {
+        if (a.distanceFeet !== b.distanceFeet) return a.distanceFeet - b.distanceFeet;
+        return scoreBeachAccess(b.access) - scoreBeachAccess(a.access);
+      })[0] || null;
+  }
+
+  function nearestMajorBeachAccess(property) {
+    return findClosestBeachAccess(property, beachAccessState.accesses.filter(isMajorBeachAccess));
+  }
+
+  function majorBeachAccesses() {
+    return beachAccessState.accesses
+      .filter(isMajorBeachAccess)
+      .sort((a, b) => {
+        const parkingDelta = Number(b.parkingSpots || 0) - Number(a.parkingSpots || 0);
+        if (parkingDelta !== 0) return parkingDelta;
+        return scoreBeachAccess(b) - scoreBeachAccess(a);
+      });
+  }
+
+  function freeParkingAccesses() {
+    const preferredIds = new Set([
+      "north-topsail-beach-onslow-co-beach-access-2",
+      "north-topsail-beach-beach-access-4",
+      "north-topsail-beach-beach-access-1"
+    ]);
+    return beachAccessState.accesses
+      .filter((access) => preferredIds.has(access.id))
+      .sort((a, b) => Number(b.parkingSpots || 0) - Number(a.parkingSpots || 0));
+  }
+
+  function selectBeachProperty(property) {
+    if (!property) return;
+    beachAccessState.selectedPropertyId = property.id;
+    beachAccessState.query = formatBeachPropertyLabel(property);
+    beachAccessState.message = "";
+    const input = document.querySelector("[data-beach-access-input]");
+    if (input) input.value = beachAccessState.query;
+    renderBeachAccessDynamic();
+  }
+
+  function submitBeachAccessSearch() {
+    const exact = findBeachPropertyByQuery(beachAccessState.query);
+    const firstSuggestion = searchBeachPropertyAddresses(beachAccessState.query, 1)[0];
+    const property = exact || firstSuggestion;
+    if (!property) {
+      beachAccessState.selectedPropertyId = "";
+      beachAccessState.error = "Pick one of the verified Topsail Island address suggestions so the finder can use GIS coordinates.";
+      renderBeachAccessDynamic();
+      return;
+    }
+    beachAccessState.error = "";
+    selectBeachProperty(property);
+  }
+
+  function beachAccessCard(access, options = {}) {
+    const label = options.label || (isMajorBeachAccess(access) ? "Major beach access" : "Public beach access");
+    const parking = Number(access.parkingSpots || 0);
+    return `
+      <article class="beach-access-card">
+        <span class="eyebrow">${escapeHtml(label)}</span>
+        <h3>${escapeHtml(access.name)}</h3>
+        <p>${escapeHtml(formatBeachAccessAddress(access))}<br>${escapeHtml(access.town)}</p>
+        <div class="beach-feature-row">
+          ${beachFeatureBadges(access)}
+        </div>
+        <div class="beach-card-meta">
+          <span>${parking > 0 ? `${parking.toLocaleString()} parking spaces` : "No listed parking"}</span>
+          <span>${access.parkingFee === false ? "free in source data" : access.parkingFee === true ? "paid parking" : "verify signage"}</span>
+        </div>
+        <a class="outline-link" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${access.latitude},${access.longitude}`)}" target="_blank" rel="noopener">Open in Google Maps</a>
+      </article>
+    `;
+  }
+
+  function renderBeachSuggestions() {
+    const suggestions = searchBeachPropertyAddresses(beachAccessState.query, 8);
+    if (!beachAccessState.query.trim()) return "";
+    if (!suggestions.length) {
+      return `
+        <div class="beach-suggestions empty">
+          <p>No exact island address match yet. Try just the house number first, like <b>4444</b>, then pick the verified address.</p>
+        </div>
+      `;
+    }
+
+    return `
+      <div class="beach-suggestions" role="listbox" aria-label="Topsail Island address suggestions">
+        ${suggestions.map((property) => `
+          <button type="button" role="option" data-beach-property-id="${escapeHtml(property.id)}">
+            <span>
+              <strong>${escapeHtml(property.address)}</strong>
+              <small>${escapeHtml(property.town)} · ${escapeHtml(property.source || "GIS address")}</small>
+            </span>
+            <span>${escapeHtml(property.county || "")} County GIS</span>
+          </button>
+        `).join("")}
+      </div>
+    `;
+  }
+
+  function renderBeachLookupResult() {
+    if (beachAccessState.error) {
+      return `<div class="beach-status error">${escapeHtml(beachAccessState.error)}</div>`;
+    }
+    if (beachAccessState.loading) {
+      return `<div class="beach-status">Loading Topsail Island beach access and address data...</div>`;
+    }
+    if (!beachAccessState.loaded) {
+      return `<div class="beach-status">Beach access data is not loaded yet.</div>`;
+    }
+
+    const property = beachAccessState.properties.find((entry) => entry.id === beachAccessState.selectedPropertyId);
+    if (!property) {
+      return `
+        <div class="beach-empty-state">
+          <h3>Start with a verified island address.</h3>
+          <p>Type a house number or street name and pick from the autocomplete list. This prevents guests from guessing the exact address format and keeps the result tied to Onslow and Pender GIS coordinates.</p>
+          <div class="beach-sample-row" aria-label="Sample Topsail Island addresses">
+            ${BEACH_SAMPLE_PROPERTY_IDS.map((id) => {
+              const sample = beachAccessState.properties.find((entry) => entry.id === id);
+              if (!sample) return "";
+              return `<button type="button" data-beach-property-id="${escapeHtml(sample.id)}"><b>${escapeHtml(sample.town)}</b><span>${escapeHtml(sample.address)}</span></button>`;
+            }).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    const closest = findClosestBeachAccess(property);
+    const major = nearestMajorBeachAccess(property);
+    if (!closest) {
+      return `<div class="beach-status error">No public beach access records are available for this address.</div>`;
+    }
+
+    const closestDirections = beachDirectionsUrl(property, closest.access);
+    const majorDirections = major ? beachDirectionsUrl(property, major.access) : "";
+    const majorNote = major && major.access.id !== closest.access.id
+      ? `
+        <article class="beach-result-option major-option">
+          <span class="eyebrow">Nearest major access</span>
+          <h3>${escapeHtml(major.access.name)}</h3>
+          <p>${escapeHtml(formatBeachAccessAddress(major.access))} · ${escapeHtml(major.access.town)}</p>
+          <div class="beach-result-facts">
+            <span><b>${formatBeachDistance(major.distanceFeet)}</b> estimated proximity</span>
+            <span><b>${major.walkMinutes} min</b> simple walk estimate</span>
+            <span><b>${Number(major.access.parkingSpots || 0).toLocaleString()}</b> parking spaces</span>
+          </div>
+          <div class="beach-feature-row">${beachFeatureBadges(major.access)}</div>
+          <a href="${majorDirections}" target="_blank" rel="noopener">Open walking directions</a>
+        </article>
+      `
+      : `
+        <div class="beach-status success">The closest mapped access is also a major access with parking, restroom, and shower data.</div>
+      `;
+
+    return `
+      <div class="beach-result-grid">
+        <article class="beach-result-primary">
+          <span class="eyebrow">Closest mapped public access</span>
+          <h3>${escapeHtml(closest.access.name)}</h3>
+          <p>${escapeHtml(formatBeachAccessAddress(closest.access))}<br>${escapeHtml(closest.access.town)}</p>
+          <div class="beach-result-facts">
+            <span><b>${formatBeachDistance(closest.distanceFeet)}</b> estimated proximity</span>
+            <span><b>${closest.walkMinutes} min</b> simple walk estimate</span>
+            <span><b>${Number(closest.access.parkingSpots || 0).toLocaleString()}</b> parking spaces</span>
+          </div>
+          <div class="beach-feature-row">${beachFeatureBadges(closest.access)}</div>
+          <a href="${closestDirections}" target="_blank" rel="noopener">Open walking directions</a>
+        </article>
+        ${majorNote}
+      </div>
+      <p class="beach-route-note">This static Treasure demo uses GIS coordinates to choose the closest mapped access. Use the Google walking-directions link for the actual street-by-street route, especially around canals, private streets, and dune paths.</p>
+    `;
+  }
+
+  function renderBeachAccessDynamic() {
+    const suggestions = document.querySelector("[data-beach-access-suggestions]");
+    const results = document.querySelector("[data-beach-access-results]");
+    const stats = document.querySelector("[data-beach-access-stats]");
+    if (suggestions) suggestions.innerHTML = renderBeachSuggestions();
+    if (results) results.innerHTML = renderBeachLookupResult();
+    if (stats) {
+      const majorCount = beachAccessState.loaded ? majorBeachAccesses().length : 0;
+      const videoCount = Object.values(beachAccessState.aerialVideos).filter((entry) => entry?.state === "ACTIVE").length;
+      stats.innerHTML = `
+        <span><b>${beachAccessState.accesses.length || 112}</b> Topsail public beach-access records</span>
+        <span><b>${beachAccessState.properties.length || 7829}</b> searchable island property addresses</span>
+        <span><b>${majorCount}</b> major accesses with parking, restroom, and shower data</span>
+        <span><b>${videoCount}</b> Google flyover records in the prototype registry</span>
+      `;
+    }
+  }
+
+  function renderBeachAccessPage() {
+    const page = document.querySelector("[data-beach-access-page]");
+    if (!page) return;
+
+    page.innerHTML = `
+      <section class="page-hero beach-access-hero">
+        <div>
+          <span class="eyebrow">Topsail Beach Access Finder</span>
+          <h1>Find The Best Beach Access For Your Topsail Stay</h1>
+          <p>Search a real Topsail Island property address and compare the closest public beach access with the larger access points that have parking, restrooms, and showers.</p>
+          <div class="hero-button-row">
+            <a class="management-action-link" href="#beach-access-finder-tool">Find an access</a>
+            <a class="management-action-link secondary-management-link" href="#major-beach-accesses">See major accesses</a>
+          </div>
+        </div>
+      </section>
+      <section class="content-shell beach-access-finder" id="beach-access-finder-tool">
+        <div class="section-heading row-heading beach-access-intro">
+          <div>
+            <span class="eyebrow">North Topsail Beach · Surf City · Topsail Beach</span>
+            <h2>Type an address. Treasure finds the beach path.</h2>
+          </div>
+          <p>This page is built for guests searching for beach accesses in North Topsail Beach, Surf City, and Topsail Beach. It favors practical trip planning: where to walk, where to park, and which public accesses have the facilities families usually ask about first.</p>
+        </div>
+        <div class="beach-tool-layout">
+          <article class="beach-tool-card">
+            <form class="beach-search-form" data-beach-access-form>
+              <label for="beach-access-address">Property address</label>
+              <div class="beach-search-row">
+                <input id="beach-access-address" type="search" autocomplete="off" data-beach-access-input value="${escapeHtml(beachAccessState.query)}" placeholder="Start typing 4444 Island Drive">
+                <button type="submit">Find Access</button>
+              </div>
+              <p>Pick from verified Onslow and Pender GIS addresses so the result does not depend on a guessed spelling.</p>
+            </form>
+            <div data-beach-access-suggestions></div>
+          </article>
+          <aside class="beach-icon-legend" aria-label="Beach access feature legend">
+            <span class="eyebrow">Icon guide</span>
+            <div class="beach-legend-grid">
+              <span><i>P</i> Parking spaces</span>
+              <span><i>R</i> Restroom</span>
+              <span><i>S</i> Shower</span>
+              <span><i>ADA</i> Accessible route listed</span>
+              <span><i>Mat</i> Beach mat</span>
+              <span><i>WC</i> Beach wheelchair program</span>
+              <span><i>Fly</i> Google flyover record</span>
+              <span><i>SV</i> Street View still record</span>
+            </div>
+          </aside>
+        </div>
+        <div class="beach-access-stats" data-beach-access-stats></div>
+        <div data-beach-access-results></div>
+        <section class="beach-section-block free-parking-block" aria-labelledby="free-parking-heading">
+          <div class="section-heading row-heading">
+            <div>
+              <span class="eyebrow">Free beach parking</span>
+              <h2 id="free-parking-heading">Best free parking bets on Topsail Island</h2>
+            </div>
+            <p>The cleanest free-parking recommendation in this mockup is North Topsail Beach's Onslow County access lots. Surf City and Topsail Beach parking rules are more seasonal and should be verified on town signs or official parking pages before guests rely on them.</p>
+          </div>
+          <div class="beach-card-grid">
+            ${freeParkingAccesses().map((access) => beachAccessCard(access, { label: "Recommended free parking" })).join("")}
+          </div>
+        </section>
+        <section class="beach-section-block" id="major-beach-accesses" aria-labelledby="major-access-heading">
+          <div class="section-heading row-heading">
+            <div>
+              <span class="eyebrow">Major beach accesses</span>
+              <h2 id="major-access-heading">Accesses with parking, restrooms, and showers</h2>
+            </div>
+            <p>These are the access points I would elevate for guests because they solve more than one problem: they have parking listed, restroom data, and shower data. Smaller walkovers are still useful when they are closest to the house, but these are better for families meeting up, arriving by car, or planning a full beach day.</p>
+          </div>
+          <div class="beach-card-grid major-access-grid">
+            ${majorBeachAccesses().map((access) => beachAccessCard(access)).join("")}
+          </div>
+        </section>
+      </section>
+    `;
+
+    if (!beachAccessState.loaded && !beachAccessState.loading) {
+      void loadBeachAccessData();
+    }
+    renderBeachAccessDynamic();
   }
 
   function townHeroSlides(town) {
@@ -1935,6 +2463,14 @@
         return;
       }
 
+      const beachPropertyButton = event.target.closest("[data-beach-property-id]");
+      if (beachPropertyButton) {
+        event.preventDefault();
+        const property = beachAccessState.properties.find((entry) => entry.id === beachPropertyButton.dataset.beachPropertyId);
+        selectBeachProperty(property);
+        return;
+      }
+
       const viewLink = event.target.closest("[data-view-link]");
       if (viewLink) {
         event.preventDefault();
@@ -2000,6 +2536,22 @@
       });
     });
 
+    document.addEventListener("submit", (event) => {
+      const beachAccessForm = event.target.closest("[data-beach-access-form]");
+      if (!beachAccessForm) return;
+      event.preventDefault();
+      submitBeachAccessSearch();
+    });
+
+    document.addEventListener("input", (event) => {
+      const input = event.target.closest("[data-beach-access-input]");
+      if (!input) return;
+      beachAccessState.query = input.value;
+      beachAccessState.selectedPropertyId = "";
+      beachAccessState.error = "";
+      renderBeachAccessDynamic();
+    });
+
     document.querySelectorAll("[data-filter]").forEach((filter) => {
       filter.addEventListener("change", () => {
         state.filters[filter.dataset.filter] = filter.value;
@@ -2048,6 +2600,7 @@
     renderPropertyDetail();
     renderOwnerPages();
     renderAreaPage();
+    renderBeachAccessPage();
     renderTownPage();
     renderRestaurantsPage();
     renderNightlifePage();
